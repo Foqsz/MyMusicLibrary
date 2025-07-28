@@ -8,16 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.7" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\MyMusicLibrary.Communication\MyMusicLibrary.Communication.csproj" />
     <ProjectReference Include="..\..\Shared\MyMusicLibrary.Exceptions\MyMusicLibrary.Exceptions.csproj" />
     <ProjectReference Include="..\MyMusicLibrary.Application\MyMusicLibrary.Application.csproj" />
+    <ProjectReference Include="..\MyMusicLibrary.Infrastructure\MyMusicLibrary.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
