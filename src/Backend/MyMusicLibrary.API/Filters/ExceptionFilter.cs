@@ -12,26 +12,21 @@ public class ExceptionFilter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
     {
-        if (context.Exception is MyMusicLibraryException)
-            HandleProjectException(context);
+        if (context.Exception is MyMusicLibraryException myRecipeBookException)
+            HandleProjectException(myRecipeBookException, context);
         else
             ThrowUnknowException(context);
     }
 
-    private void HandleProjectException(ExceptionContext context)
+    private static void HandleProjectException(MyMusicLibraryException myRecipeBookException, ExceptionContext context)
     {
-        if (context.Exception is ErrorOnValidationException)
-        {
-            var exception = context.Exception as ErrorOnValidationException;
-
-            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            context.Result = new BadRequestObjectResult(new ResponseErrorJson(exception!.GetErrorMessages()));
-        }
+        context.HttpContext.Response.StatusCode = (int)myRecipeBookException.GetStatusCode();
+        context.Result = new ObjectResult(new ResponseErrorJson(myRecipeBookException.GetErrorMessages()));
     }
 
-    private void ThrowUnknowException(ExceptionContext context)
+    private static void ThrowUnknowException(ExceptionContext context)
     {
-        context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
         context.Result = new ObjectResult(new ResponseErrorJson(ResourceMessagesException.UNKNOWN_ERROR));
     }
 }

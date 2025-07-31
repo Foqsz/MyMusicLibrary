@@ -4,11 +4,11 @@ using System.Net.Http.Json;
 using Xunit;
 
 namespace WebApi.Test;
-public class MyRecipeBookClassFixture : IClassFixture<CustomWebApplicationFactory>
+public class MyLibraryMusicBookClassFixture : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly HttpClient _httpClient;
 
-    public MyRecipeBookClassFixture(CustomWebApplicationFactory factory)
+    public MyLibraryMusicBookClassFixture(CustomWebApplicationFactory factory)
     {
         _httpClient = factory.CreateClient();
     }

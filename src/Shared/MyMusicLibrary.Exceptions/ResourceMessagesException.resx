@@ -126,6 +126,9 @@
   <data name="EMAIL_INVALID" xml:space="preserve">
     <value>Invalid e-mail.</value>
   </data>
+  <data name="LOGIN_INVALID" xml:space="preserve">
+    <value>E-mail or Password invalid.</value>
+  </data>
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>Name cannot be empty.</value>
   </data>
