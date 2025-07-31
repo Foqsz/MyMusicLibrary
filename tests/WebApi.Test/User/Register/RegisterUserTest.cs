@@ -8,7 +8,7 @@ using WebApi.Test.InlineData;
 using Xunit;
 
 namespace WebApi.Test.User.Register;
-public class RegisterUserTest : MyRecipeBookClassFixture
+public class RegisterUserTest : MyLibraryMusicBookClassFixture
 {
     private readonly string method = "user";
 
