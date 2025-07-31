@@ -5,8 +5,11 @@ using Microsoft.Extensions.DependencyInjection;
 using MyMusicLibrary.Domain.Repositories.UnitOfWork;
 using MyMusicLibrary.Domain.Repositories.User;
 using MyMusicLibrary.Domain.Security.Cryptography;
+using MyMusicLibrary.Domain.Security.Tokens;
 using MyMusicLibrary.Infrastructure.DataAccess;
 using MyMusicLibrary.Infrastructure.DataAccess.Repositories;
+using MyMusicLibrary.Infrastructure.Security.Tokens.Access.Generator;
+using MyMusicLibrary.Infrastructure.Security.Tokens.Access.Validator;
 using MyMusicLibrary.Infrastucture.Extensions;
 using MyMusicLibrary.Infrastucture.Security.Cryptography;
 using System.Reflection;
@@ -17,7 +20,8 @@ public static class DependencyInjectionExtension
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddRepositories(services);
-        AddPasswordsEncrpter(services);
+        AddPasswordsEncripter(services);
+        AddTokens(services, configuration);
         AddDbContext_MySqlServer(services, configuration);
         AddFluentMigrator_MySql(services, configuration);
     }
@@ -30,7 +34,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUserReadOnlyRepository, UserReadOnlyRepository>();
     }
 
-    private static void AddPasswordsEncrpter(IServiceCollection services)
+    private static void AddPasswordsEncripter(IServiceCollection services)
     {
         services.AddScoped<IPasswordEncripter, BCryptNet>();
     }
@@ -57,5 +61,14 @@ public static class DependencyInjectionExtension
             .WithGlobalConnectionString(connectionString)
             .ScanIn(Assembly.Load("MyMusicLibrary.Infrastructure")).For.All();
         });
+    }
+
+    private static void AddTokens(IServiceCollection services, IConfiguration configuration)
+    {
+        var expirationTimeMinutes = configuration.GetValue<uint>("Jwt:ExpirationTimeMinutes");
+        var signingKey = configuration.GetValue<string>("Jwt:SigningKey");
+
+        services.AddScoped<IAccessTokenGenerator>(option => new JwtTokenGenerator(expirationTimeMinutes, signingKey!));
+        services.AddScoped<IAccessTokenValidator>(option => new JwtTokenValidator(signingKey!));
     }
 }
