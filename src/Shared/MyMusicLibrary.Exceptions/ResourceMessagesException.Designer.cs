@@ -88,6 +88,15 @@ namespace MyMusicLibrary.Exceptions {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to E-mail or Password invalid..
+        /// </summary>
+        public static string LOGIN_INVALID {
+            get {
+                return ResourceManager.GetString("LOGIN_INVALID", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Name cannot be empty..
         /// </summary>
         public static string NAME_EMPTY {
