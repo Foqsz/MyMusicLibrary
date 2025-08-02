@@ -29,7 +29,7 @@ public class RegisterUserTest : MyLibraryMusicBookClassFixture
 
         //acessa o documento, esse documento tem uma propriedade "name", pego como string o valor dessa propriedade
         responseData.RootElement.GetProperty("name").GetString().ShouldNotBeNullOrWhiteSpace(request.Name);
-        //responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString().ShouldNotBeNullOrEmpty();
+        responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString().ShouldNotBeNullOrEmpty();
     }
 
 
@@ -81,20 +81,16 @@ public class RegisterUserTest : MyLibraryMusicBookClassFixture
     [ClassData(typeof(CultureInlineDataTest))]
     public async Task Error_Email_Already_Registered(string culture)
     {
-        // Arrange: Register a user with a specific email
         var request = RequestRegisterUserJsonBuilder.Build();
 
-        // First registration should succeed
         var firstResponse = await DoPost(method: method, request: request, culture: culture);
         firstResponse.StatusCode.ShouldBe(HttpStatusCode.Created);
 
-        // Act: Try to register again with the same email
         var duplicateRequest = RequestRegisterUserJsonBuilder.Build();
         duplicateRequest.Email = request.Email;
 
         var response = await DoPost(method: method, request: duplicateRequest, culture: culture);
 
-        // Assert: Should return BadRequest with the correct error message
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
         await using var responseBody = await response.Content.ReadAsStreamAsync();
