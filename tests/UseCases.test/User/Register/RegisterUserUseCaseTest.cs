@@ -2,6 +2,7 @@
 using CommonTestUtilities.Mapper;
 using CommonTestUtilities.Repositores;
 using CommonTestUtilities.Requests;
+using CommonTestUtilities.Tokens.Generator;
 using MyMusicLibrary.Application.UseCases.User.Register;
 using MyMusicLibrary.Exceptions;
 using MyMusicLibrary.Exceptions.ExceptionsBase;
@@ -21,7 +22,9 @@ public class RegisterUserUseCaseTest
         var result = await useCase.Execute(request);
 
         result.ShouldNotBeNull(); 
-        result.Name.ShouldBe(request.Name); 
+        result.Tokens.ShouldNotBeNull();
+        result.Tokens.AccessToken.ShouldNotBeNullOrEmpty();
+        result.Name.ShouldBe(request.Name);
     }
 
     [Fact]
@@ -56,6 +59,21 @@ public class RegisterUserUseCaseTest
         exception.GetErrorMessages().First().ShouldBe(ResourceMessagesException.EMAIL_ALREADY_REGISTERED);
     }
 
+    [Fact]
+    public async Task Error_Name_Empty()
+    {
+        var request = RequestRegisterUserJsonBuilder.Build();
+
+        var useCase = CreateUseCase(request.Email);
+        request.Name = string.Empty;
+
+        Func<Task> act = async () => await useCase.Execute(request);
+
+        var exception = await act.ShouldThrowAsync<ErrorOnValidationException>();
+        exception.GetErrorMessages().Count.ShouldBe(1);
+        exception.GetErrorMessages().First().ShouldBe(ResourceMessagesException.NAME_EMPTY);
+    }
+
     private static RegisterUserUseCase CreateUseCase(string? email = null)
     {
         var repositoryWriteOnly = UserWriteOnlyRepositoryBuilder.Build();
@@ -63,6 +81,7 @@ public class RegisterUserUseCaseTest
         var unitOfWork = UnitOfWorkBuilder.Build();
         var passwordEncripter = PasswordEncripterBuilder.Build();
         var mapper = MapperBuilder.Build();
+        var tokenGenerator = JwtTokenGeneratorBuilder.Build();  
 
         if (email is not null)
             repositoryReadOnly.ExistActiveUserWithEmail(email);
@@ -72,7 +91,8 @@ public class RegisterUserUseCaseTest
             repositoryReadOnly.Build(),
             unitOfWork,
             mapper,
-            passwordEncripter
+            passwordEncripter,
+            tokenGenerator
         );
     }
 }
