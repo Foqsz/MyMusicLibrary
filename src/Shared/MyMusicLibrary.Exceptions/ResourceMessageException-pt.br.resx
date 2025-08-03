@@ -132,6 +132,9 @@
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>Nome não pode estar vazio.</value>
   </data>
+  <data name="NO_TOKEN" xml:space="preserve">
+    <value>Nenhum token encontrado.</value>
+  </data>
   <data name="PASSWORD_EMPTY" xml:space="preserve">
     <value>Senha não pode estar vazia.</value>
   </data>
@@ -140,5 +143,8 @@
   </data>
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Erro desconhecido.</value>
+  </data>
+  <data name="USER_WITHOUT_PERMISSION_ACCESS_RESOURCE" xml:space="preserve">
+    <value>Você não tem permissão para acessar.</value>
   </data>
 </root>

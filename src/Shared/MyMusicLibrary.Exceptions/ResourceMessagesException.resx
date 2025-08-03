@@ -132,6 +132,9 @@
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>Name cannot be empty.</value>
   </data>
+  <data name="NO_TOKEN" xml:space="preserve">
+    <value>Token null or empty.</value>
+  </data>
   <data name="PASSWORD_EMPTY" xml:space="preserve">
     <value>Password cannot be empty.</value>
   </data>
@@ -140,5 +143,8 @@
   </data>
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Unknown error.</value>
+  </data>
+  <data name="USER_WITHOUT_PERMISSION_ACCESS_RESOURCE" xml:space="preserve">
+    <value>You do not have permission to access.</value>
   </data>
 </root>
