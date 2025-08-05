@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MyMusicLibrary.Communication.Request;
+using MyMusicLibrary.Communication.Responses;
 
 namespace MyMusicLibrary.Application.Services.AutoMapper;
 public class AutoMappingProfile : Profile
@@ -7,6 +8,7 @@ public class AutoMappingProfile : Profile
     public AutoMappingProfile()
     {
         RequestDomain();
+        DomainResponse();
     }
 
     private void RequestDomain()
@@ -18,5 +20,12 @@ public class AutoMappingProfile : Profile
 
         CreateMap<RequestArtistJson, Domain.Entities.Artist>()
             .ForMember(dest => dest.Music, opt => opt.Ignore());   
+    }
+
+    private void DomainResponse()
+    {
+        CreateMap<Domain.Entities.Music, ResponseRegisteredMusicJson>()
+            .ForMember(dest => dest.Artist, opt => opt.MapFrom(src =>
+                string.Join(", ", src.Artist.Select(a => a.Name))));
     }
 }
