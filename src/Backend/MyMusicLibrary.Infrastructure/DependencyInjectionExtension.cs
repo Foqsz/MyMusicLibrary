@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MyMusicLibrary.Domain.Repositories.Dashboard;
 using MyMusicLibrary.Domain.Repositories.Music;
 using MyMusicLibrary.Domain.Repositories.UnitOfWork;
 using MyMusicLibrary.Domain.Repositories.User;
@@ -9,6 +10,7 @@ using MyMusicLibrary.Domain.Security.Cryptography;
 using MyMusicLibrary.Domain.Security.Tokens;
 using MyMusicLibrary.Domain.Services.LoggedUser;
 using MyMusicLibrary.Infrastructure.DataAccess;
+using MyMusicLibrary.Infrastructure.DataAccess.Repositories.Dashboard;
 using MyMusicLibrary.Infrastructure.DataAccess.Repositories.Music;
 using MyMusicLibrary.Infrastructure.DataAccess.Repositories.User;
 using MyMusicLibrary.Infrastructure.Security.Tokens.Access.Generator;
@@ -39,6 +41,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IMusicReadOnlyRepository, MusicReadOnlyRepository>();
         services.AddScoped<IMusicWriteOnlyRepository, MusicWriteOnlyRepository>();
         services.AddScoped<ILoggedUser, LoggedUser>();
+        services.AddScoped<IDashbordReadOnlyRepository, DashbordReadOnlyRepository>();
     }
 
     private static void AddPasswordsEncripter(IServiceCollection services)
