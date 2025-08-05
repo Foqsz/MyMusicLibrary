@@ -2,14 +2,18 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MyMusicLibrary.Domain.Repositories.Music;
 using MyMusicLibrary.Domain.Repositories.UnitOfWork;
 using MyMusicLibrary.Domain.Repositories.User;
 using MyMusicLibrary.Domain.Security.Cryptography;
 using MyMusicLibrary.Domain.Security.Tokens;
+using MyMusicLibrary.Domain.Services.LoggedUser;
 using MyMusicLibrary.Infrastructure.DataAccess;
-using MyMusicLibrary.Infrastructure.DataAccess.Repositories;
+using MyMusicLibrary.Infrastructure.DataAccess.Repositories.Music;
+using MyMusicLibrary.Infrastructure.DataAccess.Repositories.User;
 using MyMusicLibrary.Infrastructure.Security.Tokens.Access.Generator;
 using MyMusicLibrary.Infrastructure.Security.Tokens.Access.Validator;
+using MyMusicLibrary.Infrastructure.Services.LoggedUser;
 using MyMusicLibrary.Infrastucture.Extensions;
 using MyMusicLibrary.Infrastucture.Security.Cryptography;
 using System.Reflection;
@@ -32,6 +36,9 @@ public static class DependencyInjectionExtension
 
         services.AddScoped<IUserWriteOnlyRepository, UserWriteOnlyRepository>();
         services.AddScoped<IUserReadOnlyRepository, UserReadOnlyRepository>();
+        services.AddScoped<IMusicReadOnlyRepository, MusicReadOnlyRepository>();
+        services.AddScoped<IMusicWriteOnlyRepository, MusicWriteOnlyRepository>();
+        services.AddScoped<ILoggedUser, LoggedUser>();
     }
 
     private static void AddPasswordsEncripter(IServiceCollection services)
