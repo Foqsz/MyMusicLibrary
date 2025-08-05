@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ALBUM_EMPTY" xml:space="preserve">
+    <value>O nome do álbum não pode ser vazio.</value>
+  </data>
+  <data name="ARTIST_EMPTY" xml:space="preserve">
+    <value>O nome do artista não pode ser vazio. </value>
+  </data>
   <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
     <value>E-mail já está registrado.</value>
   </data>
@@ -128,6 +134,9 @@
   </data>
   <data name="LOGIN_INVALID" xml:space="preserve">
     <value>Senha ou e-mail inválidos.</value>
+  </data>
+  <data name="MUSIC_EXIST" xml:space="preserve">
+    <value>Essa música já existe e não está disponível para registro.</value>
   </data>
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>Nome não pode estar vazio.</value>

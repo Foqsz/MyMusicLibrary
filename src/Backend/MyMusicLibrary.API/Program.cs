@@ -1,6 +1,8 @@
 using Microsoft.OpenApi.Models;
 using MyMusicLibrary.API.Filters;
+using MyMusicLibrary.API.Token;
 using MyMusicLibrary.Application;
+using MyMusicLibrary.Domain.Security.Tokens;
 using MyMusicLibrary.Infrastructure;
 using MyMusicLibrary.Infrastructure.Migrations;
 using MyMusicLibrary.Infrastucture.Extensions;
@@ -44,10 +46,13 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));
 
 builder.Services.AddAplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
 
 var app = builder.Build();
 

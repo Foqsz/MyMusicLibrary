@@ -9,6 +9,8 @@ public class MyMusicLibraryDbContext : DbContext
     }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Music> Music { get; set; }
+    public DbSet<Artist> Artist { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

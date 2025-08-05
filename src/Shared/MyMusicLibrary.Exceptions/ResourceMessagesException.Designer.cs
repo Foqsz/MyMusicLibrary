@@ -61,6 +61,24 @@ namespace MyMusicLibrary.Exceptions {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Album cannot be empty..
+        /// </summary>
+        public static string ALBUM_EMPTY {
+            get {
+                return ResourceManager.GetString("ALBUM_EMPTY", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Artist album cannot be empty..
+        /// </summary>
+        public static string ARTIST_EMPTY {
+            get {
+                return ResourceManager.GetString("ARTIST_EMPTY", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to E-mail is already registered..
         /// </summary>
         public static string EMAIL_ALREADY_REGISTERED {
@@ -93,6 +111,15 @@ namespace MyMusicLibrary.Exceptions {
         public static string LOGIN_INVALID {
             get {
                 return ResourceManager.GetString("LOGIN_INVALID", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to This song already exists and is not available for registration..
+        /// </summary>
+        public static string MUSIC_EXIST {
+            get {
+                return ResourceManager.GetString("MUSIC_EXIST", resourceCulture);
             }
         }
 

@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MyMusicLibrary.Application.Services.AutoMapper;
+using MyMusicLibrary.Application.UseCases.Music;
 using MyMusicLibrary.Application.UseCases.User.DoLogin;
 using MyMusicLibrary.Application.UseCases.User.Register;
+using MyMusicLibrary.Domain.Services.LoggedUser;
 
 namespace MyMusicLibrary.Application;
 public static class DependencyInjectionExtension
@@ -24,5 +26,6 @@ public static class DependencyInjectionExtension
     {
         services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
         services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();  
+        services.AddScoped<IRegisterMusicUseCase, RegisterMusicUseCase>();
     }  
 }
