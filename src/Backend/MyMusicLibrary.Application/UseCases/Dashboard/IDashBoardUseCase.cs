@@ -1,5 +1,7 @@
-﻿namespace MyMusicLibrary.Application.UseCases.DashBoard;
-public interface IDashBoardUseCase
+﻿using MyMusicLibrary.Communication.Responses;
+
+namespace MyMusicLibrary.Application.UseCases.DashBoard;
+public interface IDashboardUseCase
 {
-    Task<Domain.Entities.Music> Musics();
+    Task<ResponseMusicsJson> Execute();
 }
