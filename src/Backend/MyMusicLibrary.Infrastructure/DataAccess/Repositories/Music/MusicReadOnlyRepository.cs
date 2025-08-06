@@ -14,7 +14,7 @@ public class MusicReadOnlyRepository : IMusicReadOnlyRepository
     public async Task<Domain.Entities.Music?> GetById(Domain.Entities.User user, long musicId) =>
         await _dbContext.Music.Where(m => m.UserId == user.Id && m.Id == musicId).FirstOrDefaultAsync();
 
-    public async Task<IList<Domain.Entities.Music>> GetForDashbord(Domain.Entities.User user) =>
+    public async Task<IList<Domain.Entities.Music>> GetForDashboard(Domain.Entities.User user) =>
         await _dbContext.Music
             .Where(m => m.UserId == user.Id) 
             .ToListAsync();

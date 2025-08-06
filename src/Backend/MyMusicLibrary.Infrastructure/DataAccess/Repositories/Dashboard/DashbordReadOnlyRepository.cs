@@ -2,10 +2,10 @@
 using MyMusicLibrary.Domain.Repositories.Dashboard;
 
 namespace MyMusicLibrary.Infrastructure.DataAccess.Repositories.Dashboard;
-public class DashbordReadOnlyRepository : IDashbordReadOnlyRepository
+public class DashboardReadOnlyRepository : IDashboardReadOnlyRepository
 {
     private readonly MyMusicLibraryDbContext _dbContext;
-    public DashbordReadOnlyRepository(MyMusicLibraryDbContext dbContext)
+    public DashboardReadOnlyRepository(MyMusicLibraryDbContext dbContext)
     {
         _dbContext = dbContext;
     }

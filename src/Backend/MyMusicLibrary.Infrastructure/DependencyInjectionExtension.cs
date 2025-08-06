@@ -41,7 +41,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IMusicReadOnlyRepository, MusicReadOnlyRepository>();
         services.AddScoped<IMusicWriteOnlyRepository, MusicWriteOnlyRepository>();
         services.AddScoped<ILoggedUser, LoggedUser>();
-        services.AddScoped<IDashbordReadOnlyRepository, DashbordReadOnlyRepository>();
+        services.AddScoped<IDashboardReadOnlyRepository, DashboardReadOnlyRepository>();
     }
 
     private static void AddPasswordsEncripter(IServiceCollection services)

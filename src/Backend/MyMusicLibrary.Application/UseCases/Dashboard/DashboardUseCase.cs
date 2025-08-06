@@ -8,10 +8,10 @@ namespace MyMusicLibrary.Application.UseCases.Dashboard;
 public class DashboardUseCase : IDashboardUseCase
 {
     private readonly ILoggedUser _loggedUser;
-    private readonly IDashbordReadOnlyRepository _dashboardReadOnlyRepository;
+    private readonly IDashboardReadOnlyRepository _dashboardReadOnlyRepository;
     private readonly IMapper _mapper;
 
-    public DashboardUseCase(ILoggedUser loggedUser, IDashbordReadOnlyRepository dashboardReadOnlyRepository, IMapper mapper)
+    public DashboardUseCase(ILoggedUser loggedUser, IDashboardReadOnlyRepository dashboardReadOnlyRepository, IMapper mapper)
     {
         _loggedUser = loggedUser;
         _dashboardReadOnlyRepository = dashboardReadOnlyRepository;
