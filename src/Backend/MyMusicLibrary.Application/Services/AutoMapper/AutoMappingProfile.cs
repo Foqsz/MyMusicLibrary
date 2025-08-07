@@ -27,5 +27,7 @@ public class AutoMappingProfile : Profile
         CreateMap<Domain.Entities.Music, ResponseRegisteredMusicJson>()
             .ForMember(dest => dest.Artist, opt => opt.MapFrom(src =>
                 string.Join(", ", src.Artist.Select(a => a.Name))));
+
+        CreateMap<Domain.Entities.User, ResponseDataUser>().ReverseMap();
     }
 }
