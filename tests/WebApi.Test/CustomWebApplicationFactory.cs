@@ -11,6 +11,7 @@ namespace WebApi.Test;
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
     private MyMusicLibrary.Domain.Entities.User _user = default!;
+    private MyMusicLibrary.Domain.Entities.Music _music = default!;
     private string _password = string.Empty;
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -48,8 +49,10 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     private void StartDataBase(MyMusicLibraryDbContext dbContext)
     {
         (_user, _password) = UserBuilder.Build(); 
+        _music = MusicBuilder.Build(_user); 
 
         dbContext.Users.Add(_user); 
+        dbContext.Music.Add(_music); 
         dbContext.SaveChanges();
     }
 
