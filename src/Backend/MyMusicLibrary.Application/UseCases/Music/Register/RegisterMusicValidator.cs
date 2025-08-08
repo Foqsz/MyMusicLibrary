@@ -3,7 +3,7 @@ using MyMusicLibrary.Application.SharedValidators;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Exceptions;
 
-namespace MyMusicLibrary.Application.UseCases.Music;
+namespace MyMusicLibrary.Application.UseCases.Music.Register;
 public class RegisterMusicValidator : AbstractValidator<RequestMusicJson>
 {
     public RegisterMusicValidator()

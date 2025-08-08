@@ -59,7 +59,7 @@ namespace MyMusicLibrary.Exceptions {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Album cannot be empty..
         /// </summary>
@@ -68,7 +68,7 @@ namespace MyMusicLibrary.Exceptions {
                 return ResourceManager.GetString("ALBUM_EMPTY", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Artist album cannot be empty..
         /// </summary>
@@ -77,7 +77,7 @@ namespace MyMusicLibrary.Exceptions {
                 return ResourceManager.GetString("ARTIST_EMPTY", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to E-mail is already registered..
         /// </summary>
@@ -86,7 +86,7 @@ namespace MyMusicLibrary.Exceptions {
                 return ResourceManager.GetString("EMAIL_ALREADY_REGISTERED", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Email cannot be empty..
         /// </summary>
@@ -95,7 +95,7 @@ namespace MyMusicLibrary.Exceptions {
                 return ResourceManager.GetString("EMAIL_EMPTY", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Invalid e-mail..
         /// </summary>
@@ -104,7 +104,7 @@ namespace MyMusicLibrary.Exceptions {
                 return ResourceManager.GetString("EMAIL_INVALID", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to E-mail or Password invalid..
         /// </summary>
@@ -113,7 +113,16 @@ namespace MyMusicLibrary.Exceptions {
                 return ResourceManager.GetString("LOGIN_INVALID", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No music found..
+        /// </summary>
+        public static string MUSIC_EMPTY {
+            get {
+                return ResourceManager.GetString("MUSIC_EMPTY", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to This song already exists and is not available for registration..
         /// </summary>
@@ -122,7 +131,16 @@ namespace MyMusicLibrary.Exceptions {
                 return ResourceManager.GetString("MUSIC_EXIST", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This song ID does not belong to you..
+        /// </summary>
+        public static string MUSIC_NOT_BELONG_TO_USER {
+            get {
+                return ResourceManager.GetString("MUSIC_NOT_BELONG_TO_USER", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Name cannot be empty..
         /// </summary>
@@ -131,7 +149,7 @@ namespace MyMusicLibrary.Exceptions {
                 return ResourceManager.GetString("NAME_EMPTY", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Token null or empty..
         /// </summary>
@@ -140,7 +158,7 @@ namespace MyMusicLibrary.Exceptions {
                 return ResourceManager.GetString("NO_TOKEN", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Password cannot be empty..
         /// </summary>
@@ -149,7 +167,7 @@ namespace MyMusicLibrary.Exceptions {
                 return ResourceManager.GetString("PASSWORD_EMPTY", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Invalid password..
         /// </summary>
@@ -158,7 +176,7 @@ namespace MyMusicLibrary.Exceptions {
                 return ResourceManager.GetString("PASSWORD_INVALID", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Unknown error..
         /// </summary>
@@ -167,7 +185,7 @@ namespace MyMusicLibrary.Exceptions {
                 return ResourceManager.GetString("UNKNOWN_ERROR", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to You do not have permission to access..
         /// </summary>
