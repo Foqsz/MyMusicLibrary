@@ -7,7 +7,7 @@ using MyMusicLibrary.Domain.Services.LoggedUser;
 using MyMusicLibrary.Exceptions;
 using MyMusicLibrary.Exceptions.ExceptionsBase;
 
-namespace MyMusicLibrary.Application.UseCases.Music;
+namespace MyMusicLibrary.Application.UseCases.Music.Register;
 public class RegisterMusicUseCase : IRegisterMusicUseCase
 {
     private readonly IMusicReadOnlyRepository _musicReadOnlyRepository;

@@ -2,7 +2,8 @@
 using MyMusicLibrary.Application.Services.AutoMapper;
 using MyMusicLibrary.Application.UseCases.Dashboard;
 using MyMusicLibrary.Application.UseCases.DashBoard;
-using MyMusicLibrary.Application.UseCases.Music;
+using MyMusicLibrary.Application.UseCases.Music.GetById;
+using MyMusicLibrary.Application.UseCases.Music.Register;
 using MyMusicLibrary.Application.UseCases.User.Data;
 using MyMusicLibrary.Application.UseCases.User.DoLogin;
 using MyMusicLibrary.Application.UseCases.User.Register;
@@ -31,5 +32,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRegisterMusicUseCase, RegisterMusicUseCase>();
         services.AddScoped<IDashboardUseCase, DashboardUseCase>();
         services.AddScoped<IGetUserDataUseCase, GetUserDataUseCase>();
+        services.AddScoped<IGetMusicByIdUseCase, GetMusicByIdUseCase>();
     }  
 }

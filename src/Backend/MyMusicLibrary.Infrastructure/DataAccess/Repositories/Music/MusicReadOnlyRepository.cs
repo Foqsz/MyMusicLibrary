@@ -11,8 +11,15 @@ public class MusicReadOnlyRepository : IMusicReadOnlyRepository
         _dbContext = dbContext;
     }
 
-    public async Task<Domain.Entities.Music?> GetById(Domain.Entities.User user, long musicId) =>
-        await _dbContext.Music.Where(m => m.UserId == user.Id && m.Id == musicId).FirstOrDefaultAsync();
+    public async Task<Domain.Entities.Music?> GetById(Domain.Entities.User user, long musicId)
+    {
+        var musicInfo = await _dbContext.Music
+            .Include(m => m.Artist) // inclui os artistas relacionados
+            .Where(m => m.UserId == user.Id && m.Id == musicId)
+            .FirstOrDefaultAsync();
+
+        return musicInfo;
+    }
 
     public async Task<IList<Domain.Entities.Music>> GetForDashboard(Domain.Entities.User user) =>
         await _dbContext.Music
