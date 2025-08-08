@@ -135,8 +135,14 @@
   <data name="LOGIN_INVALID" xml:space="preserve">
     <value>Senha ou e-mail inválidos.</value>
   </data>
+  <data name="MUSIC_EMPTY" xml:space="preserve">
+    <value>Nenhuma música localizada.</value>
+  </data>
   <data name="MUSIC_EXIST" xml:space="preserve">
     <value>Essa música já existe e não está disponível para registro.</value>
+  </data>
+  <data name="MUSIC_NOT_BELONG_TO_USER" xml:space="preserve">
+    <value>Esse ID de música não pertence a você.</value>
   </data>
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>Nome não pode estar vazio.</value>
