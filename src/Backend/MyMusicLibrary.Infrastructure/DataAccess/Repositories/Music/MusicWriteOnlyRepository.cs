@@ -11,4 +11,11 @@ public class MusicWriteOnlyRepository : IMusicWriteOnlyRepository
     }
 
     public async Task Add(Domain.Entities.Music music) => await _dbContext.Music.AddAsync(music);
+
+    public async Task Delete(long musicId)
+    {
+        var music = await _dbContext.Music.FindAsync(musicId);
+
+        _dbContext.Music.Remove(music!);
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyMusicLibrary.API.Attributes;
+using MyMusicLibrary.Application.UseCases.Music.Delete;
 using MyMusicLibrary.Application.UseCases.Music.GetById;
 using MyMusicLibrary.Application.UseCases.Music.Register;
 using MyMusicLibrary.Communication.Request;
@@ -12,12 +13,13 @@ namespace MyMusicLibrary.API.Controllers;
 public class MusicController : ControllerBase
 {
     [HttpGet]
+    [Route("{id}")]
     [ProducesResponseType(typeof(ResponseRegisteredMusicJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> GetMusicById([FromServices] IGetMusicByIdUseCase useCase, int id)
+    public async Task<IActionResult> GetMusicById([FromServices] IGetMusicByIdUseCase useCase, int musicId)
     {
-        var result = await useCase.Execute(id); 
+        var result = await useCase.Execute(musicId); 
 
         return Ok(result);
     }
@@ -29,5 +31,15 @@ public class MusicController : ControllerBase
     {
         var result = await useCase.Execute(request);
         return Created(string.Empty, result);
+    }
+
+    [HttpDelete] 
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> Delete([FromServices] IDeleteMusicUseCase useCase, long musicId)
+    {
+        await useCase.Execute(musicId);
+        return NoContent();
     }
 }
