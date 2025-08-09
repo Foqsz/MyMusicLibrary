@@ -33,13 +33,14 @@ public class MusicController : ControllerBase
         return Created(string.Empty, result);
     }
 
-    [HttpDelete] 
+    [HttpDelete]
+    [Route("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> Delete([FromServices] IDeleteMusicUseCase useCase, long musicId)
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete([FromServices] IDeleteMusicUseCase useCase, [FromRoute] long id)
     {
-        await useCase.Execute(musicId);
+        await useCase.Execute(id);
         return NoContent();
     }
 }
