@@ -73,7 +73,7 @@ public class DoLoginUserUseCaseTest
         exception.GetErrorMessages().First().ShouldBe(ResourceMessagesException.LOGIN_INVALID);
     }
 
-    private static DoLoginUseCase CreateUseCase(MyMusicLibrary.Domain.Entities.User user = null)
+    private static DoLoginUseCase CreateUseCase(MyMusicLibrary.Domain.Entities.User? user = null)
     {
         var repository = new UserReadOnlyRepositoryBuilder();
         var passwordEncripter = PasswordEncripterBuilder.Build();
