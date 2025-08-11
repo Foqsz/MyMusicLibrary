@@ -44,7 +44,11 @@ jobs:
 
       # Testes
       - name: Test
-        run: dotnet test ./tests/*.csproj --no-build --verbosity normal
+        run: |
+          for proj in ./tests/*.csproj; do
+            dotnet test "$proj" --no-build --verbosity normal
+          done
+
 
       # Análise SonarCloud
       - name: SonarCloud Scan
