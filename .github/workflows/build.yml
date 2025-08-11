@@ -1,4 +1,5 @@
 name: SonarCloud
+
 on:
   push:
     branches:
@@ -40,31 +41,41 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-      
-      - name: Build and analyze
+
+      - name: Start SonarCloud analysis
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          # Inicia análise
           .\.sonar\scanner\dotnet-sonarscanner begin `
             /k:"Foqsz_MyMusicLibrary" `
             /o:"foqsz-1" `
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
             /d:sonar.host.url="https://sonarcloud.io" `
-            /d:sonar.cs.opencover.reportsPaths="coverage/coverage.opencover.xml"
-      
-          # Compila a solução
-          dotnet build MyMusicLibrary.sln --configuration Release
-      
-          # Executa os testes com cobertura no formato OpenCover
+            /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
+
+      - name: Build
+        run: dotnet build MyMusicLibrary.sln --configuration Release
+
+      - name: Run tests with coverage
+        run: |
           dotnet test MyMusicLibrary.sln --configuration Release `
             /p:CollectCoverage=true `
-            /p:CoverletOutput=./coverage/ `
+            /p:CoverletOutput=./TestResults/coverage/ `
             /p:CoverletOutputFormat=opencover `
             -l trx
-      
-          # Finaliza análise, após o arquivo cobertura já estar gerado
+
+      - name: Debug - list coverage files
+        run: |
+          echo "Listing all coverage reports:"
+          dir /s /b coverage.opencover.xml
+
+      - name: End SonarCloud analysis
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        shell: powershell
+        run: |
           .\.sonar\scanner\dotnet-sonarscanner end `
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
