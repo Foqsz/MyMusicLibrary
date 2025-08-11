@@ -36,15 +36,15 @@ jobs:
 
       # Restaurar pacotes
       - name: Restore
-        run: dotnet restore **/*.sln
+        run: dotnet restore ./MyMusicLibrary.sln
 
       # Build
       - name: Build
-        run: dotnet build **/*.sln --no-restore
+        run: dotnet build ./MyMusicLibrary.sln --no-restore
 
       # Testes
       - name: Test
-        run: dotnet test **/Tests/*.csproj --no-build --verbosity normal
+        run: dotnet test ./tests/*.csproj --no-build --verbosity normal
 
       # Análise SonarCloud
       - name: SonarCloud Scan
@@ -52,6 +52,6 @@ jobs:
         with:
           args: >
             -Dsonar.projectKey=foqsz-1
-            -Dsonar.organization=Victor Vinicius Alves de L. Souza
+            -Dsonar.organization=Foqsz_MyMusicLibrary
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
