@@ -9,6 +9,7 @@ jobs:
   build:
     name: Build and analyze
     runs-on: windows-latest
+
     steps:
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -19,14 +20,14 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      
+
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
           path: ~\sonar\cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-      
+
       - name: Cache SonarCloud scanner
         id: cache-sonar-scanner
         uses: actions/cache@v3
@@ -34,7 +35,7 @@ jobs:
           path: .\.sonar\scanner
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
-      
+
       - name: Install SonarCloud scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: powershell
@@ -53,25 +54,37 @@ jobs:
             /o:"foqsz-1" `
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
             /d:sonar.host.url="https://sonarcloud.io" `
-            /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
+            /d:sonar.cs.opencover.reportsPaths="tests/**/*.opencover.xml"
 
-      - name: Build
+      - name: Build solution
         run: dotnet build MyMusicLibrary.sln --configuration Release
 
-      - name: Run tests with coverage
-        run: |
-          dotnet test MyMusicLibrary.sln --configuration Release `
-            /p:CollectCoverage=true `
-            /p:CoverletOutput=./ `
-            /p:MergeWith=./coverage.opencover.xml `
-            /p:CoverletOutputFormat=opencover `
-            -l trx
+      - name: Run Validators.Test with coverage
+        run: dotnet test tests/Validators.Test/Validators.Test.csproj --configuration Release `
+          /p:CollectCoverage=true `
+          /p:CoverletOutput=./tests/Validators.Test/coverage.opencover.xml `
+          /p:CoverletOutputFormat=opencover `
+          -l trx
+
+      - name: Run UseCases.Test with coverage
+        run: dotnet test tests/UseCases.Test/UseCases.Test.csproj --configuration Release `
+          /p:CollectCoverage=true `
+          /p:CoverletOutput=./tests/UseCases.Test/coverage.opencover.xml `
+          /p:CoverletOutputFormat=opencover `
+          -l trx
+
+      - name: Run WebApi.Test with coverage
+        run: dotnet test tests/WebApi.Test/WebApi.Test.csproj --configuration Release `
+          /p:CollectCoverage=true `
+          /p:CoverletOutput=./tests/WebApi.Test/coverage.opencover.xml `
+          /p:CoverletOutputFormat=opencover `
+          -l trx
 
       - name: Debug - list coverage files
         shell: powershell
         run: |
           Write-Host "Listing all coverage reports:"
-          Get-ChildItem -Path . -Filter "coverage.opencover.xml" -Recurse -File | ForEach-Object { $_.FullName }
+          Get-ChildItem -Path tests -Filter "*.opencover.xml" -Recurse -File | ForEach-Object { $_.FullName }
 
       - name: End SonarCloud analysis
         env:
