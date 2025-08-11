@@ -62,7 +62,8 @@ jobs:
         run: |
           dotnet test MyMusicLibrary.sln --configuration Release `
             /p:CollectCoverage=true `
-            /p:CoverletOutput=./TestResults/coverage/ `
+            /p:CoverletOutput=./ `
+            /p:MergeWith=./coverage.opencover.xml `
             /p:CoverletOutputFormat=opencover `
             -l trx
 
