@@ -25,12 +25,9 @@ public class DeleteMusicUseCase : IDeleteMusicUseCase
     {
         var user = await _loggedUser.User();
 
-        var musicaId = await _musicReadOnlyRepository.GetById(user, id);
-
-        if (musicaId is null)
-            throw new ExistMusicException(ResourceMessagesException.MUSIC_NOT_BELONG_TO_USER);
-
-        var musicDelete = _musicWriteOnlyRepository.Delete(musicaId.Id);
+        var musicaId = await _musicReadOnlyRepository.GetById(user, id) ?? throw new ExistMusicException(ResourceMessagesException.MUSIC_NOT_BELONG_TO_USER);
+        
+        await _musicWriteOnlyRepository.Delete(musicaId.Id);
 
         await _unitOfWork.Commit();
     }

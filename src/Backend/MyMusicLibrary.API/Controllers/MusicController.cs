@@ -7,7 +7,7 @@ using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
 
 namespace MyMusicLibrary.API.Controllers;
-[Route("api/[controller]")]
+[Route("[controller]")]
 [ApiController]
 [AuthenticatedUser]
 public class MusicController : ControllerBase
@@ -17,9 +17,9 @@ public class MusicController : ControllerBase
     [ProducesResponseType(typeof(ResponseRegisteredMusicJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> GetMusicById([FromServices] IGetMusicByIdUseCase useCase, int musicId)
+    public async Task<IActionResult> GetMusicById([FromServices] IGetMusicByIdUseCase useCase, int id)
     {
-        var result = await useCase.Execute(musicId); 
+        var result = await useCase.Execute(id); 
 
         return Ok(result);
     }
