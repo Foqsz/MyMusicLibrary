@@ -47,18 +47,24 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          # Inicia análise com caminho fixo para o relatório
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"Foqsz_MyMusicLibrary" /o:"foqsz-1" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="coverage/coverage.opencover.xml"
-          
-          # Compila toda a solution
+          # Inicia análise
+          .\.sonar\scanner\dotnet-sonarscanner begin `
+            /k:"Foqsz_MyMusicLibrary" `
+            /o:"foqsz-1" `
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
+            /d:sonar.host.url="https://sonarcloud.io" `
+            /d:sonar.cs.opencover.reportsPaths="coverage/coverage.opencover.xml"
+      
+          # Compila a solução
           dotnet build MyMusicLibrary.sln --configuration Release
-          
-          # Executa TODOS os testes e salva cobertura em uma pasta única no root
+      
+          # Executa os testes com cobertura no formato OpenCover
           dotnet test MyMusicLibrary.sln --configuration Release `
             /p:CollectCoverage=true `
             /p:CoverletOutput=./coverage/ `
             /p:CoverletOutputFormat=opencover `
             -l trx
-          
-          # Finaliza análise
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+      
+          # Finaliza análise, após o arquivo cobertura já estar gerado
+          .\.sonar\scanner\dotnet-sonarscanner end `
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
