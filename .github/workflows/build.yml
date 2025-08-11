@@ -67,9 +67,10 @@ jobs:
             -l trx
 
       - name: Debug - list coverage files
+        shell: powershell
         run: |
-          echo "Listing all coverage reports:"
-          dir /s /b coverage.opencover.xml
+          Write-Host "Listing all coverage reports:"
+          Get-ChildItem -Path . -Filter "coverage.opencover.xml" -Recurse -File | ForEach-Object { $_.FullName }
 
       - name: End SonarCloud analysis
         env:
