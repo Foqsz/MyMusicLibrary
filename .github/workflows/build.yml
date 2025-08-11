@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - develop
+
 jobs:
   build:
     name: Build and analyze
@@ -13,6 +14,7 @@ jobs:
         with:
           java-version: 17
           distribution: 'zulu'
+
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
@@ -45,7 +47,12 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"Foqsz_MyMusicLibrary" /o:"foqsz-1" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="tests\MyMusicLibrary.Tests\coverage.opencover.xml"
-          dotnet build ./MyMusicLibrary.sln
-          dotnet test tests/MyMusicLibrary.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=tests\MyMusicLibrary.Tests\coverage.opencover.xml -l trx
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"Foqsz_MyMusicLibrary" /o:"foqsz-1" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
+          
+          # Compila toda a solution
+          dotnet build MyMusicLibrary.sln --configuration Release
+          
+          # Executa TODOS os testes e gera cobertura em opencover
+          dotnet test MyMusicLibrary.sln --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=coverage.opencover.xml -l trx
+          
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
