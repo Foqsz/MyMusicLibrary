@@ -60,7 +60,7 @@ public class RegisterMusicUseCase : IRegisterMusicUseCase
         };
     }
 
-    private async Task Validate(RequestMusicJson request)
+    private static async Task Validate(RequestMusicJson request)
     {
         var validator = new RegisterMusicValidator();
 

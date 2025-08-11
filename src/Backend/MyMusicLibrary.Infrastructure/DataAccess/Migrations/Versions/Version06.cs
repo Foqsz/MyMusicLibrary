@@ -1,6 +1,7 @@
 ﻿using FluentMigrator;
 using MyMusicLibrary.Infrastructure.DataAccess.Migrations;
-using MyMusicLibrary.Infrastructure.Migrations.Versions;
+
+namespace MyMusicLibrary.Infrastructure.Migrations.Versions;
 
 [Migration(DatabaseVersions.TABLE_MUSICARTISTSX, "Create tables Music and Artist with foreign key")]
 public class Version0000006 : VersionBase
