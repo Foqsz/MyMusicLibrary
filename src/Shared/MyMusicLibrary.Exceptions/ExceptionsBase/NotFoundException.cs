@@ -7,7 +7,7 @@ public class NotFoundException : MyMusicLibraryException
     {
     }
 
-    public override IList<string> GetErrorMessages() => [Message]; //mesma coisa que fazer new List<string> { Message };
+    public override IList<string> GetErrorMessages() => [Message];
 
     public override HttpStatusCode GetStatusCode() => HttpStatusCode.NotFound;
 }

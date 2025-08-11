@@ -4,19 +4,16 @@ using MyMusicLibrary.Domain.Repositories.Music;
 using MyMusicLibrary.Domain.Services.LoggedUser;
 using MyMusicLibrary.Exceptions;
 using MyMusicLibrary.Exceptions.ExceptionsBase;
-using System.Collections.Generic;
 
 namespace MyMusicLibrary.Application.UseCases.Music.GetById;
 public class GetMusicByIdUseCase : IGetMusicByIdUseCase
 {
     private readonly IMusicReadOnlyRepository _repository;
-    private readonly IMapper _mapper;
     private readonly ILoggedUser _logged;
 
     public GetMusicByIdUseCase(IMusicReadOnlyRepository repository, IMapper mapper, ILoggedUser logged)
     {
         _repository = repository;
-        _mapper = mapper;
         _logged = logged;
     }
 
