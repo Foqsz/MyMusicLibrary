@@ -1,5 +1,5 @@
 ﻿namespace MyMusicLibrary.Application.UseCases.User.Delete;
-public interface IDeleteUserUseCase
+public interface IDeleteUserAccountUseCase
 {
     Task Execute();
 }
