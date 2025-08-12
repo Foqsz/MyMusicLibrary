@@ -21,6 +21,7 @@ public class Version0000007 : VersionBase
             .WithColumn("Name").AsString(255).NotNullable()
             .WithColumn("Genre").AsString(100).NotNullable()
             .WithColumn("MusicId").AsInt64().NotNullable()
-                .ForeignKey("FK_Artist_Music_Id", "music", "Id");
+                .ForeignKey("FK_Artist_Music_Id", "music", "Id")
+                .OnDelete(System.Data.Rule.Cascade);
     }
 }
