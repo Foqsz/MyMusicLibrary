@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyMusicLibrary.API.Attributes;
 using MyMusicLibrary.Application.UseCases.User.Data;
+using MyMusicLibrary.Application.UseCases.User.Delete;
 using MyMusicLibrary.Application.UseCases.User.Register;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
@@ -27,5 +28,15 @@ public class UserController : ControllerBase
         var result = await useCase.Execute(request);
 
         return Created(string.Empty, result);
+    }
+
+    [AuthenticatedUser]
+    [HttpDelete]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> Delete([FromServices] IDeleteUserUseCase useCase)
+    {
+        await useCase.Execute();
+
+        return NoContent();
     }
 }
