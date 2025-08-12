@@ -33,7 +33,7 @@ public class UserController : ControllerBase
     [AuthenticatedUser]
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> Delete([FromServices] IDeleteUserUseCase useCase)
+    public async Task<IActionResult> Delete([FromServices] IDeleteUserAccountUseCase useCase)
     {
         await useCase.Execute();
 

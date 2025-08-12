@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyMusicLibrary.Domain.Repositories.User;
+using MyMusicLibrary.Domain.Repositories.User.Delete;
 
 namespace MyMusicLibrary.Infrastructure.DataAccess.Repositories.User;
-public class UserWriteOnlyRepository : IUserWriteOnlyRepository
+public class UserWriteOnlyRepository : IUserWriteOnlyRepository, IUserDeleteAccountRepository
 {
     private readonly MyMusicLibraryDbContext _dbContext;
 
@@ -23,7 +24,7 @@ public class UserWriteOnlyRepository : IUserWriteOnlyRepository
 
         _dbContext.Users.Remove(user); 
 
-        if(!musics.Any())
+        if(musics.Count == 0)
             return;
 
         _dbContext.Music.RemoveRange(musics); 

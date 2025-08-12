@@ -36,6 +36,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetUserDataUseCase, GetUserDataUseCase>();
         services.AddScoped<IGetMusicByIdUseCase, GetMusicByIdUseCase>();
         services.AddScoped<IDeleteMusicUseCase, DeleteMusicUseCase>();
-        services.AddScoped<IDeleteUserUseCase, DeleteUserUseCase>();
+        services.AddScoped<IDeleteUserAccountUseCase, DeleteUserAccountUseCase>();
     }  
 }
