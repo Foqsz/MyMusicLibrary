@@ -187,6 +187,15 @@ namespace MyMusicLibrary.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to update. Email already in use..
+        /// </summary>
+        public static string UPDATE_INVALID {
+            get {
+                return ResourceManager.GetString("UPDATE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You do not have permission to access..
         /// </summary>
         public static string USER_WITHOUT_PERMISSION_ACCESS_RESOURCE {

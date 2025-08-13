@@ -159,6 +159,9 @@
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Erro desconhecido.</value>
   </data>
+  <data name="UPDATE_INVALID" xml:space="preserve">
+    <value>Não foi possível atualizar. E-mail já utilizado.</value>
+  </data>
   <data name="USER_WITHOUT_PERMISSION_ACCESS_RESOURCE" xml:space="preserve">
     <value>Você não tem permissão para acessar.</value>
   </data>
