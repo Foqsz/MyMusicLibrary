@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyMusicLibrary.API.Attributes;
+using MyMusicLibrary.Application.UseCases.Music.Update;
 using MyMusicLibrary.Application.UseCases.User.Data;
 using MyMusicLibrary.Application.UseCases.User.Delete;
 using MyMusicLibrary.Application.UseCases.User.Register;
@@ -38,5 +39,16 @@ public class UserController : ControllerBase
         await useCase.Execute();
 
         return NoContent();
+    }
+
+    [AuthenticatedUser]
+    [HttpPut("update")]
+    [ProducesResponseType(typeof(ResponseUpdateUserJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Update([FromServices] IUpdateUserUseCase useCase, [FromBody] RequestUpdateUserJson request)
+    { 
+        await useCase.Execute(request);
+
+        return Ok();
     }
 }
