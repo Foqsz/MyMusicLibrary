@@ -10,7 +10,7 @@ public class UserReadOnlyRepository : IUserReadOnlyRepository
     public UserReadOnlyRepository(MyMusicLibraryDbContext dbContext) => _dbContext = dbContext;
 
     public async Task<bool> ExistActiveUserWithEmail(string email) => 
-        await _dbContext.Users.AnyAsync(user => user.Active && user.Email.Equals(email) && user.Active);
+        await _dbContext.Users.AnyAsync(user => user.Active && user.Email.Equals(email));
 
     public async Task<bool> ExistActiveUserWithIdentifier(Guid userIdentifier) => 
         await _dbContext.Users.AnyAsync(user => user.Active && user.UserIdentifier.Equals(userIdentifier));
