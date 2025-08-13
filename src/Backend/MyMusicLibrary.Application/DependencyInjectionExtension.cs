@@ -5,6 +5,7 @@ using MyMusicLibrary.Application.UseCases.DashBoard;
 using MyMusicLibrary.Application.UseCases.Music.Delete;
 using MyMusicLibrary.Application.UseCases.Music.GetById;
 using MyMusicLibrary.Application.UseCases.Music.Register;
+using MyMusicLibrary.Application.UseCases.Music.Update;
 using MyMusicLibrary.Application.UseCases.User.Data;
 using MyMusicLibrary.Application.UseCases.User.Delete;
 using MyMusicLibrary.Application.UseCases.User.DoLogin;
@@ -37,5 +38,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetMusicByIdUseCase, GetMusicByIdUseCase>();
         services.AddScoped<IDeleteMusicUseCase, DeleteMusicUseCase>();
         services.AddScoped<IDeleteUserAccountUseCase, DeleteUserAccountUseCase>();
+        services.AddScoped<IUpdateUserUseCase , UpdateUserUseCase>();
     }  
 }

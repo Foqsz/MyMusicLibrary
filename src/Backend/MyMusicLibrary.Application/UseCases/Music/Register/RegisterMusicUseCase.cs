@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
+using MyMusicLibrary.Domain.Extensions;
 using MyMusicLibrary.Domain.Repositories.Music;
 using MyMusicLibrary.Domain.Repositories.UnitOfWork;
 using MyMusicLibrary.Domain.Services.LoggedUser;
@@ -66,14 +67,7 @@ public class RegisterMusicUseCase : IRegisterMusicUseCase
 
         var result = await validator.ValidateAsync(request);
 
-        if (!result.IsValid)
-        {
-            var errorMessages = result.Errors.Select(e => e.ErrorMessage).ToList();
-
-            throw new ErrorOnValidationException(errorMessages);
-        }
-
-        if (!result.IsValid)
+        if (result.IsValid.IsFalse())
         {
             var errorMessages = result.Errors.Select(e => e.ErrorMessage).ToList();
 
