@@ -68,11 +68,24 @@ jobs:
       # 8. Testar e gerar cobertura
       - name: Test and collect coverage
         run: |
-          dotnet test ./tests `
+          dotnet test ./tests/UseCases.test/UseCases.Test.csproj `
             --collect:"XPlat Code Coverage" `
-            --results-directory:TestResults `
-            /p:CoverletOutput=TestResults/coverage.opencover.xml `
+            --results-directory:TestResults/UseCases `
+            /p:CoverletOutput=TestResults/UseCases/coverage.opencover.xml `
             /p:CoverletOutputFormat=opencover
+      
+          dotnet test ./tests/Validators.test/Validators.Test.csproj `
+            --collect:"XPlat Code Coverage" `
+            --results-directory:TestResults/Validators `
+            /p:CoverletOutput=TestResults/Validators/coverage.opencover.xml `
+            /p:CoverletOutputFormat=opencover
+      
+          dotnet test ./tests/WebApi.Test/WebApi.Test.csproj `
+            --collect:"XPlat Code Coverage" `
+            --results-directory:TestResults/WebApi `
+            /p:CoverletOutput=TestResults/WebApi/coverage.opencover.xml `
+            /p:CoverletOutputFormat=opencover
+
 
       # 9. Finalizar análise SonarCloud
       - name: End SonarCloud analysis
