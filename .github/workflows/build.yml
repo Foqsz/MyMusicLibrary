@@ -59,7 +59,7 @@ jobs:
             /d:sonar.host.url="https://sonarcloud.io" `
             /d:sonar.login="${{ secrets.SONAR_TOKEN }}" `
             /d:sonar.cs.opencover.reportsPaths="TestResults/coverage.opencover.xml" `
-            /d:sonar.tests="MyMusicLibrary.Tests"
+            /d:sonar.tests="./tests"
 
       # 7. Build do projeto
       - name: Build
@@ -68,7 +68,7 @@ jobs:
       # 8. Testar e gerar cobertura
       - name: Test and collect coverage
         run: |
-          dotnet test MyMusicLibrary.Tests/MyMusicLibrary.Tests.csproj `
+          dotnet test ./tests `
             --collect:"XPlat Code Coverage" `
             --results-directory:TestResults `
             /p:CoverletOutput=TestResults/coverage.opencover.xml `
