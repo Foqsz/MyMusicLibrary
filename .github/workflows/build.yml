@@ -57,9 +57,8 @@ jobs:
             /k:"Foqsz_MyMusicLibrary" `
             /o:"foqsz-1" `
             /d:sonar.host.url="https://sonarcloud.io" `
-            /d:sonar.login="${{ secrets.SONAR_TOKEN }}" `
-            /d:sonar.cs.opencover.reportsPaths="TestResults/coverage.opencover.xml" `
-            /d:sonar.tests="./tests"
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
+            /d:sonar.cs.opencover.reportsPaths="TestResults/coverage.opencover.xml"
 
       # 7. Build do projeto
       - name: Build
@@ -73,23 +72,22 @@ jobs:
             --results-directory:TestResults/UseCases `
             /p:CoverletOutput=TestResults/UseCases/coverage.opencover.xml `
             /p:CoverletOutputFormat=opencover
-      
+          
           dotnet test ./tests/Validators.test/Validators.Test.csproj `
             --collect:"XPlat Code Coverage" `
             --results-directory:TestResults/Validators `
             /p:CoverletOutput=TestResults/Validators/coverage.opencover.xml `
             /p:CoverletOutputFormat=opencover
-      
+          
           dotnet test ./tests/WebApi.Test/WebApi.Test.csproj `
             --collect:"XPlat Code Coverage" `
             --results-directory:TestResults/WebApi `
             /p:CoverletOutput=TestResults/WebApi/coverage.opencover.xml `
             /p:CoverletOutputFormat=opencover
 
-
       # 9. Finalizar análise SonarCloud
       - name: End SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
-        run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+        run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
