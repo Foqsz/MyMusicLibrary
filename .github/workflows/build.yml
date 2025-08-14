@@ -58,7 +58,7 @@ jobs:
             /o:"foqsz-1" `
             /d:sonar.host.url="https://sonarcloud.io" `
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
-            /d:sonar.cs.opencover.reportsPaths="TestResults/coverage.opencover.xml"
+            /d:sonar.cs.opencover.reportsPaths="tests\**\coverage.opencover.xml"
 
       # 7. Build do projeto
       - name: Build
@@ -69,20 +69,20 @@ jobs:
         run: |
           dotnet test ./tests/UseCases.test/UseCases.Test.csproj `
             --collect:"XPlat Code Coverage" `
-            --results-directory:TestResults/UseCases `
-            /p:CoverletOutput=TestResults/UseCases/coverage.opencover.xml `
+            --results-directory:tests/UseCases `
+            /p:CoverletOutput=tests/UseCases/coverage.opencover.xml `
             /p:CoverletOutputFormat=opencover
-          
+
           dotnet test ./tests/Validators.test/Validators.Test.csproj `
             --collect:"XPlat Code Coverage" `
-            --results-directory:TestResults/Validators `
-            /p:CoverletOutput=TestResults/Validators/coverage.opencover.xml `
+            --results-directory:tests/Validators `
+            /p:CoverletOutput=tests/Validators/coverage.opencover.xml `
             /p:CoverletOutputFormat=opencover
-          
+
           dotnet test ./tests/WebApi.Test/WebApi.Test.csproj `
             --collect:"XPlat Code Coverage" `
-            --results-directory:TestResults/WebApi `
-            /p:CoverletOutput=TestResults/WebApi/coverage.opencover.xml `
+            --results-directory:tests/WebApi `
+            /p:CoverletOutput=tests/WebApi/coverage.opencover.xml `
             /p:CoverletOutputFormat=opencover
 
       # 9. Finalizar análise SonarCloud
