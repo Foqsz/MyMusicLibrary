@@ -3,7 +3,7 @@ using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Domain.Extensions;
 using MyMusicLibrary.Exceptions;
 
-namespace MyMusicLibrary.Application.UseCases.Music.Update;
+namespace MyMusicLibrary.Application.UseCases.User.Update;
 public class UpdateUserValidator : AbstractValidator<RequestUpdateUserJson>
 {
     public UpdateUserValidator()

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MyMusicLibrary.Application.UseCases.Music.Update;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
 using MyMusicLibrary.Domain.Extensions;
@@ -9,22 +10,19 @@ using MyMusicLibrary.Domain.Services.LoggedUser;
 using MyMusicLibrary.Exceptions;
 using MyMusicLibrary.Exceptions.ExceptionsBase;
 
-namespace MyMusicLibrary.Application.UseCases.Music.Update;
+namespace MyMusicLibrary.Application.UseCases.User.Update;
 public class UpdateUserUseCase : IUpdateUserUseCase
 {
-    private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IUpdateUserRepository _repositoryWriteOnly;
     private readonly IUserReadOnlyRepository _repositoryReadOnly;
     private readonly ILoggedUser _loggedUser;
 
-    public UpdateUserUseCase(IMapper mapper,
-        IUnitOfWork unitOfWork,
+    public UpdateUserUseCase(IUnitOfWork unitOfWork,
         IUpdateUserRepository repositoryWriteOnly,
         IUserReadOnlyRepository repositoryReadOnly,
         ILoggedUser loggedUser)
     {
-        _mapper = mapper;
         _unitOfWork = unitOfWork;
         _repositoryWriteOnly = repositoryWriteOnly;
         _repositoryReadOnly = repositoryReadOnly;
@@ -53,15 +51,12 @@ public class UpdateUserUseCase : IUpdateUserUseCase
 
         var result = await validator.ValidateAsync(request);
 
-        if (result.IsValid && currentEmail.Equals(request.Email).IsFalse())
+        if (result.IsValid && currentEmail.Equals(request.Email).IsFalse() && await _repositoryReadOnly.ExistActiveUserWithEmail(request.Email))
         {
-            if (await _repositoryReadOnly.ExistActiveUserWithEmail(request.Email))
-            {
-                result.Errors.Add(new FluentValidation.Results.ValidationFailure(
-                    "email",
-                    ResourceMessagesException.EMAIL_ALREADY_REGISTERED
-                ));
-            }
+            result.Errors.Add(new FluentValidation.Results.ValidationFailure(
+                "email",
+                ResourceMessagesException.EMAIL_ALREADY_REGISTERED
+            ));
         }
 
         if (result.IsValid.IsFalse())
