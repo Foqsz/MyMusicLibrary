@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyMusicLibrary.API.Attributes;
-using MyMusicLibrary.Application.UseCases.Music.Update;
 using MyMusicLibrary.Application.UseCases.User.ChangePassword;
 using MyMusicLibrary.Application.UseCases.User.Data;
 using MyMusicLibrary.Application.UseCases.User.Delete;
 using MyMusicLibrary.Application.UseCases.User.Register;
+using MyMusicLibrary.Application.UseCases.User.Update;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
 
