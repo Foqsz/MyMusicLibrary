@@ -132,6 +132,9 @@
   <data name="EMAIL_INVALID" xml:space="preserve">
     <value>Invalid e-mail.</value>
   </data>
+  <data name="INCORRECT_CURRENT_PASSWORD_ERROR" xml:space="preserve">
+    <value>Current password is incorrect.</value>
+  </data>
   <data name="LOGIN_INVALID" xml:space="preserve">
     <value>E-mail or Password invalid.</value>
   </data>
@@ -155,6 +158,9 @@
   </data>
   <data name="PASSWORD_INVALID" xml:space="preserve">
     <value>Invalid password.</value>
+  </data>
+  <data name="SAME_PASSWORD_ERROR" xml:space="preserve">
+    <value>New password cannot be the same as current.</value>
   </data>
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Unknown error.</value>

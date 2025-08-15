@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyMusicLibrary.API.Attributes;
 using MyMusicLibrary.Application.UseCases.Music.Update;
+using MyMusicLibrary.Application.UseCases.User.ChangePassword;
 using MyMusicLibrary.Application.UseCases.User.Data;
 using MyMusicLibrary.Application.UseCases.User.Delete;
 using MyMusicLibrary.Application.UseCases.User.Register;
@@ -50,5 +51,16 @@ public class UserController : ControllerBase
         await useCase.Execute(request);
 
         return Ok();
+    }
+
+    [AuthenticatedUser]
+    [HttpPut("change-password")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> ChangePassword([FromServices] IUserChangePasswordUseCase useCase, [FromBody] RequestUserChangePassword request)
+    {
+        await useCase.Execute(request);
+
+        return NoContent();
     }
 }
