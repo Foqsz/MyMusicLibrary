@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using MyMusicLibrary.Application.UseCases.Music.Update;
-using MyMusicLibrary.Communication.Request;
-using MyMusicLibrary.Communication.Responses;
+﻿using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Domain.Extensions;
 using MyMusicLibrary.Domain.Repositories.UnitOfWork;
 using MyMusicLibrary.Domain.Repositories.User;
