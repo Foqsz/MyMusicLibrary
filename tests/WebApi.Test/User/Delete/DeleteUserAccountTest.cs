@@ -1,6 +1,4 @@
-﻿using CommonTestUtilities.Entities;
-using CommonTestUtilities.Tokens.Generator;
-using Microsoft.AspNetCore.Http;
+﻿using CommonTestUtilities.Tokens.Generator;
 using Shouldly;
 using System.Net;
 using Xunit;
