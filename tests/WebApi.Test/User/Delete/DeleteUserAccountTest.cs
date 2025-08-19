@@ -1,16 +1,14 @@
-﻿using CommonTestUtilities.Requests;
+﻿using CommonTestUtilities.Entities;
 using CommonTestUtilities.Tokens.Generator;
-using Microsoft.AspNetCore.Mvc.Testing;
-using MyMusicLibrary.Infrastructure.Security.Tokens.Access.Generator;
+using Microsoft.AspNetCore.Http;
 using Shouldly;
 using System.Net;
-using System.Text.Json;
 using Xunit;
 
 namespace WebApi.Test.User.Delete;
 public class DeleteUserAccountTest : MyLibraryMusicBookClassFixture
 {
-    private readonly string method = "user/update";
+    private readonly string method = "user";
 
     private readonly Guid _userIdentifier;
 
@@ -21,48 +19,11 @@ public class DeleteUserAccountTest : MyLibraryMusicBookClassFixture
 
     [Fact]
     public async Task Success()
-    {
-        var user = RequestUpdateJsonBuilder.Build();
-
+    {  
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
 
-        var userUpdate = await DoPut(method: method, user, token);
-        userUpdate.StatusCode.ShouldBe(HttpStatusCode.OK); 
-    }
+        var userDelete = await DoDelete(method, token);
 
-    [Fact]
-    public async Task Error_Name_Empty()
-    {
-        var user = RequestUpdateJsonBuilder.Build();
-        user.Name = string.Empty;
-
-        var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
-
-        var userUpdate = await DoPut(method: method, user, token);
-        userUpdate.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
-    }
-
-    [Fact]
-    public async Task Error_Email_Empty()
-    {
-        var user = RequestUpdateJsonBuilder.Build();
-        user.Email = string.Empty;
-
-        var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
-
-        var userUpdate = await DoPut(method: method, user, token);
-        userUpdate.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
-    }
-
-    [Fact]
-    public async Task Error_Email_Invalid()
-    {
-        var user = RequestUpdateJsonBuilder.Build();
-        user.Email = "monza.com";
-
-        var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
-
-        var userUpdate = await DoPut(method: method, user, token);
-        userUpdate.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
-    }
+        userDelete.StatusCode.ShouldBe(HttpStatusCode.NoContent);
+    } 
 }
