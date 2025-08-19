@@ -25,16 +25,14 @@ public class DeleteUserAccountUseCase : IDeleteUserAccountUseCase
 
     public async Task Execute()
     {
-        var user = _loggedUser.User();
+        var user = await _loggedUser.User();
 
-        var userActive = await _userReadOnlyRepository.ExistActiveUserWithIdentifier(user.Result.UserIdentifier);
+        var userActive = await _userReadOnlyRepository.ExistActiveUserWithIdentifier(user.UserIdentifier);
 
         if (userActive.IsFalse())
-            return;
+            return;  
 
-        var userIdentifier = await _userReadOnlyRepository.GetById(user.Result.Id);
-
-        await _userDeleteAccountRepository.DeleteAccount(userIdentifier.UserIdentifier);
+        await _userDeleteAccountRepository.DeleteAccount(user.UserIdentifier);
 
         await _unitOfWork.Commit();
     }
