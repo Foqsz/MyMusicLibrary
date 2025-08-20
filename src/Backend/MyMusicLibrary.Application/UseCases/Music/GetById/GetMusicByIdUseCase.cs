@@ -11,7 +11,7 @@ public class GetMusicByIdUseCase : IGetMusicByIdUseCase
     private readonly IMusicReadOnlyRepository _repository;
     private readonly ILoggedUser _logged;
 
-    public GetMusicByIdUseCase(IMusicReadOnlyRepository repository, IMapper mapper, ILoggedUser logged)
+    public GetMusicByIdUseCase(IMusicReadOnlyRepository repository, ILoggedUser logged)
     {
         _repository = repository;
         _logged = logged;
@@ -23,10 +23,7 @@ public class GetMusicByIdUseCase : IGetMusicByIdUseCase
 
         var music = await _repository.GetById(user, id);
 
-        if (music is null)
-            throw new NotFoundException(ResourceMessagesException.MUSIC_EMPTY); 
-
-        return new ResponseRegisteredMusicJson
+        return music is null ? throw new NotFoundException(ResourceMessagesException.MUSIC_EMPTY) : new ResponseRegisteredMusicJson
         {
             Album = music.Album,
             Name = music.Name,

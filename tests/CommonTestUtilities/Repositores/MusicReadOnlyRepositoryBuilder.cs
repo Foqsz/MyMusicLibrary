@@ -20,6 +20,16 @@ public class MusicReadOnlyRepositoryBuilder
         return this;
     }
 
+    public void ThereIsThisSong(User user, string musicName, string album)
+    {
+        _repository.Setup(r => r.ThereIsThisSong(It.IsAny<User>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(false);
+
+        _repository.Setup(r => r.ThereIsThisSong(
+                It.Is<User>(u => u.Id == user.Id),
+                It.IsAny<string>(),
+                It.IsAny<string>())).ReturnsAsync(true);
+    }
+
     public IMusicReadOnlyRepository Build()
     {
         return _repository.Object;
