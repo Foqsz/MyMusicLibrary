@@ -9,6 +9,7 @@ using MyMusicLibrary.Application.UseCases.User.ChangePassword;
 using MyMusicLibrary.Application.UseCases.User.Data;
 using MyMusicLibrary.Application.UseCases.User.Delete;
 using MyMusicLibrary.Application.UseCases.User.DoLogin;
+using MyMusicLibrary.Application.UseCases.User.DoLogin.External;
 using MyMusicLibrary.Application.UseCases.User.Register;
 using MyMusicLibrary.Application.UseCases.User.Update;
 
@@ -41,5 +42,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IDeleteUserAccountUseCase, DeleteUserAccountUseCase>();
         services.AddScoped<IUpdateUserUseCase , UpdateUserUseCase>();
         services.AddScoped<IUserChangePasswordUseCase, UserChangePasswordUseCase>();
+        services.AddScoped<IExternalLoginUseCase,  ExternalLoginUseCase>();
     }  
 }

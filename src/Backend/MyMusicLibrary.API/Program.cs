@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.OpenApi.Models;
 using MyMusicLibrary.API.Filters;
 using MyMusicLibrary.API.Token;
 using MyMusicLibrary.Application;
+using MyMusicLibrary.Domain.Extensions;
 using MyMusicLibrary.Domain.Security.Tokens;
 using MyMusicLibrary.Infrastructure;
 using MyMusicLibrary.Infrastructure.Migrations;
@@ -48,6 +50,11 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddHttpContextAccessor();
 
+if (builder.Configuration.IsUnitTestEnviroment().IsFalse())
+{  
+    AddGoogleAuthentication();
+}
+
 builder.Services.AddMvc(options => options.Filters.Add<ExceptionFilter>());
 
 builder.Services.AddAplication();
@@ -83,6 +90,22 @@ void MigrateDatabase()
     var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
 
     DatabaseMigration.Migrate(connectionString, serviceScope.ServiceProvider);
+}
+
+void AddGoogleAuthentication()
+{
+    var clientId = builder.Configuration.GetValue<string>("Settings:Google:ClientId")!;
+    var clientSecret = builder.Configuration.GetValue<string>("Settings:Google:ClientSecret")!;
+
+    builder.Services.AddAuthentication(config =>
+    {
+        config.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    }).AddCookie()
+    .AddGoogle(googleOptions =>
+    {
+        googleOptions.ClientId = clientId;
+        googleOptions.ClientSecret = clientSecret;
+    });
 }
 
 public partial class Program
