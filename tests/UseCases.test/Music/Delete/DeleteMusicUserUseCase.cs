@@ -27,7 +27,7 @@ public class DeleteMusicUserUseCase
     }
 
     [Fact]
-    public async Task Error_Music_NotFound()
+    public async Task Error_Music_Invalid_Id()
     {
         var (user, _) = UserBuilder.Build();
         var music = MusicBuilder.Build(user);
@@ -39,9 +39,7 @@ public class DeleteMusicUserUseCase
             await useCase.Execute(123);
         });
 
-        exception.Message.ShouldBe(ResourceMessagesException.MUSIC_NOT_BELONG_TO_USER);
-
-
+        exception.Message.ShouldBe(ResourceMessagesException.MUSIC_NOT_BELONG_TO_USER); 
     }
 
 
