@@ -12,16 +12,16 @@ public class ExceptionFilter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
     {
-        if (context.Exception is MyMusicLibraryException myRecipeBookException)
-            HandleProjectException(myRecipeBookException, context);
+        if (context.Exception is MyMusicLibraryException myLibraryMusicException)
+            HandleProjectException(myLibraryMusicException, context);
         else
             ThrowUnknowException(context);
     }
 
-    private static void HandleProjectException(MyMusicLibraryException myRecipeBookException, ExceptionContext context)
+    private static void HandleProjectException(MyMusicLibraryException myLibraryMusicException, ExceptionContext context)
     {
-        context.HttpContext.Response.StatusCode = (int)myRecipeBookException.GetStatusCode();
-        context.Result = new ObjectResult(new ResponseErrorJson(myRecipeBookException.GetErrorMessages()));
+        context.HttpContext.Response.StatusCode = (int)myLibraryMusicException.GetStatusCode();
+        context.Result = new ObjectResult(new ResponseErrorJson(myLibraryMusicException.GetErrorMessages()));
     }
 
     private static void ThrowUnknowException(ExceptionContext context)
