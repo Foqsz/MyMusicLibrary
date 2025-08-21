@@ -8,7 +8,7 @@ using System.Security.Claims;
 namespace MyMusicLibrary.API.Controllers;
 [Route("[controller]")]
 [ApiController]
-public class SigninGoogleController : ControllerBase
+public class UserGoogleController : ControllerBase
 {
     [HttpGet] 
     public async Task<IActionResult> LoginGoogle(string returnUrl, [FromServices] IExternalLoginUseCase useCase)
