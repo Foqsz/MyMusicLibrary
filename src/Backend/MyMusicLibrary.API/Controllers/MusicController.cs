@@ -27,6 +27,7 @@ public class MusicController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisteredMusicJson), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register([FromServices] IRegisterMusicUseCase useCase, [FromBody] RequestMusicJson request)
     {
         var result = await useCase.Execute(request);

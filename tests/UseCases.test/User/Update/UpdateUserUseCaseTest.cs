@@ -31,7 +31,8 @@ public class UpdateUserUseCaseTest
     public async Task Error_User_Email()
     {
         (var user, var _) = UserBuilder.Build();
-        var request = RequestUpdateJsonBuilder.Build(); 
+        var request = RequestUpdateJsonBuilder.Build();
+        request.Email = "Emaildiferente@gmail.com";
 
         var useCase = CreateUseCase(user, request);
 

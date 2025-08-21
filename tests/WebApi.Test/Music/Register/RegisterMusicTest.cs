@@ -27,4 +27,20 @@ public class RegisterMusicTest : MyLibraryMusicBookClassFixture
 
         musicRegister.StatusCode.ShouldBe(HttpStatusCode.Created);
     }
+
+    [Fact]
+    public async Task Error_Music_Exist()
+    {
+        var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
+
+        var request = RequestMusicJsonBuilder.Build();
+
+        var musicRegister = await DoPost(method, request, token);
+
+        musicRegister.StatusCode.ShouldBe(HttpStatusCode.Created); 
+
+        var musicRegisterError = await DoPost(method, request, token);
+
+        musicRegisterError.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+    }
 }
