@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="visual.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Edu+NSW+ACT+Cursive:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>My Music Library</title>
+  </head>
+  <body>
+    <section class="header-main">
+      <div class="header-nav">
+        <img src="images/MyMusicLibrary.Logo.png" alt="" />
+      </div>
+      <div class="header-nav_secondary">
+        <h1 class="title">My Music Library</h1>
+        <h2 class="subtitle">
+          🎵 Bem-Vindo! Embarque nessa jornada musical! 🎵
+        </h2>
+      </div>
+
+      <div class="login">
+        <h1>Faça sua conexão</h1>
+
+        <div class="login-div">
+          <form action="#" method="post">
+            <fieldset>
+              <label class="subtitle" for="User">Username</label>
+              <input
+                class="campoDeText"
+                type="text"
+                id="User"
+                required
+                autofocus
+              />
+
+              <label class="subtitle" for="Pass">Password</label>
+              <input class="campoDeText" type="password" id="Pass" required />
+
+              <div class="actions">
+                <input type="submit" value="Login" class="button" />
+              </div>
+              <h3 class="subtitle">or</h3>
+                <div class="google-buttons">
+                <a href="https://localhost:7071/UserGoogle?returnUrl=http://127.0.0.1:5500/LearningPt2/MyMusicLibrary.Site/Dashboard.html" class="google-btn">
+                    <img src="icons8-google.svg" alt="Google logo" class="google-logo">
+                    Login Google
+                </a>
+
+                <a href="https://localhost:7071/UserGoogle?returnUrl=http://127.0.0.1:5500/LearningPt2/MyMusicLibrary.Site/Dashboard.html" class="google-btn">
+                    <img src="icons8-google.svg" alt="Google logo" class="google-logo">
+                    Sign in Google
+                </a>
+                </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </section>
+    <footer>
+        Desenvolvido por Victor Vinicius
+    </footer>
+  </body>
+</html>

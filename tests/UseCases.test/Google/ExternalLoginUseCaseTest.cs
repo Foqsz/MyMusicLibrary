@@ -33,7 +33,6 @@ public class ExternalLoginUseCaseTest
         await request.ShouldNotThrowAsync();
     }
 
-
     private static ExternalLoginUseCase CreateUseCase(MyMusicLibrary.Domain.Entities.User? user = null, string? name = null, string? email = null, bool userNull = true)
     {
         var userReadOnlyRepository = new UserReadOnlyRepositoryBuilder();
