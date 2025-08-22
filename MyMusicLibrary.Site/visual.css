@@ -1,0 +1,203 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* garante altura mínima da tela */
+  margin: 0 auto;
+  padding: 0;
+  max-width: 960px;
+
+  background-image: url(images/MyMusicLibrary.Background.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  color: white;
+}
+
+html {
+  font-family: "Titillium Web", sans-serif;
+}
+
+.header-main {
+  text-align: center;
+  flex: 1;
+}
+
+.header-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-nav img {
+  max-width: 20.5em;
+  margin: 0 auto;
+}
+
+.title {
+  font-family: "Caveat", cursive;
+  color: white;
+  font-size: 5em;
+  text-shadow: 1px 1px 2px rgb(0, 255, 21), 0 0 1em black,
+    0 0 0.8em rgb(0, 0, 0);
+}
+
+.subtitle {
+  text-shadow: 1px 1px 2px rgb(0, 255, 21), 0 0 1em black,
+    0 0 0.8em rgb(0, 0, 0);
+}
+
+.title,
+.subtitle {
+  margin: 0;
+}
+
+.login {
+  margin-top: 1em;
+  justify-content: center;
+}
+
+.login-div {
+  width: 300px; /* largura fixa para o formulário */
+  margin: 0 auto; /* centraliza horizontalmente e dá um espaço do topo */
+  padding: 20px;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  font-family: Arial, sans-serif;
+}
+
+.login-div form {
+  display: flex;
+  flex-direction: column; /* deixa tudo em coluna */
+  gap: 15px; /* espaçamento entre elementos */
+}
+
+.login-div input[type="text"],
+.login-div input[type="password"] {
+  padding: 10px;
+  outline: none;
+  font-size: 14px;
+}
+
+.login-div .btn--apagar {
+  background-color: #f44336;
+}
+
+.login-div h3 {
+  text-align: center;
+  margin: 10px 0;
+  font-weight: normal;
+}
+
+.login h1 {
+  text-shadow: 1px 1px 10px rgb(0, 255, 21), 0 0 1em black,
+    0 0 0.8em rgb(0, 0, 0);
+  margin: 0;
+}
+
+.login fieldset {
+  border: none;
+}
+
+.campoDeText {
+  background-color: transparent;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  border: none;
+  display: flex;
+  margin: 0 auto;
+}
+
+.button {
+  background-color: rgba(4, 255, 0, 0.458);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 0.5em;
+
+  text-decoration: none;
+}
+
+.buttonLogin {
+  background-color: rgb(0, 115, 255);
+}
+
+.google-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 1em;
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.1s;
+  background-color: rgba(4, 255, 0, 0.458);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.853);
+  text-shadow: 1px 1px 10px rgb(0, 255, 21), 0 0 1em black,
+    0 0 0.8em rgb(0, 0, 0);
+  font-family: "Titillium Web", sans-serif;
+  font-weight: bold;
+}
+
+.google-btn:hover {
+  transform: translateY(-1px);
+}
+
+.google-login {
+  background-color: #4285f4;
+}
+
+.google-login:hover {
+  background-color: #357ae8;
+}
+
+.google-signin {
+  background-color: #db4437;
+}
+
+.google-signin:hover {
+  background-color: #c33d2e;
+}
+
+.google-logo {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  text-shadow: 1px 1px 10px rgb(0, 255, 21), 0 0 1em black,
+    0 0 0.8em rgb(0, 0, 0);
+}
+
+.button:hover {
+  background-color: #14833b;
+}
+
+footer {
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* @media (min-width: 37em) 
+{  
+  .header-nav img {
+    max-width: 50%;
+  }
+
+  .title {
+    color: red;
+  }
+} */
