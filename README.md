@@ -1,6 +1,6 @@
 # MyMusicLibrary 🎵
 
-![.NET](https://img.shields.io/badge/.NET-8.0-blue?logo=dotnet)
+![.NET](https://img.shields.io/badge/.NET-9.0-blue?logo=dotnet)
 ![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-Backend-purple?logo=dotnet)
 ![Google OAuth](https://img.shields.io/badge/Auth-Google-red?logo=google)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
