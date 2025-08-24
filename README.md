@@ -26,7 +26,7 @@ com **autenticação via Google OAuth2**, suporte a testes unitários, mocks e g
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **ASP.NET Core 8.0** – API REST  
+- **ASP.NET Core 9.0** – API REST  
 - **Google OAuth2** – autenticação e login  
 - **Bogus** – geração de dados fake para testes  
 - **Moq** – criação de mocks  
@@ -38,7 +38,7 @@ com **autenticação via Google OAuth2**, suporte a testes unitários, mocks e g
 ## 🚀 Como Executar
 
 ### Pré-requisitos
-- [.NET SDK](https://dotnet.microsoft.com/en-us/download) (8.0 ou superior)  
+- [.NET SDK](https://dotnet.microsoft.com/en-us/download) (9.0 ou superior)  
 - Conta de desenvolvedor do [Google Cloud Console](https://console.cloud.google.com/)  
   - Configure suas credenciais OAuth2 e adicione `ClientId` e `ClientSecret` no `appsettings.json`  
 
