@@ -26,7 +26,18 @@ public class MusicReadOnlyRepository : IMusicReadOnlyRepository
             .Where(m => m.UserId == user.Id) 
             .ToListAsync();
 
-    public async Task<bool> ThereIsThisSong(Domain.Entities.User user, string musicName, string album) =>
+    public async Task<IList<Domain.Entities.Music>> Search(Domain.Entities.User user, string name)
+    {
+        var searchMusic = await _dbContext.Music
+            .Where(m => m.UserId == user.Id && m.Name.Contains(name))
+            .Include(m => m.Artist)
+            .Take(5)
+            .ToListAsync(); 
+
+        return searchMusic;
+    }
+
+    public async Task<bool> ThereIsThisSong(Domain.Entities.User user, string musicName, string? album) =>
         await _dbContext.Music
             .AnyAsync(m => m.UserId == user.Id && m.Name == musicName && m.Album == album);
 }
