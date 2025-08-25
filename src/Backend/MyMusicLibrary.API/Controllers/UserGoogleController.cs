@@ -10,7 +10,8 @@ namespace MyMusicLibrary.API.Controllers;
 [ApiController]
 public class UserGoogleController : ControllerBase
 {
-    [HttpGet] 
+    [HttpGet]
+    [Route("UserGoogle")]
     public async Task<IActionResult> LoginGoogle(string returnUrl, [FromServices] IExternalLoginUseCase useCase)
     {
         var authenticate = await Request.HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);

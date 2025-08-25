@@ -30,6 +30,12 @@ public class MusicReadOnlyRepositoryBuilder
                 It.IsAny<string>())).ReturnsAsync(true);
     }
 
+    public MusicReadOnlyRepositoryBuilder Search(User user, Music music)
+    {
+        _repository.Setup(r => r.Search(user, music.Name)).ReturnsAsync(new List<Music> { music });
+        return this;
+    }
+
     public IMusicReadOnlyRepository Build()
     {
         return _repository.Object;
