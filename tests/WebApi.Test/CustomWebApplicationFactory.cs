@@ -44,6 +44,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     public string GetEmail() => _user.Email;
     public string GetPassword() => _password;
     public string GetName() => _user.Name;
+    public string GetMusicName() => _music.Name;    
     public Guid GetUserIdentifier() => _user.UserIdentifier; 
 
     private void StartDataBase(MyMusicLibraryDbContext dbContext)
