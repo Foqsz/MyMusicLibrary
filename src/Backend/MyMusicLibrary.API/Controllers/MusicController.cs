@@ -3,6 +3,7 @@ using MyMusicLibrary.API.Attributes;
 using MyMusicLibrary.Application.UseCases.Music.Delete;
 using MyMusicLibrary.Application.UseCases.Music.GetById;
 using MyMusicLibrary.Application.UseCases.Music.Register;
+using MyMusicLibrary.Application.UseCases.Music.Search;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
 
@@ -23,6 +24,22 @@ public class MusicController : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpGet]
+    [Route("search")]
+    [ProducesResponseType(typeof(ResponseRegisteredMusicJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> SearchMusic([FromServices] ISearchMusicUseCase useCase, string name)
+    {
+        var result = await useCase.Execute(name); 
+
+        if(result.Musics.Count == 0)
+            return BadRequest();
+
+        return Ok(result);
+    }
+
 
 
     [HttpPost]
