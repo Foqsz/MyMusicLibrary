@@ -26,7 +26,7 @@ public class RegisterMusicUseCase : IRegisterMusicUseCase
         _musicWriteOnlyRepository = musicWriteOnlyRepository;
     }
 
-    public async Task<ResponseRegisteredMusicJson> Execute(RequestMusicJson request)
+    public async Task<ResponseProfileMusicJson> Execute(RequestMusicJson request)
     {
         await Validate(request);
 
@@ -53,7 +53,7 @@ public class RegisterMusicUseCase : IRegisterMusicUseCase
 
         await _unitOfWork.Commit();
 
-        return new ResponseRegisteredMusicJson
+        return new ResponseProfileMusicJson
         {
             Name = music.Name,
             Album = music.Album,

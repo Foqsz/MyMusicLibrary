@@ -15,7 +15,7 @@ public class MusicController : ControllerBase
 {
     [HttpGet]
     [Route("{id}")]
-    [ProducesResponseType(typeof(ResponseRegisteredMusicJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseProfileMusicJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> GetMusicById([FromServices] IGetMusicByIdUseCase useCase, int id)
@@ -27,7 +27,7 @@ public class MusicController : ControllerBase
 
     [HttpGet]
     [Route("search")]
-    [ProducesResponseType(typeof(ResponseRegisteredMusicJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseProfileMusicJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> SearchMusic([FromServices] ISearchMusicUseCase useCase, string name)
@@ -40,10 +40,8 @@ public class MusicController : ControllerBase
         return Ok(result);
     }
 
-
-
     [HttpPost]
-    [ProducesResponseType(typeof(ResponseRegisteredMusicJson), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseProfileMusicJson), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register([FromServices] IRegisterMusicUseCase useCase, [FromBody] RequestMusicJson request)
     {

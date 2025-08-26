@@ -1,5 +1,5 @@
 ﻿namespace MyMusicLibrary.Communication.Responses;
 public class ResponseMusicsJson
 {
-    public IList<ResponseRegisteredMusicJson> Musics { get; set; } = [];
+    public IList<ResponseProfileMusicJson> Musics { get; set; } = [];
 }

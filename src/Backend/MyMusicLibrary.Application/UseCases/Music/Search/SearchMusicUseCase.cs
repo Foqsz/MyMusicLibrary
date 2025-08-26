@@ -30,7 +30,7 @@ public class SearchMusicUseCase : ISearchMusicUseCase
         if (searchMusic is null)
             throw new ExistMusicException(ResourceMessagesException.MUSIC_EMPTY);
 
-        var responseMusics = _mapper.Map<IList<ResponseRegisteredMusicJson>>(searchMusic);
+        var responseMusics = _mapper.Map<IList<ResponseProfileMusicJson>>(searchMusic);
 
         return new ResponseMusicsJson
         {

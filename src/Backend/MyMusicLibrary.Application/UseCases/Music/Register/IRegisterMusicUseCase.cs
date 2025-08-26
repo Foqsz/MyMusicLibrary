@@ -4,5 +4,5 @@ using MyMusicLibrary.Communication.Responses;
 namespace MyMusicLibrary.Application.UseCases.Music.Register;
 public interface IRegisterMusicUseCase
 {
-    Task<ResponseRegisteredMusicJson> Execute(RequestMusicJson request);
+    Task<ResponseProfileMusicJson> Execute(RequestMusicJson request);
 }

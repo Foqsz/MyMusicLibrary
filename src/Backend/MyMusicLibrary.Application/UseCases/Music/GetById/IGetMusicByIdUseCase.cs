@@ -3,5 +3,5 @@
 namespace MyMusicLibrary.Application.UseCases.Music.GetById;
 public interface IGetMusicByIdUseCase
 {
-    Task<ResponseRegisteredMusicJson> Execute(int id);   
+    Task<ResponseProfileMusicJson> Execute(int id);   
 }
