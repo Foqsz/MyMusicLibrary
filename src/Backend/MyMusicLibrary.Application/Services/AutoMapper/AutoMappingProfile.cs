@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
+using MyMusicLibrary.Domain.Dtos;
 
 namespace MyMusicLibrary.Application.Services.AutoMapper;
 public class AutoMappingProfile : Profile
@@ -26,9 +27,18 @@ public class AutoMappingProfile : Profile
 
     private void DomainResponse()
     {
-        CreateMap<Domain.Entities.Music, ResponseRegisteredMusicJson>()
+        CreateMap<Domain.Entities.Music, ResponseProfileMusicJson>()
             .ForMember(dest => dest.Artist, opt => opt.MapFrom(src =>
                 string.Join(", ", src.Artist.Select(a => a.Name))));
+
+        CreateMap<Domain.Entities.Music, MusicDto>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))  
+            .ForMember(dest => dest.Album, opt => opt.MapFrom(src => src.Album));
+
+        CreateMap<Domain.Entities.Artist, ResponseProfileArtistJson>()
+            .ForMember(dest => dest.Music, opt => opt.MapFrom(src => src.Music != null
+                ? new List<Domain.Entities.Music> { src.Music }
+                : new List<Domain.Entities.Music>())); //se existe mais de uma musica, retorno uma lista, se nao, retorno uma lista vazia
 
         CreateMap<Domain.Entities.User, ResponseDataUser>().ReverseMap();
 
