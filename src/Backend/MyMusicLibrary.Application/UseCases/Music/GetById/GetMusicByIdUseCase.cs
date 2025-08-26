@@ -17,13 +17,13 @@ public class GetMusicByIdUseCase : IGetMusicByIdUseCase
         _logged = logged;
     }
 
-    public async Task<ResponseRegisteredMusicJson> Execute(int id)
+    public async Task<ResponseProfileMusicJson> Execute(int id)
     {
         var user = await _logged.User();
 
         var music = await _repository.GetById(user, id);
 
-        return music is null ? throw new NotFoundException(ResourceMessagesException.MUSIC_EMPTY) : new ResponseRegisteredMusicJson
+        return music is null ? throw new NotFoundException(ResourceMessagesException.MUSIC_EMPTY) : new ResponseProfileMusicJson
         {
             Album = music.Album,
             Name = music.Name,

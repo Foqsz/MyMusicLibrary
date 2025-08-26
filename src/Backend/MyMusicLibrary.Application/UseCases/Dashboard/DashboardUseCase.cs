@@ -24,7 +24,7 @@ public class DashboardUseCase : IDashboardUseCase
 
         var musics = await _dashboardReadOnlyRepository.GetForDashboard(userInfo);
 
-        var responseMusics = _mapper.Map<IList<ResponseRegisteredMusicJson>>(musics);
+        var responseMusics = _mapper.Map<IList<ResponseProfileMusicJson>>(musics);
 
         return new ResponseMusicsJson
         {
