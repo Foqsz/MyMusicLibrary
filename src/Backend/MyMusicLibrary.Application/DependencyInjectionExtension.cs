@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MyMusicLibrary.Application.Services.AutoMapper;
+using MyMusicLibrary.Application.UseCases.Artist;
 using MyMusicLibrary.Application.UseCases.Dashboard;
 using MyMusicLibrary.Application.UseCases.DashBoard;
 using MyMusicLibrary.Application.UseCases.Music.Delete;
@@ -45,5 +46,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUserChangePasswordUseCase, UserChangePasswordUseCase>();
         services.AddScoped<IExternalLoginUseCase,  ExternalLoginUseCase>();
         services.AddScoped<ISearchMusicUseCase, SearchMusicUseCase>();
+        services.AddScoped<ISearchArtistUseCase, SearchArtistUseCase>();
     }  
 }
