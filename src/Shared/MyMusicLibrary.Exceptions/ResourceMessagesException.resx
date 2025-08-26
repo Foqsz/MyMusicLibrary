@@ -123,6 +123,9 @@
   <data name="ARTIST_EMPTY" xml:space="preserve">
     <value>Artist album cannot be empty.</value>
   </data>
+  <data name="ARTIST_NOTFOUND" xml:space="preserve">
+    <value>No artist or band with that name was found.</value>
+  </data>
   <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
     <value>E-mail is already registered.</value>
   </data>

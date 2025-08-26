@@ -79,6 +79,15 @@ namespace MyMusicLibrary.Exceptions {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to No artist or band with that name was found..
+        /// </summary>
+        public static string ARTIST_NOTFOUND {
+            get {
+                return ResourceManager.GetString("ARTIST_NOTFOUND", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to E-mail is already registered..
         /// </summary>
         public static string EMAIL_ALREADY_REGISTERED {

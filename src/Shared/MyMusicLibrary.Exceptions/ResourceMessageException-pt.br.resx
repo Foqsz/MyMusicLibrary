@@ -123,6 +123,9 @@
   <data name="ARTIST_EMPTY" xml:space="preserve">
     <value>O nome do artista não pode ser vazio. </value>
   </data>
+  <data name="ARTIST_NOTFOUND" xml:space="preserve">
+    <value>Nenhum artista ou banda com esse nome foi encontrado.</value>
+  </data>
   <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
     <value>E-mail já está registrado.</value>
   </data>
