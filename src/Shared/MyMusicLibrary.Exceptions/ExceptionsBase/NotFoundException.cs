@@ -3,7 +3,7 @@
 namespace MyMusicLibrary.Exceptions.ExceptionsBase;
 public class NotFoundException : MyMusicLibraryException
 {
-    public NotFoundException(string message) : base(ResourceMessagesException.MUSIC_EMPTY)
+    public NotFoundException(string message) : base(message)
     {
     }
 
