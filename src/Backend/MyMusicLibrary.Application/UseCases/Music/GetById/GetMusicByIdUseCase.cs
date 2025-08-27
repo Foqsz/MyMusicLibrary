@@ -17,7 +17,7 @@ public class GetMusicByIdUseCase : IGetMusicByIdUseCase
         _logged = logged;
     }
 
-    public async Task<ResponseProfileMusicJson> Execute(int id)
+    public async Task<ResponseProfileMusicJson> Execute(long id)
     {
         var user = await _logged.User();
 
