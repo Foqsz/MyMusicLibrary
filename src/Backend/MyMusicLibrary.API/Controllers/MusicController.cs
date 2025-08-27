@@ -18,7 +18,7 @@ public class MusicController : ControllerBase
     [ProducesResponseType(typeof(ResponseProfileMusicJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> GetMusicById([FromServices] IGetMusicByIdUseCase useCase, int id)
+    public async Task<IActionResult> GetMusicById([FromServices] IGetMusicByIdUseCase useCase, long id)
     {
         var result = await useCase.Execute(id); 
 

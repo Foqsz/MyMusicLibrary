@@ -12,7 +12,6 @@ public class ArtistController : ControllerBase
     [HttpGet]
     [Route("search")]
     [ProducesResponseType(typeof(ResponseProfileArtistJson), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> SearchArtist([FromServices] ISearchArtistUseCase useCase, string name)
@@ -20,7 +19,7 @@ public class ArtistController : ControllerBase
         var result = await useCase.Execute(name); 
 
         if(result.Count == 0)
-            return BadRequest();
+            return NotFound();
 
         return Ok(result);
     }
