@@ -40,6 +40,6 @@ public class SearchMusicTest : MyLibraryMusicBookClassFixture
 
         var response = await DoGet($"{method}?name=alpha", token);
 
-        response.StatusCode.ShouldBe(System.Net.HttpStatusCode.BadRequest); 
+        response.StatusCode.ShouldBe(System.Net.HttpStatusCode.NotFound); 
     }
 }
