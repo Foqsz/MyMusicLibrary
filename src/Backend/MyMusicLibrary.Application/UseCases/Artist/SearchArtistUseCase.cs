@@ -24,7 +24,7 @@ public class SearchArtistUseCase : ISearchArtistUseCase
 
         var artists = await _artistRepository.SearchArtist(user, name);
 
-        if (artists is null)
+        if (artists is null || artists.Count == 0)
             throw new NotFoundException(ResourceMessagesException.ARTIST_NOTFOUND);
 
         var response = _mapper.Map<IList<ResponseProfileArtistJson>>(artists);

@@ -27,8 +27,8 @@ public class SearchMusicUseCase : ISearchMusicUseCase
 
         var searchMusic = await _musicReadOnlyRepository.Search(user, name);
 
-        if (searchMusic is null)
-            throw new ExistMusicException(ResourceMessagesException.MUSIC_EMPTY);
+        if (searchMusic is null || searchMusic.Count == 0)
+            throw new NotFoundException(ResourceMessagesException.MUSIC_EMPTY);
 
         var responseMusics = _mapper.Map<IList<ResponseProfileMusicJson>>(searchMusic);
 

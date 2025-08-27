@@ -29,7 +29,7 @@ public class SearchMusicUseCaseTest
     }
 
     [Fact]
-    public async Task Error_Music_NotExist()
+    public async Task Error_Music_NotFound()
     {
         (var user, var _) = UserBuilder.Build();
 
@@ -42,7 +42,7 @@ public class SearchMusicUseCaseTest
             await useCase.Execute("musica");
         };
 
-        var exception = await act.ShouldThrowAsync<ExistMusicException>();
+        var exception = await act.ShouldThrowAsync<NotFoundException>();
         exception.Message.ShouldBe(ResourceMessagesException.MUSIC_EMPTY);
     }
 

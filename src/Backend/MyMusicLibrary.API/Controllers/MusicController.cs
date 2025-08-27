@@ -28,14 +28,14 @@ public class MusicController : ControllerBase
     [HttpGet]
     [Route("search")]
     [ProducesResponseType(typeof(ResponseProfileMusicJson), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> SearchMusic([FromServices] ISearchMusicUseCase useCase, string name)
     {
         var result = await useCase.Execute(name); 
 
         if(result.Musics.Count == 0)
-            return BadRequest();
+            return NotFound();
 
         return Ok(result);
     }
