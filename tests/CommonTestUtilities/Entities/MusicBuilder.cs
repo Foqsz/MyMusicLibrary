@@ -27,12 +27,10 @@ public class MusicBuilder
     public static Music Build(User user)
     {
         return new Faker<Music>()
-            .RuleFor(m => m.Id, _ => 1)
             .RuleFor(m => m.Name, f => f.Lorem.Sentence(2))
             .RuleFor(m => m.Album, f => f.Lorem.Word())
             .RuleFor(m => m.Artist, f => f.Make(1, () => new Artist
             {
-                Id = 1,
                 Name = f.Person.FullName,
                 Genre = f.Lorem.Word(), 
                 MusicId = 1
