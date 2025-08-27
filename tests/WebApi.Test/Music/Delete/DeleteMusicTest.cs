@@ -9,32 +9,30 @@ public class DeleteMusicTest : MyLibraryMusicBookClassFixture
 {
     private readonly string method = "music";
     private readonly Guid _userIdentifier;
+    private readonly long _musicId;
 
     public DeleteMusicTest(CustomWebApplicationFactory factory) : base(factory)
     {
         _userIdentifier = factory.GetUserIdentifier();
+        _musicId = factory.GetMusicId();
     }
 
     [Fact]
     public async Task Success()
     {
-        (var user, var _) = UserBuilder.Build();
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
 
-        var music = MusicBuilder.Build(user);
-
-        var musicDelete = await DoDelete($"{method}/{music.Id}", token);
+        var musicDelete = await DoDelete($"{method}/{_musicId}", token);
 
         musicDelete.StatusCode.ShouldBe(HttpStatusCode.NoContent);
     }
 
     [Fact]
     public async Task Error_Music_Invalid_Id()
-    {
-        (var user, var _) = UserBuilder.Build();
+    { 
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier); 
 
-        var musicDelete = await DoDelete($"{method}/{2}", token);
+        var musicDelete = await DoDelete($"{method}/{1000}", token);
 
         musicDelete.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
     }

@@ -21,7 +21,7 @@ public class GetMusicByIdUseCaseTest
 
         Func<Task> act = async () =>
         {
-            await useCase.Execute(id: 1);
+            await useCase.Execute(id: music.Id);
         };
 
         await act.ShouldNotThrowAsync();
