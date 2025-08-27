@@ -140,8 +140,7 @@ html {
   border: none;
   border-radius: 6px;
   padding: 12px 20px;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 16px;  
   text-decoration: none;
   color: white;
   cursor: pointer;
@@ -190,14 +189,3 @@ footer {
   text-align: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
-
-/* @media (min-width: 37em) 
-{  
-  .header-nav img {
-    max-width: 50%;
-  }
-
-  .title {
-    color: red;
-  }
-} */
