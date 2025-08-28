@@ -31,7 +31,7 @@ public class SearchArtistTest : MyLibraryMusicBookClassFixture
     {
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
 
-        var response = await DoGet($"{method}?name={25}", token);
+        var response = await DoGet($"{method}?name=Juquinha", token);
 
         response.StatusCode.ShouldBe(System.Net.HttpStatusCode.NotFound);
     }

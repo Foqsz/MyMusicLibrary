@@ -1,5 +1,4 @@
-﻿using CommonTestUtilities.Entities;
-using CommonTestUtilities.Requests;
+﻿using CommonTestUtilities.Requests;
 using CommonTestUtilities.Tokens.Generator;
 using Shouldly;
 using System.Net;
@@ -42,5 +41,31 @@ public class RegisterMusicTest : MyLibraryMusicBookClassFixture
         var musicRegisterError = await DoPost(method, request, token);
 
         musicRegisterError.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task Error_Name_Empty()
+    {
+        var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
+
+        var request = RequestMusicJsonBuilder.Build();
+        request.Name = string.Empty;
+
+        var musicRegister = await DoPost(method, request, token);
+
+        musicRegister.StatusCode.ShouldBe(HttpStatusCode.BadRequest); 
+    }
+
+    [Fact]
+    public async Task Error_Album_Empty()
+    {
+        var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
+
+        var request = RequestMusicJsonBuilder.Build();
+        request.Album = string.Empty;
+
+        var musicRegister = await DoPost(method, request, token);
+
+        musicRegister.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
     }
 }
