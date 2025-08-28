@@ -42,6 +42,38 @@ public class RegisterMusicUseCaseTest
         exception.Message.ShouldBe(ResourceMessagesException.MUSIC_EXIST);
     }
 
+    [Fact]
+    public async Task Error_Name_Empty()
+    {
+        (var user, var _) = UserBuilder.Build();
+
+        var music = RequestMusicJsonBuilder.Build();
+        music.Name = string.Empty;
+
+        var useCase = CreateUseCase(user, music.Name, music.Album, musicExists: false);
+
+        Func<Task> act = async () => await useCase.Execute(music);
+        var exception = await act.ShouldThrowAsync<ErrorOnValidationException>();
+
+        exception.Message.ShouldBe(ResourceMessagesException.NAME_EMPTY);
+    }
+
+    [Fact]
+    public async Task Error_Album_Empty()
+    {
+        (var user, var _) = UserBuilder.Build();
+
+        var music = RequestMusicJsonBuilder.Build();
+        music.Album = string.Empty;
+
+        var useCase = CreateUseCase(user, music.Name, music.Album, musicExists: false);
+
+        Func<Task> act = async () => await useCase.Execute(music);
+        var exception = await act.ShouldThrowAsync<ErrorOnValidationException>();
+
+        exception.Message.ShouldBe(ResourceMessagesException.ALBUM_EMPTY);
+    }
+
     private static RegisterMusicUseCase CreateUseCase(MyMusicLibrary.Domain.Entities.User user, string? musicName = null, string? album = null, bool musicExists = false)
     {
         var repositoryReadOnly = new MusicReadOnlyRepositoryBuilder();

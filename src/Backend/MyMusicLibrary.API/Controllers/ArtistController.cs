@@ -18,9 +18,6 @@ public class ArtistController : ControllerBase
     {
         var result = await useCase.Execute(name); 
 
-        if(result.Count == 0)
-            return NotFound();
-
         return Ok(result);
     }
 }

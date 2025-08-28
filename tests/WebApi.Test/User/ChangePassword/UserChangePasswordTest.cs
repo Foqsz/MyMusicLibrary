@@ -52,4 +52,35 @@ public class UserChangePasswordTest : MyLibraryMusicBookClassFixture
         var userUpdate = await DoPut(method: METHOD, userChangePassword, token);
         userUpdate.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
     }
+
+    [Theory]
+    [InlineData("1")]
+    [InlineData("2")]
+    [InlineData("3")]
+    [InlineData("4")]
+    [InlineData("5")]
+    public async Task Error_Invalid_Lenght_Password(string passwordLenght)
+    {
+        var userChangePassword = RequestUserChangePasswordBuilder.Build();
+        userChangePassword.CurrentPassword = _password;
+        userChangePassword.NewPassword = passwordLenght;
+
+        var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
+
+        var userUpdate = await DoPut(method: METHOD, userChangePassword, token);
+        userUpdate.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task Error_Empty_Password()
+    {
+        var userChangePassword = RequestUserChangePasswordBuilder.Build();
+        userChangePassword.CurrentPassword = _password;
+        userChangePassword.NewPassword = "";
+
+        var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
+
+        var userUpdate = await DoPut(method: METHOD, userChangePassword, token);
+        userUpdate.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+    }
 }
