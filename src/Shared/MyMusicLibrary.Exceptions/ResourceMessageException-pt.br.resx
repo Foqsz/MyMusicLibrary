@@ -162,6 +162,18 @@
   <data name="PASSWORD_INVALID" xml:space="preserve">
     <value>Senha inválida.</value>
   </data>
+  <data name="PLAYLIST_CREATE_ERROR" xml:space="preserve">
+    <value>Erro na criação da playlist.</value>
+  </data>
+  <data name="PLAYLIST_DESCRIPTION_TOO_LONG" xml:space="preserve">
+    <value>A descrição da playlist deve conter até 500 caracteres.</value>
+  </data>
+  <data name="PLAYLIST_NAME_EMPTY" xml:space="preserve">
+    <value>O nome da playlist não pode ser vazio.</value>
+  </data>
+  <data name="PLAYLIST_NAME_TOO_LONG" xml:space="preserve">
+    <value>O nome da playlist deve ser até 100 caracteres.</value>
+  </data>
   <data name="SAME_PASSWORD_ERROR" xml:space="preserve">
     <value>A nova senha não pode ser igual à atual.</value>
   </data>
