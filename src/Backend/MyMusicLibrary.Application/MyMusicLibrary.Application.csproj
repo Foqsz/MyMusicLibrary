@@ -23,4 +23,8 @@
     <ProjectReference Include="..\MyMusicLibrary.Domain\MyMusicLibrary.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UseCases\Playlist\Delete\" />
+  </ItemGroup>
+
 </Project>
