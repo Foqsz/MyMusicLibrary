@@ -23,6 +23,9 @@ public class AutoMappingProfile : Profile
             .ForMember(dest => dest.Music, opt => opt.Ignore());
 
         CreateMap<RequestUpdateUserJson, Domain.Entities.User>();
+
+        CreateMap<RequestCreatePlaylistJson, Domain.Entities.Playlist>()
+            .ForMember(dest => dest.UserId, opt => opt.Ignore());
     }
 
     private void DomainResponse()
@@ -47,5 +50,7 @@ public class AutoMappingProfile : Profile
                 string.Join(", ", src.Artist.Select(a => a.Name))));
 
         CreateMap<Domain.Entities.User, ResponseUpdateUserJson>().ReverseMap();
+
+        CreateMap<Domain.Entities.Playlist, ResponsePlaylistJson>();
     }
 }
