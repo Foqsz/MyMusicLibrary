@@ -1,0 +1,62 @@
+﻿using AutoMapper;
+using MyMusicLibrary.Communication.Request;
+using MyMusicLibrary.Communication.Responses;
+using MyMusicLibrary.Domain.Extensions;
+using MyMusicLibrary.Domain.Repositories.Playlist;
+using MyMusicLibrary.Domain.Repositories.UnitOfWork;
+using MyMusicLibrary.Domain.Services.LoggedUser;
+using MyMusicLibrary.Exceptions;
+using MyMusicLibrary.Exceptions.ExceptionsBase;
+
+namespace MyMusicLibrary.Application.UseCases.Playlist.Create;
+public class CreatePlaylistUseCase : ICreatePlaylistUseCase
+{
+    private readonly ILoggedUser _loggedUser;
+    private readonly IMapper _mapper;
+    private readonly IPlaylistWriteOnlyRepository _repositoryWriteOnly;
+    private readonly IUnitOfWork _unitOfWork;
+
+    public CreatePlaylistUseCase(ILoggedUser loggedUser, IMapper mapper, IPlaylistWriteOnlyRepository repositoryWriteOnly, IUnitOfWork unitOfWork)
+    {
+        _loggedUser = loggedUser;
+        _mapper = mapper;
+        _repositoryWriteOnly = repositoryWriteOnly;
+        _unitOfWork = unitOfWork;
+    }
+
+    public async Task<ResponsePlaylistJson> CreatePlaylist(RequestCreatePlaylistJson request)
+    {
+        await Validate(request);
+
+        var user = await _loggedUser.User();
+
+        var playlist = _mapper.Map<Domain.Entities.Playlist>(request);
+        playlist.UserId = user.Id;
+
+        var createPlaylist = _repositoryWriteOnly.Create(user, playlist);
+
+        if(createPlaylist.IsCompletedSuccessfully)
+            await _unitOfWork.Commit();
+        else
+            throw new PlaylistException(ResourceMessagesException.PLAYLIST_CREATE_ERROR);
+
+        return new ResponsePlaylistJson()
+        {
+            Name = playlist.Name
+        };
+    }
+
+    private static async Task Validate(RequestCreatePlaylistJson request)
+    {
+        var validator = new CreatePlaylistValidator();
+
+        var validationResult = await validator.ValidateAsync(request);
+
+        if (validationResult.IsValid.IsFalse())
+        {
+            var errorMessages = validationResult.Errors.Select(e => e.ErrorMessage).ToList();
+
+            throw new ErrorOnValidationException(errorMessages);
+        }
+    }
+}
