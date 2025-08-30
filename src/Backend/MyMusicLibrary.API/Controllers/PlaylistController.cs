@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyMusicLibrary.API.Attributes;
 using MyMusicLibrary.Application.UseCases.Playlist.Create;
+using MyMusicLibrary.Application.UseCases.Playlist.Delete;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
 
@@ -16,7 +17,7 @@ public class PlaylistController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreatePlaylist([FromServices] ICreatePlaylistUseCase useCase, [FromBody] RequestCreatePlaylistJson request)
     {
-        var result = await useCase.CreatePlaylist(request);
+        var result = await useCase.Execute(request);
 
         return Created(string.Empty, result);
     }
@@ -25,9 +26,10 @@ public class PlaylistController : ControllerBase
     [Route("delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> DeletePlaylist([FromServices] IDeletePlaylistUseCase useCase, [FromQuery] int playlistId)
+    public async Task<IActionResult> DeletePlaylist([FromServices] IDeletePlaylistUseCase useCase, [FromQuery] long playlistId)
     {
-        await useCase.DeletePlaylist(playlistId);
+        await useCase.Execute(playlistId);
+
         return NoContent();
     }
 }

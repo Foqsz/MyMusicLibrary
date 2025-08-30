@@ -24,7 +24,7 @@ public class CreatePlaylistUseCase : ICreatePlaylistUseCase
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<ResponsePlaylistJson> CreatePlaylist(RequestCreatePlaylistJson request)
+    public async Task<ResponsePlaylistJson> Execute(RequestCreatePlaylistJson request)
     {
         await Validate(request);
 
