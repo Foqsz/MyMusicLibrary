@@ -32,10 +32,7 @@ public class MusicController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> SearchMusic([FromServices] ISearchMusicUseCase useCase, string name)
     {
-        var result = await useCase.Execute(name); 
-
-        if(result.Musics.Count == 0)
-            return NotFound();
+        var result = await useCase.Execute(name);
 
         return Ok(result);
     }

@@ -1,8 +1,4 @@
-﻿using CommonTestUtilities.Cryptografhy;
-using CommonTestUtilities.Entities;
-using CommonTestUtilities.Repositores;
-using CommonTestUtilities.Tokens.Generator;
-using MyMusicLibrary.Application.UseCases.User.DoLogin;
+﻿using CommonTestUtilities.Tokens.Generator;
 using Shouldly;
 using System.Text.Json;
 using Xunit;
@@ -33,5 +29,5 @@ public class GetDashboardTest : MyLibraryMusicBookClassFixture
         var responseData = await JsonDocument.ParseAsync(responseBody);
 
         responseData.RootElement.GetProperty("musics").GetArrayLength().ShouldBeGreaterThan(0);
-    } 
+    }
 }
