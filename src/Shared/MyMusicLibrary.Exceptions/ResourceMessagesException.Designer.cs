@@ -29,7 +29,7 @@ namespace MyMusicLibrary.Exceptions {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public ResourceMessagesException() {
+        internal ResourceMessagesException() {
         }
         
         /// <summary>
@@ -228,6 +228,15 @@ namespace MyMusicLibrary.Exceptions {
         public static string PLAYLIST_NAME_TOO_LONG {
             get {
                 return ResourceManager.GetString("PLAYLIST_NAME_TOO_LONG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Playlist notfound..
+        /// </summary>
+        public static string PLAYLIST_NOTFOUND {
+            get {
+                return ResourceManager.GetString("PLAYLIST_NOTFOUND", resourceCulture);
             }
         }
         
