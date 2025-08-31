@@ -3,7 +3,7 @@ using MyMusicLibrary.Domain.Extensions;
 using MyMusicLibrary.Domain.Repositories.Playlist;
 
 namespace MyMusicLibrary.Infrastructure.DataAccess.Repositories.Playlist;
-public class PlaylistWriteOnlyRepository : IPlaylistWriteOnlyRepository
+public class PlaylistWriteOnlyRepository : IPlaylistWriteOnlyRepository, IDeletePlaylistRepository
 {
     private readonly MyMusicLibraryDbContext _dbContext;
 
@@ -13,4 +13,16 @@ public class PlaylistWriteOnlyRepository : IPlaylistWriteOnlyRepository
     }
 
     public async Task Create(Domain.Entities.User user, Domain.Entities.Playlist request) => await _dbContext.Playlist.AddAsync(request);
+
+    public async Task Delete(Domain.Entities.User user, long playlistId)
+    {
+        var playlist = await _dbContext.Playlist
+            .Where(p => p.UserId == user.Id && user.Active && p.Id == playlistId)
+            .FirstOrDefaultAsync();
+
+        if (playlist is null)
+            return;
+
+        _dbContext.Playlist.Remove(playlist);
+    }
 }
