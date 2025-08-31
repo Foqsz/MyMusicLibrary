@@ -52,6 +52,8 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUpdateUserRepository , UserWriteOnlyRepository>();
         services.AddScoped<IArtistReadOnlyRepository, ArtistReadOnlyRepository>();
         services.AddScoped<IPlaylistWriteOnlyRepository, PlaylistWriteOnlyRepository>();
+        services.AddScoped<IPlaylistReadOnlyRepository, PlaylistReadOnlyRepository>();
+        services.AddScoped<IDeletePlaylistRepository, PlaylistWriteOnlyRepository>();
     }
 
     private static void AddPasswordsEncripter(IServiceCollection services)
