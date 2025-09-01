@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MyMusicLibrary.Domain.Entities;
 using MyMusicLibrary.Infrastructure.DataAccess;
 
 
@@ -12,6 +13,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     private MyMusicLibrary.Domain.Entities.User _user = default!;
     private MyMusicLibrary.Domain.Entities.Music _music = default!;
     private MyMusicLibrary.Domain.Entities.Artist _artist = default!;
+    private MyMusicLibrary.Domain.Entities.Playlist _playlist = default!;
 
     private string _password = string.Empty;
 
@@ -49,16 +51,19 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     public string GetArtistName() => _artist.Name;
     public long GetMusicId() => _music.Id;
     public Guid GetUserIdentifier() => _user.UserIdentifier; 
+    public long GetPlaylistId() => _playlist.Id;
 
     private void StartDataBase(MyMusicLibraryDbContext dbContext)
     {
         (_user, _password) = UserBuilder.Build(); 
         _music = MusicBuilder.Build(_user); 
         _artist = ArtistBuilder.Builder(_user);
+        _playlist = PlaylistBuilder.Build(_user);
 
         dbContext.Users.Add(_user); 
         dbContext.Music.Add(_music); 
         dbContext.Artist.Add(_artist);
+        dbContext.Playlist.Add(_playlist);
         dbContext.SaveChanges();
     }
 
