@@ -32,10 +32,8 @@ public class DeletePlaylistUseCase : IDeletePlaylistUseCase
 
         if (playlist is null)
             throw new PlaylistException(ResourceMessagesException.PLAYLIST_NOTFOUND);
-        else
-        {
-            await _repository.Delete(user, playlistId);
-            await _unitOfWork.Commit();
-        }
+
+        await _repository.Delete(user, playlistId);
+        await _unitOfWork.Commit();
     }
 }

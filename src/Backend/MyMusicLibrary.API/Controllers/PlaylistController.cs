@@ -25,7 +25,7 @@ public class PlaylistController : ControllerBase
     [HttpDelete]
     [Route("delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeletePlaylist([FromServices] IDeletePlaylistUseCase useCase, [FromQuery] long playlistId)
     {
         await useCase.Execute(playlistId);
