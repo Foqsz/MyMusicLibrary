@@ -7,5 +7,5 @@ public class PlaylistException : MyMusicLibraryException
     {
     }
     public override IList<string> GetErrorMessages() => [Message];
-    public override HttpStatusCode GetStatusCode() => HttpStatusCode.BadRequest;
+    public override HttpStatusCode GetStatusCode() => HttpStatusCode.NotFound;
 }
