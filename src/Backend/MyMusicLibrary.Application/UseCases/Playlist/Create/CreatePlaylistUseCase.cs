@@ -5,7 +5,6 @@ using MyMusicLibrary.Domain.Extensions;
 using MyMusicLibrary.Domain.Repositories.Playlist;
 using MyMusicLibrary.Domain.Repositories.UnitOfWork;
 using MyMusicLibrary.Domain.Services.LoggedUser;
-using MyMusicLibrary.Exceptions;
 using MyMusicLibrary.Exceptions.ExceptionsBase;
 
 namespace MyMusicLibrary.Application.UseCases.Playlist.Create;
@@ -33,12 +32,9 @@ public class CreatePlaylistUseCase : ICreatePlaylistUseCase
         var playlist = _mapper.Map<Domain.Entities.Playlist>(request);
         playlist.UserId = user.Id;
 
-        var createPlaylist = _repositoryWriteOnly.Create(user, playlist);
+        await _repositoryWriteOnly.Create(user, playlist);
 
-        if(createPlaylist.IsCompletedSuccessfully)
-            await _unitOfWork.Commit();
-        else
-            throw new PlaylistException(ResourceMessagesException.PLAYLIST_CREATE_ERROR);
+        await _unitOfWork.Commit();
 
         return new ResponsePlaylistJson()
         {
