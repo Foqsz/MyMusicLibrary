@@ -259,6 +259,15 @@ namespace MyMusicLibrary.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No changes made..
+        /// </summary>
+        public static string UPDATE_ERROR {
+            get {
+                return ResourceManager.GetString("UPDATE_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to update. Email already in use..
         /// </summary>
         public static string UPDATE_INVALID {
