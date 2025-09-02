@@ -1,15 +1,13 @@
 ﻿using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Repositores;
-using CommonTestUtilities.Requests;
 using MyMusicLibrary.Application.UseCases.Playlist.Delete;
-using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Exceptions;
 using MyMusicLibrary.Exceptions.ExceptionsBase;
 using Shouldly;
 using Xunit;
 
-namespace UseCases.Test.Playlist;
+namespace UseCases.Test.Playlist.Delete;
 public class DeletePlaylistUseCaseTest
 {
     [Fact]

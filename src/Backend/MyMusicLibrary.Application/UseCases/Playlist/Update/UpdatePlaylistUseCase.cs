@@ -43,7 +43,7 @@ public class UpdatePlaylistUseCase : IUpdatePlaylistUseCase
             throw new PlaylistException(ResourceMessagesException.PLAYLIST_NOTFOUND);
 
         if(playlist.Name == request.Name && playlist.Description == request.Description)
-            throw new PlaylistException(ResourceMessagesException.UPDATE_ERROR);
+            throw new InvalidUpdateException(ResourceMessagesException.UPDATE_ERROR);
 
         playlist.Name = request.Name;
         playlist.Description = request.Description;

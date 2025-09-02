@@ -3,7 +3,7 @@
 namespace MyMusicLibrary.Exceptions.ExceptionsBase;
 public class InvalidUpdateException : MyMusicLibraryException
 {
-    public InvalidUpdateException(string message) : base(ResourceMessagesException.UPDATE_INVALID)
+    public InvalidUpdateException(string message) : base(message)
     {
     }
 

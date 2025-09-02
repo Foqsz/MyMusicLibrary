@@ -2,7 +2,7 @@
 using Shouldly;
 using Xunit;
 
-namespace WebApi.Test.Playlist;
+namespace WebApi.Test.Playlist.Delete;
 public class DeletePlaylistTest : MyLibraryMusicBookClassFixture
 {
     private const string method = "Playlist/delete";

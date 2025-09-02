@@ -35,12 +35,16 @@ public class PlaylistController : ControllerBase
     }
 
     [HttpPut]
-    [Route("{id}")]
+    [Route("{id:long}")]
     [ProducesResponseType(typeof(ResponsePlaylistJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdatePlaylist([FromServices] IUpdatePlaylistUseCase useCase, [FromBody] RequestFromPlaylistJson request, long id)
     {
         var result = await useCase.Execute(id, request);
+
+        if(result is null)
+            return BadRequest();
 
         return Ok(result);
     }
