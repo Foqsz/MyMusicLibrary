@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyMusicLibrary.Domain.Extensions;
 using MyMusicLibrary.Domain.Repositories.Playlist;
 
 namespace MyMusicLibrary.Infrastructure.DataAccess.Repositories.Playlist;
@@ -24,5 +23,10 @@ public class PlaylistWriteOnlyRepository : IPlaylistWriteOnlyRepository, IDelete
             return;
 
         _dbContext.Playlist.Remove(playlist);
+    }
+
+    public void Update(Domain.Entities.User user, Domain.Entities.Playlist playlist)
+    {
+        _dbContext.Playlist.Update(playlist); 
     }
 }

@@ -4,5 +4,5 @@ using MyMusicLibrary.Communication.Responses;
 namespace MyMusicLibrary.Application.UseCases.Playlist.Create;
 public interface ICreatePlaylistUseCase
 {
-    Task<ResponsePlaylistJson> Execute(RequestCreatePlaylistJson request);
+    Task<ResponsePlaylistJson> Execute(RequestFromPlaylistJson request);
 }

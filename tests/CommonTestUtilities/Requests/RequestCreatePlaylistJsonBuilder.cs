@@ -4,9 +4,9 @@ using MyMusicLibrary.Communication.Request;
 namespace CommonTestUtilities.Requests;
 public class RequestCreatePlaylistJsonBuilder
 {
-    public static RequestCreatePlaylistJson Build()
+    public static RequestFromPlaylistJson Build()
     {
-        return new Faker<RequestCreatePlaylistJson>() 
+        return new Faker<RequestFromPlaylistJson>() 
             .RuleFor(playlist => playlist.Name, (f) => f.Lorem.Word())
             .RuleFor(playlist => playlist.Description, (f) => f.Lorem.Sentence());
     }

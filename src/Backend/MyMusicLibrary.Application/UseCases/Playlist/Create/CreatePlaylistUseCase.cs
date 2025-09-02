@@ -23,7 +23,7 @@ public class CreatePlaylistUseCase : ICreatePlaylistUseCase
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<ResponsePlaylistJson> Execute(RequestCreatePlaylistJson request)
+    public async Task<ResponsePlaylistJson> Execute(RequestFromPlaylistJson request)
     {
         await Validate(request);
 
@@ -42,7 +42,7 @@ public class CreatePlaylistUseCase : ICreatePlaylistUseCase
         };
     }
 
-    private static async Task Validate(RequestCreatePlaylistJson request)
+    private static async Task Validate(RequestFromPlaylistJson request)
     {
         var validator = new CreatePlaylistValidator();
 

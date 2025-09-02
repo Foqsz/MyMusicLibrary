@@ -2,6 +2,7 @@
 using MyMusicLibrary.API.Attributes;
 using MyMusicLibrary.Application.UseCases.Playlist.Create;
 using MyMusicLibrary.Application.UseCases.Playlist.Delete;
+using MyMusicLibrary.Application.UseCases.Playlist.Update;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
 
@@ -15,7 +16,7 @@ public class PlaylistController : ControllerBase
     [Route("create")]
     [ProducesResponseType(typeof(ResponsePlaylistJson), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreatePlaylist([FromServices] ICreatePlaylistUseCase useCase, [FromBody] RequestCreatePlaylistJson request)
+    public async Task<IActionResult> CreatePlaylist([FromServices] ICreatePlaylistUseCase useCase, [FromBody] RequestFromPlaylistJson request)
     {
         var result = await useCase.Execute(request);
 
@@ -31,5 +32,16 @@ public class PlaylistController : ControllerBase
         await useCase.Execute(playlistId);
 
         return NoContent();
+    }
+
+    [HttpPut]
+    [Route("{id}")]
+    [ProducesResponseType(typeof(ResponsePlaylistJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdatePlaylist([FromServices] IUpdatePlaylistUseCase useCase, [FromBody] RequestFromPlaylistJson request, long id)
+    {
+        var result = await useCase.Execute(id, request);
+
+        return Ok(result);
     }
 }

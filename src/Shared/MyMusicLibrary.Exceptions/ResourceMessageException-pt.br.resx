@@ -183,6 +183,9 @@
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Erro desconhecido.</value>
   </data>
+  <data name="UPDATE_ERROR" xml:space="preserve">
+    <value>Nenhuma alteração feita.</value>
+  </data>
   <data name="UPDATE_INVALID" xml:space="preserve">
     <value>Não foi possível atualizar. E-mail já utilizado.</value>
   </data>
