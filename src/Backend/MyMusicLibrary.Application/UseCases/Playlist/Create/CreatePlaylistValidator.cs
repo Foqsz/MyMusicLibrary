@@ -3,7 +3,7 @@ using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Exceptions;
 
 namespace MyMusicLibrary.Application.UseCases.Playlist.Create;
-public class CreatePlaylistValidator : AbstractValidator<RequestCreatePlaylistJson>
+public class CreatePlaylistValidator : AbstractValidator<RequestFromPlaylistJson>
 {
     public CreatePlaylistValidator()
     {
