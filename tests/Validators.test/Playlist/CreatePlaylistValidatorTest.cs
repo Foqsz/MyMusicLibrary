@@ -12,7 +12,7 @@ public class CreatePlaylistValidatorTest
     {
         var validate = new CreatePlaylistValidator();
 
-        var request = RequestCreatePlaylistJsonBuilder.Build();
+        var request = RequestFromPlaylistJsonBuilder.Build();
 
         var result = validate.Validate(request);
 
@@ -24,7 +24,7 @@ public class CreatePlaylistValidatorTest
     {
         var validate = new CreatePlaylistValidator();
 
-        var request = RequestCreatePlaylistJsonBuilder.Build();
+        var request = RequestFromPlaylistJsonBuilder.Build();
         request.Name = string.Empty;
 
         var result = validate.Validate(request);
@@ -38,7 +38,7 @@ public class CreatePlaylistValidatorTest
     {
         var validate = new CreatePlaylistValidator();
 
-        var request = RequestCreatePlaylistJsonBuilder.Build();
+        var request = RequestFromPlaylistJsonBuilder.Build();
         request.Name = new string('a', 101);
 
         var result = validate.Validate(request);
@@ -52,7 +52,7 @@ public class CreatePlaylistValidatorTest
     {
         var validate = new CreatePlaylistValidator();
 
-        var request = RequestCreatePlaylistJsonBuilder.Build();
+        var request = RequestFromPlaylistJsonBuilder.Build();
         request.Description = new string('a', 501);
 
         var result = validate.Validate(request);

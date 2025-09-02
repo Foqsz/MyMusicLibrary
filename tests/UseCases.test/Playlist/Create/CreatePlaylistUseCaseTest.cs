@@ -9,7 +9,7 @@ using MyMusicLibrary.Exceptions.ExceptionsBase;
 using Shouldly;
 using Xunit;
 
-namespace UseCases.Test.Playlist;
+namespace UseCases.Test.Playlist.Create;
 public class CreatePlaylistUseCaseTest
 {
     [Fact]
@@ -17,7 +17,7 @@ public class CreatePlaylistUseCaseTest
     {
         (var user, var _) = UserBuilder.Build();
 
-        var playlist = RequestCreatePlaylistJsonBuilder.Build(); 
+        var playlist = RequestFromPlaylistJsonBuilder.Build(); 
 
         var useCase = CreateUseCase(user, playlist.Name, playlist.Description);
 
@@ -32,7 +32,7 @@ public class CreatePlaylistUseCaseTest
     {
         (var user, var _) = UserBuilder.Build();
 
-        var playlist = RequestCreatePlaylistJsonBuilder.Build();
+        var playlist = RequestFromPlaylistJsonBuilder.Build();
         playlist.Name = string.Empty;
 
         var useCase = CreateUseCase(user, playlist.Name, playlist.Description);
@@ -48,7 +48,7 @@ public class CreatePlaylistUseCaseTest
     {
         (var user, var _) = UserBuilder.Build();
 
-        var playlist = RequestCreatePlaylistJsonBuilder.Build();
+        var playlist = RequestFromPlaylistJsonBuilder.Build();
         playlist.Name = new string('a', 101);  
 
         var useCase = CreateUseCase(user, playlist.Name, playlist.Description);
@@ -64,7 +64,7 @@ public class CreatePlaylistUseCaseTest
     {
         (var user, var _) = UserBuilder.Build();
 
-        var playlist = RequestCreatePlaylistJsonBuilder.Build();
+        var playlist = RequestFromPlaylistJsonBuilder.Build();
         playlist.Description = new string('a', 501);
 
         var useCase = CreateUseCase(user, playlist.Name, playlist.Description);

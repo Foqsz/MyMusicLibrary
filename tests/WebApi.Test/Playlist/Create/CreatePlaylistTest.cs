@@ -4,7 +4,7 @@ using MyMusicLibrary.Exceptions;
 using Shouldly;
 using Xunit;
 
-namespace WebApi.Test.Playlist;
+namespace WebApi.Test.Playlist.Create;
 public class CreatePlaylistTest : MyLibraryMusicBookClassFixture
 {
     private const string method = "/Playlist/create";
@@ -19,7 +19,7 @@ public class CreatePlaylistTest : MyLibraryMusicBookClassFixture
     {
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
 
-        var playlist = RequestCreatePlaylistJsonBuilder.Build();
+        var playlist = RequestFromPlaylistJsonBuilder.Build();
 
         var response = await DoPost(method, playlist, token);
 
@@ -33,7 +33,7 @@ public class CreatePlaylistTest : MyLibraryMusicBookClassFixture
     {
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
 
-        var playlist = RequestCreatePlaylistJsonBuilder.Build();
+        var playlist = RequestFromPlaylistJsonBuilder.Build();
         playlist.Name = new string('a', 101);
 
         var response = await DoPost(method, playlist, token);
@@ -49,7 +49,7 @@ public class CreatePlaylistTest : MyLibraryMusicBookClassFixture
     {
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
 
-        var playlist = RequestCreatePlaylistJsonBuilder.Build();
+        var playlist = RequestFromPlaylistJsonBuilder.Build();
         playlist.Name = string.Empty;
 
         var response = await DoPost(method, playlist, token);
@@ -65,7 +65,7 @@ public class CreatePlaylistTest : MyLibraryMusicBookClassFixture
     {
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
 
-        var playlist = RequestCreatePlaylistJsonBuilder.Build();
+        var playlist = RequestFromPlaylistJsonBuilder.Build();
         playlist.Description = new string('a', 501);
 
         var response = await DoPost(method, playlist, token);

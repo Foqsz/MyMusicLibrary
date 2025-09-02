@@ -2,7 +2,7 @@
 using MyMusicLibrary.Communication.Request;
 
 namespace CommonTestUtilities.Requests;
-public class RequestCreatePlaylistJsonBuilder
+public class RequestFromPlaylistJsonBuilder
 {
     public static RequestFromPlaylistJson Build()
     {
