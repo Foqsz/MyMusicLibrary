@@ -5,6 +5,7 @@ using MyMusicLibrary.Application.UseCases.Playlist.Delete;
 using MyMusicLibrary.Application.UseCases.Playlist.Update;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
+using MyMusicLibrary.Exceptions.ExceptionsBase;
 
 namespace MyMusicLibrary.API.Controllers;
 [Route("[controller]")]
@@ -41,11 +42,18 @@ public class PlaylistController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdatePlaylist([FromServices] IUpdatePlaylistUseCase useCase, [FromBody] RequestFromPlaylistJson request, long id)
     {
-        var result = await useCase.Execute(id, request);
-
-        if(result is null)
-            return BadRequest();
-
-        return Ok(result);
+        try
+        {
+            var result = await useCase.Execute(id, request);
+            return Ok(result);
+        }
+        catch (InvalidUpdateException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (PlaylistException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 }
