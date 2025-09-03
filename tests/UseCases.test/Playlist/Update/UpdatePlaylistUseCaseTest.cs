@@ -67,7 +67,6 @@ public class UpdatePlaylistUseCaseTest
         MyMusicLibrary.Domain.Entities.Playlist playlist)
     {
         var loggedUser = LoggedUserBuilder.Build(user);
-        var mapper = MapperBuilder.Build();
         var unitOfWork = UnitOfWorkBuilder.Build();
         var repositoryReadOnly = new PlaylistReadOnlyRepositoryBuilder();
         var repositoryWriteOnly = PlaylistWriteOnlyRepositoryBuilder.Build();
@@ -75,6 +74,6 @@ public class UpdatePlaylistUseCaseTest
         if(playlist is not null)
             repositoryReadOnly.GetById(user, playlist);
 
-        return new UpdatePlaylistUseCase(loggedUser, mapper, unitOfWork, repositoryReadOnly.Build(), repositoryWriteOnly);
+        return new UpdatePlaylistUseCase(loggedUser, unitOfWork, repositoryReadOnly.Build(), repositoryWriteOnly);
     }
 }
