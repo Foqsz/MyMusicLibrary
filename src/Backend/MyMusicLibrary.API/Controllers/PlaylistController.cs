@@ -2,9 +2,12 @@
 using MyMusicLibrary.API.Attributes;
 using MyMusicLibrary.Application.UseCases.Playlist.Create;
 using MyMusicLibrary.Application.UseCases.Playlist.Delete;
+using MyMusicLibrary.Application.UseCases.Playlist.GetPlaylistAll;
+using MyMusicLibrary.Application.UseCases.Playlist.GetPlaylistId;
 using MyMusicLibrary.Application.UseCases.Playlist.Update;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
+using MyMusicLibrary.Domain.Extensions;
 using MyMusicLibrary.Exceptions.ExceptionsBase;
 
 namespace MyMusicLibrary.API.Controllers;
@@ -13,6 +16,33 @@ namespace MyMusicLibrary.API.Controllers;
 [AuthenticatedUser]
 public class PlaylistController : ControllerBase
 {
+    [HttpGet]
+    [ProducesResponseType(typeof(ResponsePlaylistAllJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetPlaylistAll([FromServices] IGetPlaylistAllUseCase useCase)
+    {
+        var result = await useCase.Execute();
+
+        if (result.Playlists.Any())
+            return Ok(result);
+
+        return BadRequest();
+    }
+
+    [HttpGet]
+    [Route("{id:long}")]
+    [ProducesResponseType(typeof(ResponsePlaylistAllJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetPlaylist([FromServices] IGetPlaylistIdUseCase useCase, long id)
+    {
+        var result = await useCase.Execute(id);
+
+        if (result is null)
+            return NotFound();
+
+        return Ok(result);
+    }
+
     [HttpPost]
     [Route("create")]
     [ProducesResponseType(typeof(ResponsePlaylistJson), StatusCodes.Status201Created)]
