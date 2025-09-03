@@ -13,19 +13,16 @@ namespace MyMusicLibrary.Application.UseCases.Playlist.Update;
 public class UpdatePlaylistUseCase : IUpdatePlaylistUseCase
 {
     private readonly ILoggedUser _loggedUser;
-    private readonly IMapper _mapper; 
     private readonly IUnitOfWork _unitOfWork;
     private readonly IPlaylistReadOnlyRepository _repositoryReadOnly;
     private readonly IPlaylistWriteOnlyRepository _repositoryWriteOnly;
 
     public UpdatePlaylistUseCase(ILoggedUser loggedUser, 
-        IMapper mapper, 
         IUnitOfWork unitOfWork, 
         IPlaylistReadOnlyRepository repositoryReadOnly, 
         IPlaylistWriteOnlyRepository repositoryWriteOnly)
     {
         _loggedUser = loggedUser;
-        _mapper = mapper;
         _unitOfWork = unitOfWork;
         _repositoryReadOnly = repositoryReadOnly;
         _repositoryWriteOnly = repositoryWriteOnly;
@@ -48,8 +45,8 @@ public class UpdatePlaylistUseCase : IUpdatePlaylistUseCase
             throw new InvalidUpdateException(ResourceMessagesException.UPDATE_ERROR);
         }
 
-        playlist.Name = request.Name;
-        playlist.Description = request.Description;
+        playlist.Name = request.Name!;
+        playlist.Description = request.Description!;
 
         _repositoryWriteOnly.Update(user, playlist);
         await _unitOfWork.Commit();

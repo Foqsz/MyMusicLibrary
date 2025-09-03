@@ -38,7 +38,8 @@ public class CreatePlaylistUseCase : ICreatePlaylistUseCase
 
         return new ResponsePlaylistJson()
         {
-            Name = playlist.Name
+            Name = playlist.Name,
+            Description = playlist.Description
         };
     }
 

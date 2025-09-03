@@ -9,6 +9,8 @@ using MyMusicLibrary.Application.UseCases.Music.Register;
 using MyMusicLibrary.Application.UseCases.Music.Search;
 using MyMusicLibrary.Application.UseCases.Playlist.Create;
 using MyMusicLibrary.Application.UseCases.Playlist.Delete;
+using MyMusicLibrary.Application.UseCases.Playlist.GetPlaylistAll;
+using MyMusicLibrary.Application.UseCases.Playlist.GetPlaylistId;
 using MyMusicLibrary.Application.UseCases.Playlist.Update;
 using MyMusicLibrary.Application.UseCases.User.ChangePassword;
 using MyMusicLibrary.Application.UseCases.User.Data;
@@ -53,5 +55,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<ICreatePlaylistUseCase, CreatePlaylistUseCase>();
         services.AddScoped<IDeletePlaylistUseCase, DeletePlaylistUseCase>();
         services.AddScoped<IUpdatePlaylistUseCase, UpdatePlaylistUseCase>();
+        services.AddScoped<IGetPlaylistIdUseCase, GetPlaylistIdUseCase>();
+        services.AddScoped<IGetPlaylistAllUseCase, GetPlaylistAllUseCase>();
     }  
 }
