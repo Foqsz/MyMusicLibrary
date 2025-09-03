@@ -162,6 +162,9 @@
   <data name="PASSWORD_INVALID" xml:space="preserve">
     <value>Invalid password.</value>
   </data>
+  <data name="PLAYLISTS_ALL_NOTFOUND" xml:space="preserve">
+    <value>You have no playlists created.</value>
+  </data>
   <data name="PLAYLIST_CREATE_ERROR" xml:space="preserve">
     <value>Error creating playlist.</value>
   </data>

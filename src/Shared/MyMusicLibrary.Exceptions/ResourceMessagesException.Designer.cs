@@ -241,6 +241,15 @@ namespace MyMusicLibrary.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have no playlists created..
+        /// </summary>
+        public static string PLAYLISTS_ALL_NOTFOUND {
+            get {
+                return ResourceManager.GetString("PLAYLISTS_ALL_NOTFOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New password cannot be the same as current..
         /// </summary>
         public static string SAME_PASSWORD_ERROR {
