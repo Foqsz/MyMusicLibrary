@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using MyMusicLibrary.Communication.Responses;
+﻿using MyMusicLibrary.Communication.Responses;
 using MyMusicLibrary.Domain.Repositories.Playlist;
-using MyMusicLibrary.Domain.Repositories.User;
 using MyMusicLibrary.Domain.Services.LoggedUser;
 using MyMusicLibrary.Exceptions;
 using MyMusicLibrary.Exceptions.ExceptionsBase;
@@ -13,8 +11,7 @@ public class GetPlaylistIdUseCase : IGetPlaylistIdUseCase
     private readonly IPlaylistReadOnlyRepository _playlistRepository;
 
     public GetPlaylistIdUseCase(ILoggedUser loggedUser,
-        IPlaylistReadOnlyRepository repository,
-        IUserReadOnlyRepository userRepository)
+        IPlaylistReadOnlyRepository repository)
     {
         _loggedUser = loggedUser;
         _playlistRepository = repository;
