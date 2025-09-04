@@ -26,7 +26,7 @@ public class PlaylistController : ControllerBase
         if (result.Playlists.Any())
             return Ok(result);
 
-        return BadRequest();
+        return NotFound();
     }
 
     [HttpGet]
