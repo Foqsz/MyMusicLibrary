@@ -19,5 +19,12 @@ public class PlaylistReadOnlyRepositoryBuilder
         return this;
     }
 
+    public PlaylistReadOnlyRepositoryBuilder GetAll(MyMusicLibrary.Domain.Entities.User user, IList<MyMusicLibrary.Domain.Entities.Playlist> playlist)
+    {
+        _repository.Setup(p => p.GetAll(user)).ReturnsAsync(playlist);
+
+        return this;
+    }
+
     public IPlaylistReadOnlyRepository Build() => _repository.Object;
 }
