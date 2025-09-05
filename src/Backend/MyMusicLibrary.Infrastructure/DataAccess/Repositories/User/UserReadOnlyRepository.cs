@@ -19,4 +19,7 @@ public class UserReadOnlyRepository : IUserReadOnlyRepository
 
     public async Task<Domain.Entities.User> GetById(long id) => 
         await _dbContext.Users.FirstAsync(user => user.Id == id);
+
+    public async Task<IList<Domain.Entities.User>> GetByIds(IEnumerable<long> ids) =>
+        await _dbContext.Users.Where(u => ids.Contains(u.Id)).AsNoTracking().ToListAsync(); 
 }
