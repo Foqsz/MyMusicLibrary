@@ -4,6 +4,7 @@ using MyMusicLibrary.Application.UseCases.Playlist.Create;
 using MyMusicLibrary.Application.UseCases.Playlist.Delete;
 using MyMusicLibrary.Application.UseCases.Playlist.GetPlaylistAll;
 using MyMusicLibrary.Application.UseCases.Playlist.GetPlaylistId;
+using MyMusicLibrary.Application.UseCases.Playlist.GetPlaylistName;
 using MyMusicLibrary.Application.UseCases.Playlist.Update;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
@@ -22,6 +23,20 @@ public class PlaylistController : ControllerBase
     public async Task<IActionResult> GetPlaylistAll([FromServices] IGetPlaylistAllUseCase useCase)
     {
         var result = await useCase.Execute();
+
+        if (result.Playlists.Any())
+            return Ok(result);
+
+        return NotFound();
+    }
+
+    [HttpGet]
+    [Route("search")]
+    [ProducesResponseType(typeof(ResponsePlaylistAllJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetPlaylistName([FromServices] IGetPlaylistNameUseCase useCase, [FromQuery] string name)
+    {
+        var result = await useCase.Execute(name);
 
         if (result.Playlists.Any())
             return Ok(result);
