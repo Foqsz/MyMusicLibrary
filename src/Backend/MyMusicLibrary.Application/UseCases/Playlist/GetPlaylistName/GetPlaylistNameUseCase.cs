@@ -1,25 +1,21 @@
-﻿using AutoMapper;
-using MyMusicLibrary.Communication.Responses;
+﻿using MyMusicLibrary.Communication.Responses;
 using MyMusicLibrary.Domain.Extensions;
 using MyMusicLibrary.Domain.Repositories.Playlist;
 using MyMusicLibrary.Domain.Repositories.User;
-using MyMusicLibrary.Domain.Services.LoggedUser;
 using MyMusicLibrary.Exceptions;
 using MyMusicLibrary.Exceptions.ExceptionsBase;
 
 namespace MyMusicLibrary.Application.UseCases.Playlist.GetPlaylistName;
 public class GetPlaylistNameUseCase : IGetPlaylistNameUseCase
 {
-    private readonly ILoggedUser _loggedUser;
     private readonly IPlaylistReadOnlyRepository _repository;
-    private readonly IMapper _mapper;
     private readonly IUserReadOnlyRepository _repositoryUser;
 
-    public GetPlaylistNameUseCase(ILoggedUser loggedUser, IPlaylistReadOnlyRepository repository, IMapper mapper, IUserReadOnlyRepository repositoryUser)
+    public GetPlaylistNameUseCase(IPlaylistReadOnlyRepository repository, 
+        IUserReadOnlyRepository repositoryUser)
     {
-        _loggedUser = loggedUser;
+
         _repository = repository;
-        _mapper = mapper;
         _repositoryUser = repositoryUser;
     }
 
