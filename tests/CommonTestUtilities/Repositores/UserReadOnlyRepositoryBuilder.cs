@@ -1,6 +1,7 @@
 ﻿using Moq;
 using MyMusicLibrary.Domain.Entities;
 using MyMusicLibrary.Domain.Repositories.User;
+using System.Security.Cryptography;
 
 namespace CommonTestUtilities.Repositores;
 public class UserReadOnlyRepositoryBuilder
@@ -28,6 +29,13 @@ public class UserReadOnlyRepositoryBuilder
     public void GetById(User user)
     {
         _repository.Setup(repository => repository.GetById(user.Id)).ReturnsAsync(user);
+    }
+
+    public void GetByIds(IEnumerable<User> users)
+    {
+        _repository
+            .Setup(r => r.GetByIds(It.IsAny<IEnumerable<long>>()))
+            .ReturnsAsync(users.ToList());
     }
 
     public IUserReadOnlyRepository Build() => _repository.Object;
