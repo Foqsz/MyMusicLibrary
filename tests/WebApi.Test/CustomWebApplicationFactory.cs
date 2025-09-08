@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MyMusicLibrary.Domain.Entities;
 using MyMusicLibrary.Infrastructure.DataAccess;
 
 
@@ -45,6 +44,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     }
 
     public string GetEmail() => _user.Email;
+    public long GetUserId() => _user.Id;
     public string GetPassword() => _password;
     public string GetName() => _user.Name;
     public string GetMusicName() => _music.Name;    

@@ -36,12 +36,16 @@ public class PlaylistController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetPlaylistName([FromServices] IGetPlaylistNameUseCase useCase, [FromQuery] string name)
     {
-        var result = await useCase.Execute(name);
+        try
+        {
+            var result = await useCase.Execute(name);
 
-        if (result.Playlists.Any())
             return Ok(result);
-
-        return NotFound();
+        }
+        catch (PlaylistException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 
     [HttpGet]
