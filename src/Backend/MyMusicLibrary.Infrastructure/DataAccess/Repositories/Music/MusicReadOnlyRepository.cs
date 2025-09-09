@@ -23,13 +23,31 @@ public class MusicReadOnlyRepository : IMusicReadOnlyRepository
 
     public async Task<IList<Domain.Entities.Music>> GetForDashboard(Domain.Entities.User user) =>
         await _dbContext.Music
-            .Where(m => m.UserId == user.Id) 
+            .AsNoTracking()
+            .Where(m => m.UserId == user.Id)
+            .Include(m => m.Artist)
+            .Take(5)
             .ToListAsync();
+
+    public async Task<IList<(string Genre, int Count)>> GetGenres()
+    {
+        var genres = await _dbContext.Artist
+            .AsNoTracking()
+            .GroupBy(a => a.Genre)  
+            .Select(g => new { Genre = g.Key, Count = g.Count() })
+            .OrderByDescending(g => g.Count)
+            .Take(5)
+            .ToListAsync();
+
+        return genres.Select(g => (g.Genre, g.Count)).ToList();
+    }
+
 
     public async Task<IList<Domain.Entities.Music>> Search(Domain.Entities.User user, string name)
     {
         var searchMusic = await _dbContext.Music
-            .Where(m => m.UserId == user.Id && m.Name.Contains(name))
+            .AsNoTracking()
+            .Where(m => m.Name.Contains(name))
             .Include(m => m.Artist)
             .Take(5)
             .ToListAsync(); 
