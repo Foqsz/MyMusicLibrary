@@ -115,6 +115,15 @@ namespace MyMusicLibrary.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No musical genres found..
+        /// </summary>
+        public static string GENRE_NOTFOUND {
+            get {
+                return ResourceManager.GetString("GENRE_NOTFOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current password is incorrect..
         /// </summary>
         public static string INCORRECT_CURRENT_PASSWORD_ERROR {

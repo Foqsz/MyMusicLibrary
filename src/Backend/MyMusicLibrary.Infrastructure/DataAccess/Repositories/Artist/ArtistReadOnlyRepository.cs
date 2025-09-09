@@ -13,6 +13,7 @@ public class ArtistReadOnlyRepository : IArtistReadOnlyRepository
     public async Task<IList<Domain.Entities.Artist>> SearchArtist(Domain.Entities.User user, string name)
     {
         var artists = await _dbContext.Artist
+            .AsNoTracking()
             .Where(a => a.Active && user.Active && a.Name.Contains(name))
             .Include(m => m.Music)
             .Take(5)

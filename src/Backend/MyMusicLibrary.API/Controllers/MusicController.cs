@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyMusicLibrary.API.Attributes;
 using MyMusicLibrary.Application.UseCases.Music.Delete;
+using MyMusicLibrary.Application.UseCases.Music.Genre;
 using MyMusicLibrary.Application.UseCases.Music.GetById;
 using MyMusicLibrary.Application.UseCases.Music.Register;
 using MyMusicLibrary.Application.UseCases.Music.Search;
@@ -33,6 +34,18 @@ public class MusicController : ControllerBase
     public async Task<IActionResult> SearchMusic([FromServices] ISearchMusicUseCase useCase, string name)
     {
         var result = await useCase.Execute(name);
+
+        return Ok(result);
+    }
+
+    [HttpGet]
+    [Route("genre")]
+    [ProducesResponseType(typeof(ResponseGenreJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> GetGenre([FromServices] IGetGenreUseCase useCase)
+    {
+        var result = await useCase.Execute();
 
         return Ok(result);
     }
