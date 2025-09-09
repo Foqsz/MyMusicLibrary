@@ -32,7 +32,9 @@ public class AutoMappingProfile : Profile
     {
         CreateMap<Domain.Entities.Music, ResponseProfileMusicJson>()
             .ForMember(dest => dest.Artist, opt => opt.MapFrom(src =>
-                string.Join(", ", src.Artist.Select(a => a.Name))));
+                string.Join(", ", src.Artist.Select(a => a.Name))))
+            .ForMember(dest => dest.Genre, opt => opt.MapFrom(src =>
+                string.Join(", ", src.Artist.Select(a => a.Genre))));
 
         CreateMap<Domain.Entities.Music, MusicDto>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -54,5 +56,9 @@ public class AutoMappingProfile : Profile
         CreateMap<Domain.Entities.Playlist, ResponsePlaylistJson>();
 
         CreateMap<Domain.Entities.Playlist, ResponsePlaylistAllJson>();
+
+        CreateMap<Domain.Entities.Music, ResponseGenreJson>()
+            .ForMember(dest => dest.Genre, opt => opt.MapFrom(src =>
+            string.Join(", ", src.Artist.Select(a => a.Genre))));
     }
 }
