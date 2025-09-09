@@ -4,6 +4,7 @@ using MyMusicLibrary.Application.UseCases.Artist;
 using MyMusicLibrary.Application.UseCases.Dashboard;
 using MyMusicLibrary.Application.UseCases.DashBoard;
 using MyMusicLibrary.Application.UseCases.Music.Delete;
+using MyMusicLibrary.Application.UseCases.Music.Genre;
 using MyMusicLibrary.Application.UseCases.Music.GetById;
 using MyMusicLibrary.Application.UseCases.Music.Register;
 using MyMusicLibrary.Application.UseCases.Music.Search;
@@ -59,5 +60,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetPlaylistIdUseCase, GetPlaylistIdUseCase>();
         services.AddScoped<IGetPlaylistAllUseCase, GetPlaylistAllUseCase>();
         services.AddScoped<IGetPlaylistNameUseCase, GetPlaylistNameUseCase>();
+        services.AddScoped<IGetGenreUseCase, GetGenreUseCase>();
     }  
 }
