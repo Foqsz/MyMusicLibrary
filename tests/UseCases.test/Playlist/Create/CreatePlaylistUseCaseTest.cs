@@ -78,9 +78,9 @@ public class CreatePlaylistUseCaseTest
     private static CreatePlaylistUseCase CreateUseCase(MyMusicLibrary.Domain.Entities.User user, string? name, string? description)
     {
         var loggedUser = LoggedUserBuilder.Build(user);
-        var mapper = MapperBuilder.Build();
         var repositoryWriteOnly = PlaylistWriteOnlyRepositoryBuilder.Build();
         var unitOfWork = UnitOfWorkBuilder.Build();
+        MapperBuilder.Mapster();
 
         if (name != null || description != null)
         {
@@ -92,6 +92,6 @@ public class CreatePlaylistUseCaseTest
             });
         } 
 
-        return new CreatePlaylistUseCase(loggedUser, mapper, repositoryWriteOnly, unitOfWork);
+        return new CreatePlaylistUseCase(loggedUser, repositoryWriteOnly, unitOfWork);
     }
 }

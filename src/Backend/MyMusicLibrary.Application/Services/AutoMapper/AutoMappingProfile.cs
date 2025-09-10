@@ -24,8 +24,8 @@ public class AutoMappingProfile : Profile
 
         CreateMap<RequestUpdateUserJson, Domain.Entities.User>();
 
-        CreateMap<RequestFromPlaylistJson, Domain.Entities.Playlist>()
-            .ForMember(dest => dest.UserId, opt => opt.Ignore());
+        //CreateMap<RequestFromPlaylistJson, Domain.Entities.Playlist>()
+        //    .ForMember(dest => dest.UserId, opt => opt.Ignore());
     }
 
     private void DomainResponse()

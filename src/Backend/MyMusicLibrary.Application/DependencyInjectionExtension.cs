@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MyMusicLibrary.Application.Services.AutoMapper;
+using MyMusicLibrary.Application.Services.Mappings;
 using MyMusicLibrary.Application.UseCases.Artist;
 using MyMusicLibrary.Application.UseCases.Dashboard;
 using MyMusicLibrary.Application.UseCases.DashBoard;
@@ -27,16 +28,18 @@ public static class DependencyInjectionExtension
 {
     public static void AddAplication(this IServiceCollection services)
     {
-        AddAutoMapper(services);
+        AddMapping(services);
         AddUseCases(services);
     }
 
-    private static void AddAutoMapper(IServiceCollection services)
+    private static void AddMapping(IServiceCollection services)
     {
         services.AddScoped(option => new AutoMapper.MapperConfiguration(options =>
         {
             options.AddProfile(new AutoMappingProfile());
         }).CreateMapper());
+
+        MapConfigurations.Configure();
     }
 
     private static void AddUseCases(IServiceCollection services)
