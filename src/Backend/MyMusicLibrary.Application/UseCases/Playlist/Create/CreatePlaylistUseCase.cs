@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Mapster;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
 using MyMusicLibrary.Domain.Extensions;
@@ -11,14 +12,14 @@ namespace MyMusicLibrary.Application.UseCases.Playlist.Create;
 public class CreatePlaylistUseCase : ICreatePlaylistUseCase
 {
     private readonly ILoggedUser _loggedUser;
-    private readonly IMapper _mapper;
     private readonly IPlaylistWriteOnlyRepository _repositoryWriteOnly;
     private readonly IUnitOfWork _unitOfWork;
 
-    public CreatePlaylistUseCase(ILoggedUser loggedUser, IMapper mapper, IPlaylistWriteOnlyRepository repositoryWriteOnly, IUnitOfWork unitOfWork)
+    public CreatePlaylistUseCase(ILoggedUser loggedUser, 
+        IPlaylistWriteOnlyRepository repositoryWriteOnly,
+        IUnitOfWork unitOfWork)
     {
         _loggedUser = loggedUser;
-        _mapper = mapper;
         _repositoryWriteOnly = repositoryWriteOnly;
         _unitOfWork = unitOfWork;
     }
@@ -29,7 +30,7 @@ public class CreatePlaylistUseCase : ICreatePlaylistUseCase
 
         var user = await _loggedUser.User();
 
-        var playlist = _mapper.Map<Domain.Entities.Playlist>(request);
+        var playlist = request.Adapt<Domain.Entities.Playlist>();
         playlist.UserId = user.Id;
 
         await _repositoryWriteOnly.Create(user, playlist);
