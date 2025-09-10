@@ -36,6 +36,20 @@ public class MusicReadOnlyRepositoryBuilder
         return this;
     }
 
+    public MusicReadOnlyRepositoryBuilder GetGenres()
+    {
+        var genres = new List<(string Genre, int Count)>
+        {
+            ("Rock", 10),
+            ("Pop", 5),
+            ("Jazz", 2)
+        };
+
+        _repository.Setup(r => r.GetGenres()).ReturnsAsync(genres);
+
+        return this;
+    }
+
     public IMusicReadOnlyRepository Build()
     {
         return _repository.Object;

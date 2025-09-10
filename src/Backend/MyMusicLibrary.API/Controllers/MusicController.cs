@@ -7,6 +7,7 @@ using MyMusicLibrary.Application.UseCases.Music.Register;
 using MyMusicLibrary.Application.UseCases.Music.Search;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
+using MyMusicLibrary.Domain.Extensions;
 
 namespace MyMusicLibrary.API.Controllers;
 [Route("[controller]")]
@@ -46,6 +47,9 @@ public class MusicController : ControllerBase
     public async Task<IActionResult> GetGenre([FromServices] IGetGenreUseCase useCase)
     {
         var result = await useCase.Execute();
+
+        if (result.Any().IsFalse())
+            return NotFound();
 
         return Ok(result);
     }

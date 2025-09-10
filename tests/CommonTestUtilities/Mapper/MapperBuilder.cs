@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MyMusicLibrary.Application.Services.AutoMapper;
+using MyMusicLibrary.Application.Services.Mappings;
 
 namespace CommonTestUtilities.Mapper;
 public class MapperBuilder
@@ -12,5 +13,10 @@ public class MapperBuilder
         }).CreateMapper();
 
         return mapper;
+    }
+
+    public static void Mapster()
+    {
+        MapConfigurations.Configure();
     }
 }
