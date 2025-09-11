@@ -17,15 +17,13 @@ public class AutoMappingProfile : Profile
         CreateMap<RequestRegisterUserJson, Domain.Entities.User>()
             .ForMember(dest => dest.Password, opt => opt.Ignore());
 
-        CreateMap<RequestMusicJson, Domain.Entities.Music>();
+        CreateMap<RequestMusicJson, Domain.Entities.Music>()
+            .ForMember(dest => dest.PlaylistId, opt => opt.Ignore());
 
         CreateMap<RequestArtistJson, Domain.Entities.Artist>()
             .ForMember(dest => dest.Music, opt => opt.Ignore());
 
         CreateMap<RequestUpdateUserJson, Domain.Entities.User>();
-
-        //CreateMap<RequestFromPlaylistJson, Domain.Entities.Playlist>()
-        //    .ForMember(dest => dest.UserId, opt => opt.Ignore());
     }
 
     private void DomainResponse()
@@ -34,7 +32,8 @@ public class AutoMappingProfile : Profile
             .ForMember(dest => dest.Artist, opt => opt.MapFrom(src =>
                 string.Join(", ", src.Artist.Select(a => a.Name))))
             .ForMember(dest => dest.Genre, opt => opt.MapFrom(src =>
-                string.Join(", ", src.Artist.Select(a => a.Genre))));
+                string.Join(", ", src.Artist.Select(a => a.Genre))))
+            .ForMember(dest => dest.MusicId, opt => opt.MapFrom(src => src.Id));
 
         CreateMap<Domain.Entities.Music, MusicDto>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))

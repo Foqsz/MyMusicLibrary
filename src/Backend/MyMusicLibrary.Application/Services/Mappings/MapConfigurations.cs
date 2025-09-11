@@ -8,6 +8,7 @@ public static class MapConfigurations
     {
         TypeAdapterConfig<RequestFromPlaylistJson, Domain.Entities.Playlist>
             .NewConfig()
-            .Ignore(dest => dest.UserId);
+            .Ignore(dest => dest.UserId)
+            .Ignore(dest => dest.Musics);
     }
 }
