@@ -9,6 +9,7 @@ using MyMusicLibrary.Application.UseCases.Music.Genre;
 using MyMusicLibrary.Application.UseCases.Music.GetById;
 using MyMusicLibrary.Application.UseCases.Music.Register;
 using MyMusicLibrary.Application.UseCases.Music.Search;
+using MyMusicLibrary.Application.UseCases.Playlist.AddMusicToPlaylist;
 using MyMusicLibrary.Application.UseCases.Playlist.Create;
 using MyMusicLibrary.Application.UseCases.Playlist.Delete;
 using MyMusicLibrary.Application.UseCases.Playlist.GetPlaylistAll;
@@ -64,5 +65,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetPlaylistAllUseCase, GetPlaylistAllUseCase>();
         services.AddScoped<IGetPlaylistNameUseCase, GetPlaylistNameUseCase>();
         services.AddScoped<IGetGenreUseCase, GetGenreUseCase>();
+        services.AddScoped<IAddMusicToPlaylistUseCase, AddMusicToPlaylistUseCase>();
     }  
 }
