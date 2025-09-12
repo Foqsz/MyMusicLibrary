@@ -15,8 +15,19 @@ public class PlaylistReadOnlyRepository : IPlaylistReadOnlyRepository
     public async Task<IList<Domain.Entities.Playlist>> GetAll(Domain.Entities.User user) =>
         await _dbContext.Playlist.AsNoTracking().Where(p => p.UserId == user.Id).Take(5).ToListAsync();
 
-    public async Task<Domain.Entities.Playlist?> GetById(Domain.Entities.User user, long playlistId) =>
-        await _dbContext.Playlist.Where(p => p.UserId == user.Id && user.Active && p.Id == playlistId).FirstOrDefaultAsync();
+    public async Task<Domain.Entities.Playlist?> GetById(Domain.Entities.User user, long playlistId)
+    {
+        var playlist = await _dbContext.Playlist.Where(p => p.UserId == user.Id && user.Active && p.Id == playlistId).FirstOrDefaultAsync();
+        var musics = await _dbContext.Music
+            .AsNoTracking()
+            .Where(m => m.UserId == user.Id && m.PlaylistId == playlistId)
+            .ToListAsync();
+
+        playlist!.Musics = musics;
+
+        return playlist;
+    }
+
 
     public async Task<IList<Domain.Entities.Playlist>> GetByName(string name) =>
         await _dbContext.Playlist.AsNoTracking().Where(p => p.Name.Contains(name)).Take(5).ToListAsync();
