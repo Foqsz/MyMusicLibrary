@@ -22,7 +22,7 @@ public class GetPlaylistIdUseCase : IGetPlaylistIdUseCase
     {
         var user = await _loggedUser.User();
 
-        var playlist = await _playlistRepository.GetById(user, id);
+        var playlist = await _playlistRepository.GetPlaylistSongs(user, id);
 
         if (playlist is null)
             throw new PlaylistException(ResourceMessagesException.PLAYLIST_NOTFOUND);
@@ -33,7 +33,7 @@ public class GetPlaylistIdUseCase : IGetPlaylistIdUseCase
             Description = playlist.Description,
             OwnerName = user.Name,
             CreatedOn = playlist.CreatedOn,
-            Musics = playlist.Musics
+            Musics = playlist.Musics!
         };
     }
 }
