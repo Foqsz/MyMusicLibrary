@@ -30,7 +30,7 @@ public class GetPlaylistAllTest : MyLibraryMusicBookClassFixture
     {
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
 
-        var delete = await DoDelete($"{method}/delete?playlistId={_playlistId}", token);
+        var delete = await DoDelete($"{method}/{_playlistId}", token);
 
         delete.StatusCode.ShouldBe(System.Net.HttpStatusCode.NoContent);
 
