@@ -10,15 +10,12 @@ public class GetPlaylistIdUseCase : IGetPlaylistIdUseCase
 {
     private readonly ILoggedUser _loggedUser;
     private readonly IPlaylistReadOnlyRepository _playlistRepository;
-    private readonly IMusicReadOnlyRepository _musicReadOnlyRepository;
 
     public GetPlaylistIdUseCase(ILoggedUser loggedUser,
-        IPlaylistReadOnlyRepository repository,
-        IMusicReadOnlyRepository musicReadOnlyRepository)
+        IPlaylistReadOnlyRepository repository)
     {
         _loggedUser = loggedUser;
         _playlistRepository = repository;
-        _musicReadOnlyRepository = musicReadOnlyRepository;
     }
 
     public async Task<ResponsePlaylistIdJson?> Execute(long id)
