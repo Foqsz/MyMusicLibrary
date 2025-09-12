@@ -3,5 +3,5 @@
 namespace MyMusicLibrary.Application.UseCases.Playlist.GetPlaylistId;
 public interface IGetPlaylistIdUseCase
 {
-    Task<ResponsePlaylistAllJson?> Execute(long id);
+    Task<ResponsePlaylistIdJson?> Execute(long id);
 }

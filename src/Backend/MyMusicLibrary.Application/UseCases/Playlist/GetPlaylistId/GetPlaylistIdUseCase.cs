@@ -1,4 +1,5 @@
 ﻿using MyMusicLibrary.Communication.Responses;
+using MyMusicLibrary.Domain.Repositories.Music;
 using MyMusicLibrary.Domain.Repositories.Playlist;
 using MyMusicLibrary.Domain.Services.LoggedUser;
 using MyMusicLibrary.Exceptions;
@@ -9,15 +10,18 @@ public class GetPlaylistIdUseCase : IGetPlaylistIdUseCase
 {
     private readonly ILoggedUser _loggedUser;
     private readonly IPlaylistReadOnlyRepository _playlistRepository;
+    private readonly IMusicReadOnlyRepository _musicReadOnlyRepository;
 
     public GetPlaylistIdUseCase(ILoggedUser loggedUser,
-        IPlaylistReadOnlyRepository repository)
+        IPlaylistReadOnlyRepository repository,
+        IMusicReadOnlyRepository musicReadOnlyRepository)
     {
         _loggedUser = loggedUser;
         _playlistRepository = repository;
+        _musicReadOnlyRepository = musicReadOnlyRepository;
     }
 
-    public async Task<ResponsePlaylistAllJson?> Execute(long id)
+    public async Task<ResponsePlaylistIdJson?> Execute(long id)
     {
         var user = await _loggedUser.User();
 
@@ -26,13 +30,13 @@ public class GetPlaylistIdUseCase : IGetPlaylistIdUseCase
         if (playlist is null)
             throw new PlaylistException(ResourceMessagesException.PLAYLIST_NOTFOUND);
 
-        return new ResponsePlaylistAllJson()
+        return new ResponsePlaylistIdJson()
         {
             Name = playlist.Name,
             Description = playlist.Description,
             OwnerName = user.Name,
-            UserId = playlist.UserId,
-            CreatedOn = playlist.CreatedOn
+            CreatedOn = playlist.CreatedOn,
+            Musics = playlist.Musics
         };
     }
 }
