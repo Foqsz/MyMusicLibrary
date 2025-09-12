@@ -82,7 +82,7 @@ public class PlaylistController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> DeletePlaylist([FromServices] IDeletePlaylistUseCase useCase, [FromQuery] long id)
+    public async Task<IActionResult> DeletePlaylist([FromServices] IDeletePlaylistUseCase useCase, long id)
     {
         await useCase.Execute(id);
 
