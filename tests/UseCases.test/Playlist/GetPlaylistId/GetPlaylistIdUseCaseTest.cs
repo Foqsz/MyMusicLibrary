@@ -47,6 +47,7 @@ public class GetPlaylistIdUseCaseTest
     {
         var loggedUser = LoggedUserBuilder.Build(user);
         var playlistRepository = new PlaylistReadOnlyRepositoryBuilder();
+        var musicRepository = new MusicReadOnlyRepositoryBuilder();
 
         if (playlistId is not null)
             playlistRepository.GetById(user, playlistId);

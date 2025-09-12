@@ -5,7 +5,7 @@ using Xunit;
 namespace WebApi.Test.Playlist.Delete;
 public class DeletePlaylistTest : MyLibraryMusicBookClassFixture
 {
-    private const string method = "Playlist/delete";
+    private const string method = "Playlist";
     private readonly Guid _userIdentifier;
     private readonly long _playlistId;
 
@@ -20,7 +20,7 @@ public class DeletePlaylistTest : MyLibraryMusicBookClassFixture
     {
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
 
-        var response = await DoDelete($"{method}?playlistId={_playlistId}", token, culture: "pt-BR");
+        var response = await DoDelete($"{method}/{_playlistId}", token, culture: "pt-BR");
 
         response.StatusCode.ShouldBe(System.Net.HttpStatusCode.NoContent);
     }
@@ -30,7 +30,7 @@ public class DeletePlaylistTest : MyLibraryMusicBookClassFixture
     {
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
 
-        var response = await DoDelete($"{method}?playlistId={123}", token, culture: "pt-BR");
+        var response = await DoDelete($"{method}/{123}", token, culture: "pt-BR");
 
         response.StatusCode.ShouldBe(System.Net.HttpStatusCode.NotFound);
     }
