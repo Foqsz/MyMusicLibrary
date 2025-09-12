@@ -9,7 +9,6 @@ using MyMusicLibrary.Application.UseCases.Playlist.GetPlaylistName;
 using MyMusicLibrary.Application.UseCases.Playlist.Update;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
-using MyMusicLibrary.Domain.Extensions;
 using MyMusicLibrary.Exceptions.ExceptionsBase;
 
 namespace MyMusicLibrary.API.Controllers;
@@ -79,13 +78,13 @@ public class PlaylistController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("delete")]
+    [Route("{id:long}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> DeletePlaylist([FromServices] IDeletePlaylistUseCase useCase, [FromQuery] long playlistId)
+    public async Task<IActionResult> DeletePlaylist([FromServices] IDeletePlaylistUseCase useCase, [FromQuery] long id)
     {
-        await useCase.Execute(playlistId);
+        await useCase.Execute(id);
 
         return NoContent();
     }
