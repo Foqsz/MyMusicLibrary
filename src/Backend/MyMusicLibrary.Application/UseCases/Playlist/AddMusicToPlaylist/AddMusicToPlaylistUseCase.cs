@@ -30,15 +30,8 @@ public class AddMusicToPlaylistUseCase : IAddMusicToPlaylistUseCase
     {
         var user = await _loggedUser.User();
 
-        var playlist = await _playlistReadOnlyRepository.GetById(user, request.PlaylistId);
-
-        if (playlist is null)
-            throw new PlaylistException(ResourceMessagesException.PLAYLIST_NOTFOUND);
-
-        var music = await _musicReadOnlyRepository.GetById(user, request.MusicId);
-
-        if (music is null)
-            throw new ExistMusicException(ResourceMessagesException.MUSIC_EMPTY);
+        var playlist = await _playlistReadOnlyRepository.GetById(user, request.PlaylistId) ?? throw new PlaylistException(ResourceMessagesException.PLAYLIST_NOTFOUND);
+        var music = await _musicReadOnlyRepository.GetById(user, request.MusicId) ?? throw new ExistMusicException(ResourceMessagesException.MUSIC_EMPTY);
 
         music.PlaylistId = playlist.Id;
         playlist.Musics.Add(music);
