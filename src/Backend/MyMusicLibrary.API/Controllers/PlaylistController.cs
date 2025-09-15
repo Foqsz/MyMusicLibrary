@@ -6,6 +6,7 @@ using MyMusicLibrary.Application.UseCases.Playlist.Delete;
 using MyMusicLibrary.Application.UseCases.Playlist.GetPlaylistAll;
 using MyMusicLibrary.Application.UseCases.Playlist.GetPlaylistId;
 using MyMusicLibrary.Application.UseCases.Playlist.GetPlaylistName;
+using MyMusicLibrary.Application.UseCases.Playlist.RemoveMusicFromPlaylist;
 using MyMusicLibrary.Application.UseCases.Playlist.Update;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
@@ -117,10 +118,22 @@ public class PlaylistController : ControllerBase
     [ProducesResponseType(typeof(ResponseMusicPlaylistJson), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> AddMusicToPlaylist([FromServices] IAddMusicToPlaylistUseCase useCase, RequestMusicPlaylistJson request)
+    public async Task<IActionResult> AddMusicToPlaylist([FromServices] IAddMusicToPlaylistUseCase useCase, [FromBody] RequestMusicPlaylistJson request)
     {
         var result = await useCase.Execute(request);
 
         return Created(string.Empty, result);
+    }
+
+    [HttpDelete]
+    [Route("remove-music-playlist")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> RemoveMusicFromPlaylist([FromServices] IRemoveMusicFromPlaylistUseCase useCase, [FromBody] RequestMusicPlaylistJson request)
+    {
+        await useCase.Execute(request);
+
+        return NoContent();
     }
 }
