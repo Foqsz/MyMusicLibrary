@@ -15,6 +15,7 @@ using MyMusicLibrary.Application.UseCases.Playlist.Delete;
 using MyMusicLibrary.Application.UseCases.Playlist.GetPlaylistAll;
 using MyMusicLibrary.Application.UseCases.Playlist.GetPlaylistId;
 using MyMusicLibrary.Application.UseCases.Playlist.GetPlaylistName;
+using MyMusicLibrary.Application.UseCases.Playlist.RemoveMusicFromPlaylist;
 using MyMusicLibrary.Application.UseCases.Playlist.Update;
 using MyMusicLibrary.Application.UseCases.User.ChangePassword;
 using MyMusicLibrary.Application.UseCases.User.Data;
@@ -66,5 +67,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetPlaylistNameUseCase, GetPlaylistNameUseCase>();
         services.AddScoped<IGetGenreUseCase, GetGenreUseCase>();
         services.AddScoped<IAddMusicToPlaylistUseCase, AddMusicToPlaylistUseCase>();
+        services.AddScoped<IRemoveMusicFromPlaylistUseCase, RemoveMusicFromPlaylistUseCase>();
     }  
 }
