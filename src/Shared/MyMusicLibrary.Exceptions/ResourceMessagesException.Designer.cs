@@ -115,6 +115,15 @@ namespace MyMusicLibrary.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This song is not in the playlist provided..
+        /// </summary>
+        public static string ERROR_MUSIC_FROM_PLAYLIST {
+            get {
+                return ResourceManager.GetString("ERROR_MUSIC_FROM_PLAYLIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No musical genres found..
         /// </summary>
         public static string GENRE_NOTFOUND {
