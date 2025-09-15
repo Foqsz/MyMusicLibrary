@@ -114,13 +114,13 @@ public class PlaylistController : ControllerBase
 
     [HttpPost]
     [Route("add-music")]
-    [ProducesResponseType(typeof(ResponseMusicPlaylistJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseMusicPlaylistJson), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> AddMusicToPlaylist([FromServices] IAddMusicToPlaylistUseCase useCase, RequestMusicPlaylistJson request)
     {
         var result = await useCase.Execute(request);
 
-        return Ok(result);
+        return Created(string.Empty, result);
     }
 }
