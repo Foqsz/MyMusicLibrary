@@ -3,5 +3,5 @@
 namespace MyMusicLibrary.Application.UseCases.Playlist.RemoveMusicFromPlaylist;
 public interface IRemoveMusicFromPlaylistUseCase
 {
-    Task Execute(RequestMusicPlaylistJson request);
+    Task Execute(long musicId, long playlistId);
 }
