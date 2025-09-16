@@ -6,7 +6,7 @@ using MyMusicLibrary.Exceptions.ExceptionsBase;
 using Shouldly;
 using Xunit;
 
-namespace UseCases.Test.Playlist;
+namespace UseCases.Test.Playlist.GetPlaylistName;
 public class GetPlaylistNameUseCaseTest
 {
     [Fact]
