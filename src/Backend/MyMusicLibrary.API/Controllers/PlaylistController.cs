@@ -130,9 +130,9 @@ public class PlaylistController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> RemoveMusicFromPlaylist([FromServices] IRemoveMusicFromPlaylistUseCase useCase, [FromBody] RequestMusicPlaylistJson request)
+    public async Task<IActionResult> RemoveMusicFromPlaylist([FromServices] IRemoveMusicFromPlaylistUseCase useCase, [FromQuery] long musicId, [FromQuery]  long playlistId)
     {
-        await useCase.Execute(request);
+        await useCase.Execute(musicId, playlistId);
 
         return NoContent();
     }
