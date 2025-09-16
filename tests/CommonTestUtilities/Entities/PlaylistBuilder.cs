@@ -27,6 +27,7 @@ public class PlaylistBuilder
     public static Playlist Build(User user)
     {
         return new Faker<Playlist>()
+            .RuleFor(p => p.Id, _ => 1)
             .RuleFor(p => p.Name, f => f.Lorem.Sentence(2))
             .RuleFor(p => p.Description, f => f.Lorem.Paragraph())
             .RuleFor(p => p.CreatedOn, f => f.Date.Future())

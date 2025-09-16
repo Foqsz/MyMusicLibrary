@@ -23,14 +23,14 @@ public class RemoveMusicFromPlaylistUseCase : IRemoveMusicFromPlaylistUseCase
         _musicReadOnlyRepository = musicReadOnlyRepository;
     }
 
-    public async Task Execute(RequestMusicPlaylistJson request)
+    public async Task Execute(long musicId, long playlistId)
     {
         var user = await _loggedUser.User();
 
-        var music = await _musicReadOnlyRepository.GetById(user, request.MusicId) ??
+        var music = await _musicReadOnlyRepository.GetById(user, musicId) ??
             throw new ExistMusicException(ResourceMessagesException.MUSIC_EMPTY);
 
-        if (music.PlaylistId.Equals(request.PlaylistId).IsFalse())
+        if (music.PlaylistId.Equals(playlistId).IsFalse())
             throw new PlaylistException(ResourceMessagesException.ERROR_MUSIC_FROM_PLAYLIST);
 
         music.PlaylistId = null;

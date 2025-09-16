@@ -60,7 +60,7 @@ public class AddMusicToPlaylistUseCaseTest
 
         var request = RequestMusicPlaylistJsonBuilder.Build();
         request.MusicId = music.Id;
-        request.PlaylistId = 1;
+        request.PlaylistId = 123;
 
         var useCase = CreateUseCase(user, playlist, music, false);
 

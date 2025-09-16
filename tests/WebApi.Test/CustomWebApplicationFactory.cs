@@ -62,6 +62,8 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         _artist = ArtistBuilder.Builder(_user);
         _playlist = PlaylistBuilder.Build(_user);
 
+        _music.PlaylistId = _playlist.Id;
+
         dbContext.Users.Add(_user); 
         dbContext.Music.Add(_music); 
         dbContext.Artist.Add(_artist);
