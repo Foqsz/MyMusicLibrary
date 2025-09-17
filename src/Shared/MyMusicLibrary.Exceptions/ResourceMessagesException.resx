@@ -135,6 +135,9 @@
   <data name="EMAIL_INVALID" xml:space="preserve">
     <value>Invalid e-mail.</value>
   </data>
+  <data name="ERROR_MUSIC_FAVORITES" xml:space="preserve">
+    <value>You don't have favorite songs.</value>
+  </data>
   <data name="ERROR_MUSIC_FROM_PLAYLIST" xml:space="preserve">
     <value>This song is not in the playlist provided.</value>
   </data>

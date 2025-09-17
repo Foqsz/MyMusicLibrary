@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyMusicLibrary.API.Attributes;
 using MyMusicLibrary.Application.UseCases.Music.Delete;
+using MyMusicLibrary.Application.UseCases.Music.Favorite;
 using MyMusicLibrary.Application.UseCases.Music.Genre;
 using MyMusicLibrary.Application.UseCases.Music.GetById;
 using MyMusicLibrary.Application.UseCases.Music.Register;
@@ -57,10 +58,23 @@ public class MusicController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(ResponseProfileMusicJson), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Register([FromServices] IRegisterMusicUseCase useCase, [FromBody] RequestMusicJson request)
     {
         var result = await useCase.Execute(request);
         return Created(string.Empty, result);
+    }
+
+    [HttpPost]
+    [Route("favorite/{musicId:long}")]
+    [ProducesResponseType(typeof(ResponseProfileMusicJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> Favorite([FromServices] IFavoriteMusicUseCase useCase, [FromRoute] long musicId)
+    {
+        var result = await useCase.Execute(musicId);
+
+        return Ok(result);
     }
 
     [HttpDelete]

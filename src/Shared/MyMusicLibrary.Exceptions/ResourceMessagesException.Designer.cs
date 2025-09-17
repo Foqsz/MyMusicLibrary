@@ -115,6 +115,15 @@ namespace MyMusicLibrary.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have favorite songs..
+        /// </summary>
+        public static string ERROR_MUSIC_FAVORITES {
+            get {
+                return ResourceManager.GetString("ERROR_MUSIC_FAVORITES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This song is not in the playlist provided..
         /// </summary>
         public static string ERROR_MUSIC_FROM_PLAYLIST {
