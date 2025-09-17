@@ -5,6 +5,7 @@ using MyMusicLibrary.Application.UseCases.Artist;
 using MyMusicLibrary.Application.UseCases.Dashboard;
 using MyMusicLibrary.Application.UseCases.DashBoard;
 using MyMusicLibrary.Application.UseCases.Music.Delete;
+using MyMusicLibrary.Application.UseCases.Music.Favorite;
 using MyMusicLibrary.Application.UseCases.Music.Genre;
 using MyMusicLibrary.Application.UseCases.Music.GetById;
 using MyMusicLibrary.Application.UseCases.Music.Register;
@@ -22,6 +23,7 @@ using MyMusicLibrary.Application.UseCases.User.Data;
 using MyMusicLibrary.Application.UseCases.User.Delete;
 using MyMusicLibrary.Application.UseCases.User.DoLogin;
 using MyMusicLibrary.Application.UseCases.User.DoLogin.External;
+using MyMusicLibrary.Application.UseCases.User.GetUserMusicFavorites;
 using MyMusicLibrary.Application.UseCases.User.Register;
 using MyMusicLibrary.Application.UseCases.User.Update;
 
@@ -68,5 +70,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetGenreUseCase, GetGenreUseCase>();
         services.AddScoped<IAddMusicToPlaylistUseCase, AddMusicToPlaylistUseCase>();
         services.AddScoped<IRemoveMusicFromPlaylistUseCase, RemoveMusicFromPlaylistUseCase>();
+        services.AddScoped<IFavoriteMusicUseCase,  FavoriteMusicUseCase>();
+        services.AddScoped<IGetUserMusicFavoritesUseCase, GetUserMusicFavoritesUseCase>();
     }  
 }
