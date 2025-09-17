@@ -3,6 +3,7 @@ using MyMusicLibrary.API.Attributes;
 using MyMusicLibrary.Application.UseCases.User.ChangePassword;
 using MyMusicLibrary.Application.UseCases.User.Data;
 using MyMusicLibrary.Application.UseCases.User.Delete;
+using MyMusicLibrary.Application.UseCases.User.GetUserMusicFavorites;
 using MyMusicLibrary.Application.UseCases.User.Register;
 using MyMusicLibrary.Application.UseCases.User.Update;
 using MyMusicLibrary.Communication.Request;
@@ -19,6 +20,16 @@ public class UserController : ControllerBase
     public async Task<IActionResult> GetData([FromServices] IGetUserDataUseCase useCase)
     {
         var result = await useCase.Execute();
+        return Ok(result);
+    }
+
+    [AuthenticatedUser]
+    [HttpGet("musicFavorites")]
+    [ProducesResponseType(typeof(ResponseMusicsJson), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetMusicFavorites([FromServices] IGetUserMusicFavoritesUseCase useCase)
+    {
+        var result = await useCase.Execute();
+
         return Ok(result);
     }
 
