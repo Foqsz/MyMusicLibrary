@@ -11,4 +11,6 @@ public abstract class DatabaseVersions
     public const int TABLE_MUSICARTISTS_CASCADE = 8;
     public const int TABLE_PLAYLIST = 9;
     public const int TABLE_PLAYLIST_MUSICS = 10;
+    public const int TABLE_MUSIC_FAVORITES = 11;
+    public const int TABLE_MUSIC_FAVORITES_2 = 12;
 }
