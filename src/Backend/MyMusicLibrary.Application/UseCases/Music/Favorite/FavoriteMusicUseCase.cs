@@ -23,14 +23,14 @@ public class FavoriteMusicUseCase : IFavoriteMusicUseCase
         _loggedUser = loggedUser;
         _musicWriteOnlyRepository = musicWriteOnlyRepository;
         _musicReadOnlyRepository = musicReadOnlyRepository;
-        _unitOfWork = unitOfWork;
+        _unitOfWork = unitOfWork;   
     }
 
-    public async Task<ResponseProfileMusicJson> Execute(long id)
+    public async Task<ResponseProfileMusicJson> Execute(long musicId)
     {
         var user = await _loggedUser.User();
 
-        var music = await _musicReadOnlyRepository.GetById(user, id) ?? throw new ExistMusicException(ResourceMessagesException.MUSIC_EMPTY);
+        var music = await _musicReadOnlyRepository.GetById(user, musicId) ?? throw new ExistMusicException(ResourceMessagesException.MUSIC_EMPTY);
 
         var request = new RequestFavoriteMusicJson()
         {
