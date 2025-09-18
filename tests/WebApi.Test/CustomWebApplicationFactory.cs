@@ -13,6 +13,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     private MyMusicLibrary.Domain.Entities.Music _music = default!;
     private MyMusicLibrary.Domain.Entities.Artist _artist = default!;
     private MyMusicLibrary.Domain.Entities.Playlist _playlist = default!;
+    private MyMusicLibrary.Domain.Entities.UserFavoritesMusic _userMusicFavorites = default!;
 
     private string _password = string.Empty;
 
@@ -54,6 +55,8 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     public long GetPlaylistId() => _playlist.Id;
     public string GetPlaylistName() => _playlist.Name;
     public string GetPlaylistDescription() => _playlist.Description;
+    public long GetUserMusicFavoriteMusicId() => _userMusicFavorites.MusicId;
+    public long GetUserMusicFavoriteUserId() => _userMusicFavorites.UserId;
 
     private void StartDataBase(MyMusicLibraryDbContext dbContext)
     {
@@ -61,6 +64,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         _music = MusicBuilder.Build(_user); 
         _artist = ArtistBuilder.Builder(_user);
         _playlist = PlaylistBuilder.Build(_user);
+        _userMusicFavorites = UserFavoritesMusicBuilder.Build(_user);
 
         _music.PlaylistId = _playlist.Id;
 
@@ -68,6 +72,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         dbContext.Music.Add(_music); 
         dbContext.Artist.Add(_artist);
         dbContext.Playlist.Add(_playlist);
+        dbContext.UserFavoritesMusic.Add(_userMusicFavorites);
         dbContext.SaveChanges();
     }
 
