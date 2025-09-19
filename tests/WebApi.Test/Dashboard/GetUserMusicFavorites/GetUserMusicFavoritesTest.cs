@@ -4,10 +4,10 @@ using Shouldly;
 using System.Text.Json;
 using Xunit;
 
-namespace WebApi.Test.User.GetUserMusicFavorites;
+namespace WebApi.Test.Dashboard.GetUserMusicFavorites;
 public class GetUserMusicFavoritesTest : MyLibraryMusicBookClassFixture
 {
-    private const string method = "User/musicFavorites";
+    private const string method = "Dashboard/musicFavorites";
     private readonly Guid _userIdentifier;
 
     public GetUserMusicFavoritesTest(CustomWebApplicationFactory factory) : base(factory)

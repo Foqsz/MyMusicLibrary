@@ -1,14 +1,14 @@
 ﻿using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Repositores;
-using MyMusicLibrary.Application.UseCases.User.GetUserMusicFavorites;
+using MyMusicLibrary.Application.UseCases.Dashboard.GetUserMusicFavorites;
 using MyMusicLibrary.Domain.Extensions;
 using MyMusicLibrary.Exceptions;
 using MyMusicLibrary.Exceptions.ExceptionsBase;
 using Shouldly;
 using Xunit;
 
-namespace UseCases.Test.User.GetUserMusicFavorites;
+namespace UseCases.Test.Dashboard.GetUserMusicFavorites;
 public class GetUserMusicFavoritesUseCaseTest
 {
     [Fact]

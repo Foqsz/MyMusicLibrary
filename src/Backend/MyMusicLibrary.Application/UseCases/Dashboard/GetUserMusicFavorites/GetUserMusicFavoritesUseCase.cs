@@ -6,7 +6,7 @@ using MyMusicLibrary.Domain.Services.LoggedUser;
 using MyMusicLibrary.Exceptions;
 using MyMusicLibrary.Exceptions.ExceptionsBase;
 
-namespace MyMusicLibrary.Application.UseCases.User.GetUserMusicFavorites;
+namespace MyMusicLibrary.Application.UseCases.Dashboard.GetUserMusicFavorites;
 public class GetUserMusicFavoritesUseCase : IGetUserMusicFavoritesUseCase
 {
     private readonly ILoggedUser _loggedUser;
