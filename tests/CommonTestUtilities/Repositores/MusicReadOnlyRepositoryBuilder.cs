@@ -50,13 +50,19 @@ public class MusicReadOnlyRepositoryBuilder
         return this;
     }
 
-    public MusicReadOnlyRepositoryBuilder GetUseMusicFavorites(User user, IList<Music> music)
+    public MusicReadOnlyRepositoryBuilder GetUserMusicFavorites(User user, IList<Music> music)
     {
         _repository.Setup(u => u.GetUserMusicFavorites(user)).ReturnsAsync(music);
 
         return this;
     }
 
+    public MusicReadOnlyRepositoryBuilder GetMusicFavoriteId(User user, Music music)
+    {
+        _repository.Setup(r => r.GetMusicFavoriteId(user, music.Id)).ReturnsAsync(music);
+
+        return this;
+    }
 
     public IMusicReadOnlyRepository Build()
     {
