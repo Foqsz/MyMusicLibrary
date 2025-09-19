@@ -21,4 +21,11 @@ public class MusicWriteOnlyRepository : IMusicWriteOnlyRepository
 
         _dbContext.Music.Remove(music!);
     }
+
+    public async Task UnfavoriteMusic(long musicId)
+    {
+        var music = await _dbContext.UserFavoritesMusic.FindAsync(musicId);
+
+        _dbContext.UserFavoritesMusic.Remove(music!);
+    }
 }

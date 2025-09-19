@@ -7,4 +7,5 @@ public interface IMusicReadOnlyRepository
     Task<IList<Entities.Music>> Search(Entities.User user, string name);
     Task<IList<(string Genre, int Count)>> GetGenres();
     Task<IList<Entities.Music>> GetUserMusicFavorites(Entities.User user);
+    Task GetMusicFavoriteId(Entities.User user, long favoriteMusicId);
 }
