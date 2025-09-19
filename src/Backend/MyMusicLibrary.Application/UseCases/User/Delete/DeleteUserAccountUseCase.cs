@@ -3,6 +3,8 @@ using MyMusicLibrary.Domain.Repositories.UnitOfWork;
 using MyMusicLibrary.Domain.Repositories.User;
 using MyMusicLibrary.Domain.Repositories.User.Delete;
 using MyMusicLibrary.Domain.Services.LoggedUser;
+using MyMusicLibrary.Exceptions;
+using MyMusicLibrary.Exceptions.ExceptionsBase;
 
 namespace MyMusicLibrary.Application.UseCases.User.Delete;
 public class DeleteUserAccountUseCase : IDeleteUserAccountUseCase
@@ -27,10 +29,8 @@ public class DeleteUserAccountUseCase : IDeleteUserAccountUseCase
     {
         var user = await _loggedUser.User();
 
-        var userActive = await _userReadOnlyRepository.ExistActiveUserWithIdentifier(user.UserIdentifier);
-
-        if (userActive.IsFalse())
-            return;  
+        if (user.Active.IsFalse())
+            throw new InvalidActionException(ResourceMessagesException.ERROR_USER_IS_INACTIVE);
 
         await _userDeleteAccountRepository.DeleteAccount(user.UserIdentifier);
 

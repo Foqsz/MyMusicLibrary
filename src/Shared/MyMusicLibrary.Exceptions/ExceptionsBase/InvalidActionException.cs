@@ -1,9 +1,9 @@
 ﻿using System.Net;
 
 namespace MyMusicLibrary.Exceptions.ExceptionsBase;
-public class InvalidUpdateException : MyMusicLibraryException
+public class InvalidActionException : MyMusicLibraryException
 {
-    public InvalidUpdateException(string message) : base(message)
+    public InvalidActionException(string message) : base(message)
     {
     }
 

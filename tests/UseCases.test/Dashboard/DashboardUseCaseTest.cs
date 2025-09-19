@@ -3,6 +3,7 @@ using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Mapper;
 using CommonTestUtilities.Repositores;
 using MyMusicLibrary.Application.UseCases.Dashboard;
+using MyMusicLibrary.Domain.Extensions;
 using Shouldly;
 using Xunit;
 
@@ -16,7 +17,7 @@ public class DashboardUseCaseTest
 
         var musics = MusicBuilder.Collection(user);
 
-        var useCase = CreateUseCase(user, musics);
+        var useCase = CreateUseCase(user, musics, false);
 
         var result = await useCase.Execute();
 
@@ -29,14 +30,31 @@ public class DashboardUseCaseTest
             music.Album.ShouldNotBeNullOrWhiteSpace();
             music.Artist.ShouldNotBeNullOrWhiteSpace(); 
         }
-    } 
+    }
 
-    public static DashboardUseCase CreateUseCase(MyMusicLibrary.Domain.Entities.User user, IList<MyMusicLibrary.Domain.Entities.Music> musics)
+    [Fact]
+    public async Task Error_Dashboard_Empty()
+    {
+        (var user, var _) = UserBuilder.Build();
+
+        var musics = MusicBuilder.Collection(user);
+
+        var useCase = CreateUseCase(user, musics, true);
+
+        var result = await useCase.Execute();
+
+        result.Musics.ShouldNotBeNull();
+    }
+
+    public static DashboardUseCase CreateUseCase(MyMusicLibrary.Domain.Entities.User user, IList<MyMusicLibrary.Domain.Entities.Music> musics, bool notfound)
     {
         var loggedUser = LoggedUserBuilder.Build(user);
-        var repositoryOnly = new DashboardReadOnlyRepositoryBuilder().GetForDashboard(user, musics).Build();
+        var repositoryOnly = new DashboardReadOnlyRepositoryBuilder();
         var mapper = MapperBuilder.Build();
 
-        return new DashboardUseCase(loggedUser, repositoryOnly, mapper);
+        if (musics is not null && notfound.IsFalse())
+            repositoryOnly.GetForDashboard(user, musics);
+
+        return new DashboardUseCase(loggedUser, repositoryOnly.Build(), mapper);
     }
 }

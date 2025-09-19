@@ -23,5 +23,6 @@ public class DeleteUserAccountTest : MyLibraryMusicBookClassFixture
         var userDelete = await DoDelete(method, token);
 
         userDelete.StatusCode.ShouldBe(HttpStatusCode.NoContent);
-    } 
+        userDelete.IsSuccessStatusCode.ShouldBeTrue();
+    }
 }

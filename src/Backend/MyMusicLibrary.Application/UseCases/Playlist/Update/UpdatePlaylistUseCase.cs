@@ -42,7 +42,7 @@ public class UpdatePlaylistUseCase : IUpdatePlaylistUseCase
         if (string.Equals(playlist.Name?.Trim(), request.Name?.Trim(), StringComparison.OrdinalIgnoreCase)
             && string.Equals(playlist.Description?.Trim(), request.Description?.Trim(), StringComparison.OrdinalIgnoreCase))
         {
-            throw new InvalidUpdateException(ResourceMessagesException.UPDATE_ERROR);
+            throw new InvalidActionException(ResourceMessagesException.UPDATE_ERROR);
         }
 
         playlist.Name = request.Name!;

@@ -133,6 +133,15 @@ namespace MyMusicLibrary.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your account is already in the process of being deleted..
+        /// </summary>
+        public static string ERROR_USER_IS_INACTIVE {
+            get {
+                return ResourceManager.GetString("ERROR_USER_IS_INACTIVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No musical genres found..
         /// </summary>
         public static string GENRE_NOTFOUND {

@@ -103,7 +103,7 @@ public class PlaylistController : ControllerBase
             var result = await useCase.Execute(id, request);
             return Ok(result);
         }
-        catch (InvalidUpdateException ex)
+        catch (InvalidActionException ex)
         {
             return BadRequest(ex.Message);
         }

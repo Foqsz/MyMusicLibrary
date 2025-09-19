@@ -57,6 +57,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     public string GetPlaylistDescription() => _playlist.Description;
     public long GetUserMusicFavoriteMusicId() => _userMusicFavorites.MusicId;
     public long GetUserMusicFavoriteUserId() => _userMusicFavorites.UserId;
+    public bool GetUserActive() => _user.Active;
 
     private void StartDataBase(MyMusicLibraryDbContext dbContext)
     {

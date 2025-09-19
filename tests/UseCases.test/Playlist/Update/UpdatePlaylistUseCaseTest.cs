@@ -41,7 +41,7 @@ public class UpdatePlaylistUseCaseTest
         newPlaylist.Name = playlist.Name;
         newPlaylist.Description = playlist.Description;
 
-        var exception = await Should.ThrowAsync<InvalidUpdateException>(async () => await useCase.Execute(playlist.Id, newPlaylist));
+        var exception = await Should.ThrowAsync<InvalidActionException>(async () => await useCase.Execute(playlist.Id, newPlaylist));
 
         exception.GetStatusCode().ShouldBe(System.Net.HttpStatusCode.BadRequest);
         exception.GetErrorMessages().ShouldContain(ResourceMessagesException.UPDATE_ERROR);

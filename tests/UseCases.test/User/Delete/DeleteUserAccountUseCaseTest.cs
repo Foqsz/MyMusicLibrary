@@ -2,6 +2,8 @@
 using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Repositores;
 using MyMusicLibrary.Application.UseCases.User.Delete;
+using MyMusicLibrary.Exceptions;
+using MyMusicLibrary.Exceptions.ExceptionsBase;
 using Shouldly;
 using Xunit;
 
@@ -12,7 +14,6 @@ public class DeleteUserAccountUseCaseTest
     public async Task Success()
     {
         (var user, var _) = UserBuilder.Build();
-        var music = MusicBuilder.Build(user);
 
         var useCase = CreateUseCase(user);
 
@@ -21,9 +22,22 @@ public class DeleteUserAccountUseCaseTest
         await result.ShouldNotThrowAsync();
     }
 
-    private static DeleteUserAccountUseCase CreateUseCase(MyMusicLibrary.Domain.Entities.User? user)
+    [Fact]
+    public async Task Error_User_Inactive()
     {
-        var loggedUser = LoggedUserBuilder.Build(user!);
+        (var user, var _) = UserBuilder.Build();
+        user.Active = false;
+
+        var useCase = CreateUseCase(user);
+
+        var exception = await Should.ThrowAsync<InvalidActionException>(() => useCase.Execute());
+
+        exception.Message.ShouldBe(ResourceMessagesException.ERROR_USER_IS_INACTIVE);
+    }
+
+    private static DeleteUserAccountUseCase CreateUseCase(MyMusicLibrary.Domain.Entities.User user)
+    {
+        var loggedUser = LoggedUserBuilder.Build(user);
         var userDeleteAccountRepository = UserDeleteAccountRepositoryBuilder.Build();
         var userReadOnlyRepository = new UserReadOnlyRepositoryBuilder();
         var unitOfWork = UnitOfWorkBuilder.Build();
