@@ -28,7 +28,7 @@ public class UnfavoriteUseCase : IUnfavoriteUseCase
     {
         var user = await _loggedUser.User();
 
-        var musicFavorited = _repositoyRead.GetMusicFavoriteId(user, favoriteMusicId);
+        var musicFavorited = await _repositoyRead.GetMusicFavoriteId(user, favoriteMusicId);
 
         if (musicFavorited is null)
             throw new NotFoundException(ResourceMessagesException.MUSIC_EMPTY);

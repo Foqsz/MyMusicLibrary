@@ -42,11 +42,26 @@ public class MusicReadOnlyRepository : IMusicReadOnlyRepository
         return genres.Select(g => (g.Genre, g.Count)).ToList();
     }
 
-    public async Task GetMusicFavoriteId(Domain.Entities.User user, long favoriteMusicId) =>
-        await _dbContext.UserFavoritesMusic
+    public async Task<Domain.Entities.Music?> GetMusicFavoriteId(Domain.Entities.User user, long favoriteMusicId)
+    {
+        var favoritedMusic = await _dbContext.UserFavoritesMusic
         .AsNoTracking()
         .Where(u => u.UserId == user.Id && u.Id.Equals(favoriteMusicId))
         .FirstOrDefaultAsync();
+
+        if (favoritedMusic is null)
+            return null;
+
+        var musicId = favoritedMusic.MusicId;
+
+        var music = await _dbContext.Music
+            .AsNoTracking()
+            .Where(m => m.Id == musicId)
+            .Include(m => m.Artist)
+            .FirstOrDefaultAsync();
+
+        return music;
+    }
 
     public async Task<IList<Domain.Entities.Music>> GetUserMusicFavorites(Domain.Entities.User user)
     {
