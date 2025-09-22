@@ -14,7 +14,7 @@ public class ArtistController : ControllerBase
     [ProducesResponseType(typeof(ResponseProfileArtistJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> SearchArtist([FromServices] ISearchArtistUseCase useCase, string name)
+    public async Task<IActionResult> SearchArtist([FromServices] ISearchArtistUseCase useCase, [FromQuery] string name)
     {
         var result = await useCase.Execute(name); 
 
