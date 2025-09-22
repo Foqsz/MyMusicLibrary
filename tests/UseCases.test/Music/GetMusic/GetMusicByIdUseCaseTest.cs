@@ -1,5 +1,6 @@
 ﻿using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;
+using CommonTestUtilities.Mapper;
 using CommonTestUtilities.Repositores;
 using MyMusicLibrary.Application.UseCases.Music.GetById;
 using MyMusicLibrary.Exceptions;
@@ -51,11 +52,12 @@ public class GetMusicByIdUseCaseTest
     {
         var repositoryReadOnly = new MusicReadOnlyRepositoryBuilder();
         var loggedUser = LoggedUserBuilder.Build(user!);
+        var mapper = MapperBuilder.Build();
 
         if (music != null)
             repositoryReadOnly.GetById(user!, music);
 
 
-        return new GetMusicByIdUseCase(repositoryReadOnly.Build(), loggedUser); 
+        return new GetMusicByIdUseCase(repositoryReadOnly.Build(), loggedUser, mapper); 
     }
 }

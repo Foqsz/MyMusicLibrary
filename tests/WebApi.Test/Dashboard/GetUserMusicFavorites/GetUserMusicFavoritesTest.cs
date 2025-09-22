@@ -7,7 +7,7 @@ using Xunit;
 namespace WebApi.Test.Dashboard.GetUserMusicFavorites;
 public class GetUserMusicFavoritesTest : MyLibraryMusicBookClassFixture
 {
-    private const string method = "Dashboard/musicFavorites";
+    private const string method = "Dashboard/music-favorites";
     private readonly Guid _userIdentifier;
 
     public GetUserMusicFavoritesTest(CustomWebApplicationFactory factory) : base(factory)

@@ -24,7 +24,7 @@ public class DashboardController : ControllerBase
         return NoContent();
     }
 
-    [HttpGet("musicFavorites")]
+    [HttpGet("music-favorites")]
     [ProducesResponseType(typeof(ResponseMusicsJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetMusicFavorites([FromServices] IGetUserMusicFavoritesUseCase useCase)

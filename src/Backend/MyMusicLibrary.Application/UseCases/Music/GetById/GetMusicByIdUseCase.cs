@@ -10,11 +10,13 @@ public class GetMusicByIdUseCase : IGetMusicByIdUseCase
 {
     private readonly IMusicReadOnlyRepository _repository;
     private readonly ILoggedUser _logged;
+    private readonly IMapper _mapper;
 
-    public GetMusicByIdUseCase(IMusicReadOnlyRepository repository, ILoggedUser logged)
+    public GetMusicByIdUseCase(IMusicReadOnlyRepository repository, ILoggedUser logged, IMapper mapper)
     {
         _repository = repository;
         _logged = logged;
+        _mapper = mapper;
     }
 
     public async Task<ResponseProfileMusicJson> Execute(long id)
@@ -23,11 +25,11 @@ public class GetMusicByIdUseCase : IGetMusicByIdUseCase
 
         var music = await _repository.GetById(user, id);
 
-        return music is null ? throw new NotFoundException(ResourceMessagesException.MUSIC_EMPTY) : new ResponseProfileMusicJson
-        {
-            Album = music.Album,
-            Name = music.Name,
-            Artist = string.Join(", ", music.Artist.Select(artist => artist.Name)),
-        };
+        if (music is null)
+            throw new NotFoundException(ResourceMessagesException.MUSIC_EMPTY);
+
+        var musicMapper = _mapper.Map<Domain.Entities.Music, ResponseProfileMusicJson>(music);
+
+        return musicMapper;
     }
 }
