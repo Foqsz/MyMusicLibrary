@@ -11,17 +11,14 @@ public class DeleteUserAccountUseCase : IDeleteUserAccountUseCase
 {
     private readonly ILoggedUser _loggedUser;
     private readonly IUserDeleteAccountRepository _userDeleteAccountRepository;
-    private readonly IUserReadOnlyRepository _userReadOnlyRepository;
     private readonly IUnitOfWork _unitOfWork;
 
     public DeleteUserAccountUseCase(ILoggedUser loggedUser,
         IUserDeleteAccountRepository userDeleteAccountRepository,
-        IUserReadOnlyRepository userReadOnlyRepository,
         IUnitOfWork unitOfWork)
     {
         _loggedUser = loggedUser;
         _userDeleteAccountRepository = userDeleteAccountRepository;
-        _userReadOnlyRepository = userReadOnlyRepository;
         _unitOfWork = unitOfWork;
     }
 

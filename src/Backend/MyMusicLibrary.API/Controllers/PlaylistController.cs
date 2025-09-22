@@ -67,7 +67,6 @@ public class PlaylistController : ControllerBase
     }
 
     [HttpPost]
-    [Route("create")]
     [ProducesResponseType(typeof(ResponsePlaylistJson), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

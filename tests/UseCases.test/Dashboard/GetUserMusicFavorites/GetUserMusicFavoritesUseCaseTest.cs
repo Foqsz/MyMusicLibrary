@@ -50,7 +50,10 @@ public class GetUserMusicFavoritesUseCaseTest
         var repositoryRead = new MusicReadOnlyRepositoryBuilder();
 
         if (music is not null && notfound.IsFalse())
+        {
             repositoryRead.GetUserMusicFavorites(user, music);
+            repositoryRead.GetForDashboard(user, music);
+        }
 
         return new GetUserMusicFavoritesUseCase(loggedUser, repositoryRead.Build());
     }
