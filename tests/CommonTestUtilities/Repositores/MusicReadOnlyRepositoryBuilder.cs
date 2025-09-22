@@ -64,6 +64,13 @@ public class MusicReadOnlyRepositoryBuilder
         return this;
     }
 
+    public MusicReadOnlyRepositoryBuilder GetForDashboard(User user, IList<Music> music)
+    {
+        _repository.Setup(r => r.GetForDashboard(user)).ReturnsAsync(music);
+
+        return this;
+    }
+
     public IMusicReadOnlyRepository Build()
     {
         return _repository.Object;

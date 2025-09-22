@@ -7,7 +7,7 @@ using Xunit;
 namespace WebApi.Test.Playlist.Create;
 public class CreatePlaylistTest : MyLibraryMusicBookClassFixture
 {
-    private const string method = "/Playlist/create";
+    private const string method = "/Playlist";
     private readonly Guid _userIdentifier;
     public CreatePlaylistTest(CustomWebApplicationFactory factory) : base(factory)
     {

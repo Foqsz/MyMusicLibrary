@@ -51,7 +51,6 @@ public class DeleteUserAccountUseCaseTest
         return new DeleteUserAccountUseCase( 
             loggedUser,
             userDeleteAccountRepository,
-            userReadOnlyRepository.Build(),
             unitOfWork
         );
     }

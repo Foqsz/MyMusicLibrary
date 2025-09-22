@@ -6,7 +6,6 @@ using MyMusicLibrary.Domain.Extensions;
 using MyMusicLibrary.Exceptions;
 using MyMusicLibrary.Exceptions.ExceptionsBase;
 using Shouldly;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace UseCases.Test.Dashboard.Unfavorite;
@@ -41,8 +40,7 @@ public class UnfavoriteMusicUseCaseTest
         result.Message.ShouldBe(ResourceMessagesException.MUSIC_EMPTY);
     }
 
-
-    private UnfavoriteUseCase CreateUseCase(MyMusicLibrary.Domain.Entities.User user, MyMusicLibrary.Domain.Entities.Music music, bool notfound)
+    public static UnfavoriteUseCase CreateUseCase(MyMusicLibrary.Domain.Entities.User user, MyMusicLibrary.Domain.Entities.Music music, bool notfound)
     {
         var loggedUser = LoggedUserBuilder.Build(user);
         var repositoryRead = new MusicReadOnlyRepositoryBuilder();
