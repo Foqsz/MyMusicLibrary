@@ -1,4 +1,5 @@
-﻿using FluentMigrator.Runner;
+﻿using Amazon.S3;
+using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,7 @@ using MyMusicLibrary.Domain.Repositories.User.Update;
 using MyMusicLibrary.Domain.Security.Cryptography;
 using MyMusicLibrary.Domain.Security.Tokens;
 using MyMusicLibrary.Domain.Services.LoggedUser;
+using MyMusicLibrary.Domain.Services.Storage.Aws;
 using MyMusicLibrary.Infrastructure.DataAccess;
 using MyMusicLibrary.Infrastructure.DataAccess.Repositories.Artist;
 using MyMusicLibrary.Infrastructure.DataAccess.Repositories.Dashboard;
@@ -36,6 +38,7 @@ public static class DependencyInjectionExtension
         AddTokens(services, configuration);
         AddDbContext_MySqlServer(services, configuration);
         AddFluentMigrator_MySql(services, configuration);
+        AddAmazonS3Service(services, configuration);
     }
 
     private static void AddRepositories(IServiceCollection services)
@@ -92,5 +95,24 @@ public static class DependencyInjectionExtension
 
         services.AddScoped<IAccessTokenGenerator>(option => new JwtTokenGenerator(expirationTimeMinutes, signingKey!));
         services.AddScoped<IAccessTokenValidator>(option => new JwtTokenValidator(signingKey!));
+    }
+
+    private static void AddAmazonS3Service(IServiceCollection services, IConfiguration configuration)
+    {
+        var awsSection = configuration.GetSection("Settings:AWS");
+        var accessKey = awsSection["AccessKey"];
+        var secretKey = awsSection["SecretKey"];
+        var region = awsSection["Region"];
+        var bucketName = awsSection["BucketName"];
+
+        var s3Client = new AmazonS3Client(accessKey, secretKey, Amazon.RegionEndpoint.GetBySystemName(region));
+        services.AddSingleton<IAmazonS3>(s3Client);
+
+        services.AddSingleton<IS3Service>(provider =>
+            new S3Service(
+                provider.GetRequiredService<IAmazonS3>(),
+                bucketName!
+            )
+        );
     }
 }
