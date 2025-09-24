@@ -135,6 +135,9 @@
   <data name="EMAIL_INVALID" xml:space="preserve">
     <value>E-mail inválido.</value>
   </data>
+  <data name="ERROR_INVALID_FILE" xml:space="preserve">
+    <value>Tipo de arquivo invalido.</value>
+  </data>
   <data name="ERROR_MUSIC_FAVORITES" xml:space="preserve">
     <value>Você não tem músicas favoritadas.</value>
   </data>

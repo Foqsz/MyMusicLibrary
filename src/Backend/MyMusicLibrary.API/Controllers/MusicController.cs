@@ -6,9 +6,11 @@ using MyMusicLibrary.Application.UseCases.Music.Genre;
 using MyMusicLibrary.Application.UseCases.Music.GetById;
 using MyMusicLibrary.Application.UseCases.Music.Register;
 using MyMusicLibrary.Application.UseCases.Music.Search;
+using MyMusicLibrary.Application.UseCases.Music.Upload;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
 using MyMusicLibrary.Domain.Extensions;
+using MyMusicLibrary.Domain.Services.Storage.Aws;
 
 namespace MyMusicLibrary.API.Controllers;
 [Route("[controller]")]
@@ -86,5 +88,22 @@ public class MusicController : ControllerBase
     {
         await useCase.Execute(id);
         return NoContent();
+    }
+
+    [HttpPost("upload")] 
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> Upload([FromServices] IUploadMusicUseCase useCase, [FromForm] RequestUploadMusicFormData file)
+    {
+        try
+        {
+            var result = await useCase.Execute(file);
+            return Created(string.Empty, result );
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }

@@ -115,6 +115,15 @@ namespace MyMusicLibrary.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid file type..
+        /// </summary>
+        public static string ERROR_INVALID_FILE {
+            get {
+                return ResourceManager.GetString("ERROR_INVALID_FILE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You don&apos;t have favorite songs..
         /// </summary>
         public static string ERROR_MUSIC_FAVORITES {
