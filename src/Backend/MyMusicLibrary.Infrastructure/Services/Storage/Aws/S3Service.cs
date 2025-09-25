@@ -1,17 +1,20 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Transfer;
 using Microsoft.AspNetCore.Http;
+using MyMusicLibrary.Domain.Repositories.Music;
 
 namespace MyMusicLibrary.Domain.Services.Storage.Aws;
 public class S3Service : IS3Service
 {
     private readonly IAmazonS3 s3Client;
     private readonly string bucketName;
+    private readonly IMusicWriteOnlyRepository _musicWriteOnlyRepository;
 
-    public S3Service(IAmazonS3 s3Client, string bucketName)
+    public S3Service(IAmazonS3 s3Client, string bucketName, IMusicWriteOnlyRepository musicWriteOnlyRepository)
     {
         this.s3Client = s3Client;
         this.bucketName = bucketName;
+        _musicWriteOnlyRepository = musicWriteOnlyRepository;
     }
 
     public async Task<string> UploadFileAsync(IFormFile file)
