@@ -36,20 +36,22 @@ public class UploadMusicUseCase : IUploadMusicUseCase
 
         var upload = await _s3Service.UploadFileAsync(file.Music!);
 
-        if(upload.IsNullOrEmpty())
+        if(upload.key is null || upload.bucketName is null)
             throw new InvalidActionException(ResourceMessagesException.ERROR_INVALID_FILE);
 
         var musicName = Path.GetFileNameWithoutExtension(file.Music!.FileName).Replace(" ", "_ ");
 
-        var musicCreate = new Domain.Entities.Music()
+        var musicDbUpdate = new Domain.Entities.Music()
         {
             UserId = user.Id,
-            Name = musicName
+            Name = musicName,
+            MusicKey = upload.key,
+            AwsS3BucketName = upload.bucketName,
         };
 
-        await _musicWriteOnlyRepository.Add(musicCreate);
+        await _musicWriteOnlyRepository.Add(musicDbUpdate);
         await _UnitOfWork.Commit();
 
-        return upload;
+        return upload.key;
     }
 }
