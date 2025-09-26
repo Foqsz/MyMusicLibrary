@@ -13,4 +13,6 @@ public abstract class DatabaseVersions
     public const int TABLE_PLAYLIST_MUSICS = 10;
     public const int TABLE_MUSIC_FAVORITES = 11;
     public const int TABLE_MUSIC_FAVORITES_2 = 12;
+    public const int TABLE_MUSIC_KEY_S3 = 13;
+    public const int TABLE_MUSIC_BUCKETNAME_S3 = 14;
 }
