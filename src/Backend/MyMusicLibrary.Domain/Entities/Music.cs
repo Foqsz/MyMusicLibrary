@@ -6,4 +6,6 @@ public class Music : EntityBase
     public IList<Artist> Artist { get; set; } = [];
     public long UserId { get; set; }
     public long? PlaylistId { get; set; }
+    public string MusicKey { get; set; } = string.Empty;
+    public string AwsS3BucketName { get; set; } = string.Empty;
 }
