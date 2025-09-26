@@ -1,4 +1,5 @@
 ﻿using Moq;
+using MyMusicLibrary.Domain.Dtos;
 using MyMusicLibrary.Domain.Entities;
 using MyMusicLibrary.Domain.Repositories.Music;
 
@@ -38,11 +39,11 @@ public class MusicReadOnlyRepositoryBuilder
 
     public MusicReadOnlyRepositoryBuilder GetGenres()
     {
-        var genres = new List<(string Genre, int Count)>
+        var genres = new List<GenresDto>
         {
-            ("Rock", 10),
-            ("Pop", 5),
-            ("Jazz", 2)
+            new("Rock", 10),
+            new("Pop", 5),
+            new("Jazz", 2)
         };
 
         _repository.Setup(r => r.GetGenres()).ReturnsAsync(genres);

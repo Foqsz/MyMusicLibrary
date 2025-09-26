@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyMusicLibrary.Domain.Dtos;
 using MyMusicLibrary.Domain.Repositories.Music;
 
 namespace MyMusicLibrary.Infrastructure.DataAccess.Repositories.Music;
@@ -29,17 +30,19 @@ public class MusicReadOnlyRepository : IMusicReadOnlyRepository
             .Take(5)
             .ToListAsync();
 
-    public async Task<IList<(string Genre, int Count)>> GetGenres()
+    public async Task<IList<GenresDto>> GetGenres()
     {
         var genres = await _dbContext.Artist
             .AsNoTracking()
-            .GroupBy(a => a.Genre)  
+            .GroupBy(a => a.Genre)
             .Select(g => new { Genre = g.Key, Count = g.Count() })
             .OrderByDescending(g => g.Count)
             .Take(5)
             .ToListAsync();
 
-        return genres.Select(g => (g.Genre, g.Count)).ToList();
+        return genres
+            .Select(g => new GenresDto(g.Genre, g.Count))
+            .ToList();
     }
 
     public async Task<Domain.Entities.Music?> GetMusicFavoriteId(Domain.Entities.User user, long favoriteMusicId)
