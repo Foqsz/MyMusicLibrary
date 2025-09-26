@@ -6,26 +6,30 @@ using MyMusicLibrary.Domain.Repositories.Music;
 namespace MyMusicLibrary.Domain.Services.Storage.Aws;
 public class S3Service : IS3Service
 {
-    private readonly IAmazonS3 s3Client;
+    private readonly IAmazonS3 _s3Client;
     private readonly string bucketName;
     private readonly IMusicWriteOnlyRepository _musicWriteOnlyRepository;
 
-    public S3Service(IAmazonS3 s3Client, string bucketName, IMusicWriteOnlyRepository musicWriteOnlyRepository)
+    public S3Service(IAmazonS3 s3Client, string bucketName)
     {
-        this.s3Client = s3Client;
+        this._s3Client = s3Client;
         this.bucketName = bucketName;
         _musicWriteOnlyRepository = musicWriteOnlyRepository;
     }
 
-    public async Task<string> UploadFileAsync(IFormFile file)
+    public async Task<S3FilesDto> UploadFileAsync(IFormFile file)
     {
-        if (!file.FileName.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase) || file.ContentType != "audio/mpeg")
-            return string.Empty;
+        if (file == null || file.Length == 0)
+            throw new ArgumentException("File is empty.", nameof(file));
 
-        var fileTransferUtility = new TransferUtility(s3Client);
+        if (!file.FileName.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase) ||
+            file.ContentType != "audio/mpeg")
+            throw new InvalidOperationException("Only .mp3 files are allowed.");
+
+        var fileTransferUtility = new TransferUtility(_s3Client);
         var key = $"{Guid.NewGuid()}_{file.FileName}";
 
-        using (var stream = file.OpenReadStream())
+        await using (var stream = file.OpenReadStream())
         {
             var request = new TransferUtilityUploadRequest
             {
@@ -37,6 +41,9 @@ public class S3Service : IS3Service
 
             await fileTransferUtility.UploadAsync(request);
         }
+
+        return new S3FilesDto(key: key, bucketName: bucketName);
+    }
 
         return key;
     }
