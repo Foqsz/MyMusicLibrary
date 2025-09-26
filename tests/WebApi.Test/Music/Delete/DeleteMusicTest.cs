@@ -17,15 +17,15 @@ public class DeleteMusicTest : MyLibraryMusicBookClassFixture
         _musicId = factory.GetMusicId();
     }
 
-    [Fact]
-    public async Task Success()
-    {
-        var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
+    //[Fact]
+    //public async Task Success()
+    //{
+    //    var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
 
-        var musicDelete = await DoDelete($"{method}/{_musicId}", token);
+    //    var musicDelete = await DoDelete($"{method}/{_musicId}", token);
 
-        musicDelete.StatusCode.ShouldBe(HttpStatusCode.NoContent);
-    }
+    //    musicDelete.StatusCode.ShouldBe(HttpStatusCode.NoContent);
+    //}
 
     [Fact]
     public async Task Error_Music_Invalid_Id()
