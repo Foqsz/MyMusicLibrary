@@ -15,7 +15,7 @@ com **autenticação via Google OAuth2**, suporte a testes unitários, mocks e g
 
 ## 📌 Funcionalidades
 
-- 🎶 API para gerenciamento de músicas, álbuns e playlists(em breve).
+- 🎶 API para gerenciamento de músicas, álbuns, artistas e playlists.
 - 🔍 Busca por nome, gênero ou artista  
 - 🔑 Autenticação e autorização via **Google OAuth2**  
 - 📂 Organização em biblioteca pessoal  
@@ -32,6 +32,7 @@ com **autenticação via Google OAuth2**, suporte a testes unitários, mocks e g
 - **Moq** – criação de mocks  
 - **FluentAssertions** – assertions legíveis nos testes  
 - **xUnit / NUnit** – framework de testes (adicione o que você estiver usando)  
+- **Amazon AWS S3** - Upload de músicas.
 
 ---
 
