@@ -1,0 +1,11 @@
+# Ignorar arquivos e pastas que não precisam ir para a imagem
+**/bin/
+**/obj/
+.vs/
+.git/
+.gitignore
+Dockerfile
+README.md
+LICENSE.txt
+MyMusicLibrary.Site/
+tests/
