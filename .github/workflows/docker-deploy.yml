@@ -21,29 +21,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Login no Azure Container Registry
-      - name: Login to Azure Container Registry
-        uses: azure/docker-login@v1
-        with:
-          login-server: ${{ env.REGISTRY }}
-          username: ${{ secrets.AZURE_ACR_USERNAME }}
-          password: ${{ secrets.AZURE_ACR_PASSWORD }}
-
-      # 3️⃣ Build e push da imagem Docker
-      - name: Build and push Docker image
-        run: |
-          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest .
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-
-      # 4️⃣ Login no Azure para deploy
+      # 2️⃣ Login no Azure para autenticar TUDO
       - name: Azure Login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # 5️⃣ Deploy no App Service usando a imagem do ACR
+      # 3️⃣ Login no Azure Container Registry (ACR)
+      #    Este passo agora usa a autenticação do passo anterior
+      - name: Login to Azure Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ env.REGISTRY }}
+
+      # 4️⃣ Build e push da imagem Docker
+      - name: Build and push Docker image
+        run: |
+          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest .
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+      # 5️⃣ Deploy no App Service
       - name: Deploy to Azure Web App
-        # 👇 CORREÇÃO APLICADA AQUI 👇
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ env.APP_NAME }}
