@@ -3,21 +3,12 @@ using MyMusicLibrary.Infrastructure.DataAccess.Migrations;
 
 namespace MyMusicLibrary.Infrastructure.Migrations.Versions;
 
-[Migration(DatabaseVersions.TABLE_MUSICARTIST, "Create tables Music and Artist with foreign key")]
+[Migration(DatabaseVersions.TABLE_MUSICARTIST, "Create table Artist with foreign key to Music")]
 public class Version0000004 : VersionBase
 {
     public override void Up()
     {
-        // Cria primeiro a tabela Music, pois será referenciada por Artist
-        CreateTable("Music")
-            .WithColumn("Name").AsString(255).NotNullable()
-            .WithColumn("Artist").AsString(100).NotNullable()
-            .WithColumn("Album").AsString(100).NotNullable()
-            .WithColumn("UserId").AsInt64().NotNullable()
-                .ForeignKey("FK_Music_User_Id", "Users", "Id")
-                .OnDelete(System.Data.Rule.Cascade);
-
-        // Depois cria a tabela Artist, que depende de Music
+        // Cria apenas a tabela Artist
         CreateTable("Artist")
             .WithColumn("Name").AsString(255).NotNullable()
             .WithColumn("Genre").AsString(100).NotNullable()
