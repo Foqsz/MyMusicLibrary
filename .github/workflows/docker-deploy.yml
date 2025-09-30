@@ -43,7 +43,7 @@ jobs:
 
       # 5️⃣ Deploy no App Service usando a imagem do ACR
       - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-container-deploy@v2
         with:
           app-name: ${{ env.APP_NAME }}
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
