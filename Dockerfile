@@ -2,6 +2,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
+# Copia a solução para /src
 COPY MyMusicLibrary.sln .
 COPY src/Backend/MyMusicLibrary.API/MyMusicLibrary.API.csproj src/Backend/MyMusicLibrary.API/
 COPY src/Backend/MyMusicLibrary.Application/MyMusicLibrary.Application.csproj src/Backend/MyMusicLibrary.Application/
