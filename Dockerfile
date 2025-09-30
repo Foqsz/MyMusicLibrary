@@ -1,35 +1,23 @@
 # Etapa 1: Build
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build-env
 WORKDIR /app
 
-# Copiar a solução e os projetos necessários
-COPY MyMusicLibrary.sln .
-COPY src/Backend/MyMusicLibrary.API/MyMusicLibrary.API.csproj src/Backend/MyMusicLibrary.API/
-COPY src/Backend/MyMusicLibrary.Application/MyMusicLibrary.Application.csproj src/Backend/MyMusicLibrary.Application/
-COPY src/Backend/MyMusicLibrary.Domain/MyMusicLibrary.Domain.csproj src/Backend/MyMusicLibrary.Domain/
-COPY src/Backend/MyMusicLibrary.Infrastructure/MyMusicLibrary.Infrastructure.csproj src/Backend/MyMusicLibrary.Infrastructure/
-COPY src/Shared/MyMusicLibrary.Communication/MyMusicLibrary.Communication.csproj src/Shared/MyMusicLibrary.Communication/
-COPY src/Shared/MyMusicLibrary.Exceptions/MyMusicLibrary.Exceptions.csproj src/Shared/MyMusicLibrary.Exceptions/
+# Copia todo o código
+COPY src/ .
 
-# Restaurar dependências (somente os projetos de produção)
-RUN dotnet restore MyMusicLibrary.sln
+# Define o diretório do projeto principal
+WORKDIR Backend/MyMusicLibrary.API
 
-# Copiar todo o código-fonte
-COPY src/ src/
-
-# Publicar o projeto para produção
-WORKDIR /app/src/Backend/MyMusicLibrary.API
-RUN dotnet publish -c Release -o /app/publish
+# Restaura e publica apenas este projeto
+RUN dotnet restore
+RUN dotnet publish -c Release -o /app/out
 
 # Etapa 2: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
-
 WORKDIR /app
 
-# Copiar a saída publicada da etapa de build
-COPY --from=build /app/publish .
+# Copia a saída do publish
+COPY --from=build-env /app/out .
 
-# Definir a porta e o entrypoint
-EXPOSE 80
+# Define o entrypoint da aplicação
 ENTRYPOINT ["dotnet", "MyMusicLibrary.API.dll"]
