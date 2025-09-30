@@ -10,8 +10,8 @@ on:
 
 env:
   REGISTRY: myacr.azurecr.io          # Azure Container Registry
-  IMAGE_NAME: mymusiclibrary          # Nome da imagem
-  APP_NAME: MyMusicLibraryAppService  # Nome do App Service
+  IMAGE_NAME: mymusiclibrary         # Nome da imagem
+  APP_NAME: MyMusicLibraryAppService # Nome do App Service
 
 jobs:
   build-and-deploy:
@@ -43,7 +43,8 @@ jobs:
 
       # 5️⃣ Deploy no App Service usando a imagem do ACR
       - name: Deploy to Azure Web App
-        uses: azure/webapps-container-deploy@v3
+        # 👇 CORREÇÃO APLICADA AQUI 👇
+        uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ env.APP_NAME }}
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          images: '${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest'
