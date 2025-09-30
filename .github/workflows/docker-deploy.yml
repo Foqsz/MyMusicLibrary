@@ -7,19 +7,17 @@ on:
   pull_request:
     branches:
       - develop
-  schedule:
-    - cron: '31 22 * * *'
 
 env:
-  REGISTRY: myacr.azurecr.io       # Seu Azure Container Registry
-  IMAGE_NAME: mymusiclibrary       # Nome da imagem
+  REGISTRY: myacr.azurecr.io        # Seu Azure Container Registry
+  IMAGE_NAME: mymusiclibrary        # Nome da imagem
   APP_NAME: MyMusicLibraryAppService # Nome do App Service
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      # 1️⃣ Fazer checkout do repositório
+      # 1️⃣ Checkout do repositório
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -31,13 +29,11 @@ jobs:
           username: ${{ secrets.AZURE_ACR_USERNAME }}
           password: ${{ secrets.AZURE_ACR_PASSWORD }}
 
-      # 3️⃣ Build e push da imagem Docker para o ACR
+      # 3️⃣ Build e push da imagem Docker
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+        run: |
+          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest .
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
       # 4️⃣ Login no Azure para deploy
       - name: Azure Login
@@ -47,7 +43,7 @@ jobs:
 
       # 5️⃣ Deploy no App Service usando a imagem do ACR
       - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v3
+        uses: azure/webapps-container-deploy@v2
         with:
           app-name: ${{ env.APP_NAME }}
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
