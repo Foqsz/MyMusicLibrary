@@ -8,12 +8,27 @@ public class Version0000004 : VersionBase
 {
     public override void Up()
     {
-        // Cria apenas a tabela Artist
-        CreateTable("Artist")
-            .WithColumn("Name").AsString(255).NotNullable()
-            .WithColumn("Genre").AsString(100).NotNullable()
-            .WithColumn("Music").AsString(100).NotNullable()
-            .WithColumn("MusicId").AsInt64().NotNullable()
-                .ForeignKey("FK_Artist_Music_Id", "Music", "Id");
+        // Cria primeiro a tabela Music, se ainda não existir
+        if (!Schema.Table("Music").Exists() && !Schema.Table("music").Exists())
+        {
+            CreateTable("Music")
+                .WithColumn("Name").AsString(255).NotNullable()
+                .WithColumn("Artist").AsString(100).NotNullable()
+                .WithColumn("Album").AsString(100).NotNullable()
+                .WithColumn("UserId").AsInt64().NotNullable()
+                    .ForeignKey("FK_Music_User_Id", "Users", "Id")
+                    .OnDelete(System.Data.Rule.Cascade);
+        }
+
+        // Cria a tabela Artist somente se ainda não existir
+        if (!Schema.Table("Artist").Exists() && !Schema.Table("artist").Exists())
+        {
+            CreateTable("Artist")
+                .WithColumn("Name").AsString(255).NotNullable()
+                .WithColumn("Genre").AsString(100).NotNullable()
+                .WithColumn("Music").AsString(100).NotNullable()
+                .WithColumn("MusicId").AsInt64().NotNullable()
+                    .ForeignKey("FK_Artist_Music_Id", "Music", "Id");
+        }
     }
 }
