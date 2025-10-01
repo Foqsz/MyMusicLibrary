@@ -8,27 +8,26 @@ public class Version0000005 : VersionBase
 {
     public override void Up()
     {
-        if (!Schema.Table("Music").Exists() && !Schema.Table("music").Exists())
+        // Já provisionado por versões anteriores? então não refaz
+        if (Schema.Table("Artist").Exists() || Schema.Table("artist").Exists()
+            || Schema.Table("Music").Exists() || Schema.Table("music").Exists())
         {
-            // Cria primeiro a tabela Music, pois será referenciada por Artist
-            CreateTable("Music")
-                .WithColumn("Name").AsString(255).NotNullable()
-                .WithColumn("Album").AsString(100).NotNullable()
-                .WithColumn("Artist").AsString(100).NotNullable()
-                .WithColumn("UserId").AsInt64().NotNullable()
-                    .ForeignKey("FK_Music_User_Id", "users", "Id")
-                    .OnDelete(System.Data.Rule.Cascade);
+            return;
         }
 
-        if (!Schema.Table("Artist").Exists() && !Schema.Table("artist").Exists())
-        {
-            // Depois cria a tabela Artist, que depende de Music
-            CreateTable("Artist")
-                .WithColumn("Name").AsString(255).NotNullable()
-                .WithColumn("Genre").AsString(100).NotNullable()
-                .WithColumn("Music").AsString(100).NotNullable()
-                .WithColumn("MusicId").AsInt64().NotNullable()
-                    .ForeignKey("FK_Artist_Music_Id", "music", "Id");
-        }
+        CreateTable("Music")
+            .WithColumn("Name").AsString(255).NotNullable()
+            .WithColumn("Album").AsString(100).NotNullable()
+            .WithColumn("Artist").AsString(100).NotNullable()
+            .WithColumn("UserId").AsInt64().NotNullable()
+                .ForeignKey("FK_Music_User_Id", "users", "Id")
+                .OnDelete(System.Data.Rule.Cascade);
+
+        CreateTable("Artist")
+            .WithColumn("Name").AsString(255).NotNullable()
+            .WithColumn("Genre").AsString(100).NotNullable()
+            .WithColumn("Music").AsString(100).NotNullable()
+            .WithColumn("MusicId").AsInt64().NotNullable()
+                .ForeignKey("FK_Artist_Music_Id", "music", "Id");
     }
 }
