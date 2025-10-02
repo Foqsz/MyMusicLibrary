@@ -5,14 +5,14 @@ using MyMusicLibrary.Infrastructure.Migrations.Versions;
 namespace MyMusicLibrary.Migrations
 {
     [Migration(DatabaseVersions.TABLE_MUSIC_FAVORITES, "Criação da tabela UserFavoritesMusic para armazenar músicas favoritas dos usuários.")]
-    public class Version11 : VersionBase
+    public class Version0000011 : VersionBase
     {
         public override void Up()
         {
             Create.Table("UserFavoritesMusic")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity()
                 .WithColumn("UserId").AsInt64().NotNullable()
-                .WithColumn("MusicId").AsInt32().NotNullable()
+                .WithColumn("MusicId").AsInt64().NotNullable()
                 .WithColumn("Active").AsBoolean().NotNullable().WithDefaultValue(true) // adiciona Active
                 .WithColumn("CreatedOn").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime); // adiciona CreatedOn
 

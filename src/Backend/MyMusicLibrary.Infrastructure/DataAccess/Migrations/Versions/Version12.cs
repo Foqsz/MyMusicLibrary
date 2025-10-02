@@ -3,7 +3,7 @@ using MyMusicLibrary.Infrastructure.DataAccess.Migrations;
 using MyMusicLibrary.Infrastructure.Migrations.Versions;
 
 [Migration(DatabaseVersions.TABLE_MUSIC_FAVORITES_2, "Atualiza UserFavoritesMusic adicionando Active e CreatedOn")]
-public class Version12 : VersionBase
+public class Version0000012 : VersionBase
 {
     public override void Up()
     {

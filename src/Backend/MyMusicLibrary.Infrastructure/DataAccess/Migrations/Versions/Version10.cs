@@ -4,7 +4,7 @@ using MyMusicLibrary.Infrastructure.DataAccess.Migrations;
 namespace MyMusicLibrary.Infrastructure.Migrations.Versions;
 
 [Migration(DatabaseVersions.TABLE_PLAYLIST_MUSICS, "Fix Music-Playlist relation and remove broken PlaylistMusics")]
-public class Version10 : VersionBase
+public class Version0000010 : VersionBase
 {
     public override void Up()
     {
