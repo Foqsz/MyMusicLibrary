@@ -8,7 +8,7 @@ public class Version0000012 : VersionBase
     public override void Up()
     {
         Create.Table("UserFavoritesMusic")
-            .WithColumn("Id").AsInt32().PrimaryKey().Identity()
+            .WithColumn("Id").AsInt64().PrimaryKey().Identity()
             .WithColumn("UserId").AsInt64().NotNullable()
             .WithColumn("MusicId").AsInt64().NotNullable()
             .WithColumn("Active").AsBoolean().NotNullable().WithDefaultValue(true) // adiciona Active
