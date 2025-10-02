@@ -75,11 +75,13 @@ app.MapHealthChecks("/Health", new Microsoft.AspNetCore.Diagnostics.HealthChecks
     }
 });
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+
 }
 
 app.UseHttpsRedirection();
