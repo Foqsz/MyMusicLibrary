@@ -13,20 +13,27 @@ namespace MyMusicLibrary.Migrations
                 .WithColumn("Id").AsInt64().PrimaryKey().Identity()
                 .WithColumn("UserId").AsInt64().NotNullable()
                 .WithColumn("MusicId").AsInt64().NotNullable()
-                .WithColumn("Active").AsBoolean().NotNullable().WithDefaultValue(true) // adiciona Active
-                .WithColumn("CreatedOn").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime); // adiciona CreatedOn
+                .WithColumn("Active").AsBoolean().NotNullable().WithDefaultValue(true)
+                .WithColumn("CreatedOn").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime);
 
-            // Garante que um usuário não favorite a mesma música duas vezes
+            // Garante que os tipos sejam BIGINT (64 bits) antes de criar FKs (mitiga mapeamentos inconsistentes)
+            Execute.Sql("""
+                ALTER TABLE `UserFavoritesMusic`
+                MODIFY COLUMN `Id` BIGINT NOT NULL AUTO_INCREMENT,
+                MODIFY COLUMN `UserId` BIGINT NOT NULL,
+                MODIFY COLUMN `MusicId` BIGINT NOT NULL;
+            """);
+
+            // Único por usuário + música
             Create.UniqueConstraint("UX_UserFavoritesMusic_UserId_MusicId")
                 .OnTable("UserFavoritesMusic")
                 .Columns("UserId", "MusicId");
 
-            // Foreign Key -> Users.Id
+            // FKs
             Create.ForeignKey("FK_UserFavoritesMusic_Users")
                 .FromTable("UserFavoritesMusic").ForeignColumn("UserId")
                 .ToTable("Users").PrimaryColumn("Id");
 
-            // Foreign Key -> Music.Id
             Create.ForeignKey("FK_UserFavoritesMusic_Music")
                 .FromTable("UserFavoritesMusic").ForeignColumn("MusicId")
                 .ToTable("Music").PrimaryColumn("Id");
