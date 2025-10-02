@@ -8,14 +8,25 @@ namespace MyMusicLibrary.Infrastructure.Migrations.Versions
     {
         public override void Up()
         {
-            // Remove a FK antiga
-            Delete.ForeignKey("FK_Artist_Music_Id").OnTable("Artist");
+            // Handle inconsistent FK names from earlier migrations:
+            // Version0000003 created "FK_Music_User_Id" on Artist(MusicId) -> Music(Id)
+            // Other versions referenced "FK_Artist_Music_Id".
+            // Drop whichever exists, then recreate a single consistent FK with ON DELETE CASCADE.
 
-            // Recria com ON DELETE CASCADE
+            if (Schema.Table("Artist").Constraint("FK_Music_User_Id").Exists())
+            {
+                Delete.ForeignKey("FK_Music_User_Id").OnTable("Artist");
+            }
+
+            if (Schema.Table("Artist").Constraint("FK_Artist_Music_Id").Exists())
+            {
+                Delete.ForeignKey("FK_Artist_Music_Id").OnTable("Artist");
+            }
+
             Create.ForeignKey("FK_Artist_Music_Id")
                 .FromTable("Artist").ForeignColumn("MusicId")
                 .ToTable("Music").PrimaryColumn("Id")
                 .OnDelete(System.Data.Rule.Cascade);
-        } 
+        }
     }
 }
