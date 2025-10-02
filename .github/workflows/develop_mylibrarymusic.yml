@@ -62,4 +62,11 @@ jobs:
           app-name: 'MyLibraryMusic'
           slot-name: 'Production'
           package: .
+          delete-rules: |
+            -
+            !*.dll
+            !*.exe
+            !*.json
+            !*.config
+
           
