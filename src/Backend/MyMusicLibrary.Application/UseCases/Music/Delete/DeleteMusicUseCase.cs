@@ -35,7 +35,7 @@ public class DeleteMusicUseCase : IDeleteMusicUseCase
         var musicaId = await _musicReadOnlyRepository.GetById(user, id) ?? throw new ExistMusicException(ResourceMessagesException.MUSIC_NOT_BELONG_TO_USER);
         
         await _musicWriteOnlyRepository.Delete(musicaId.Id);
-        await _s3Service.DeleteFile(musicaId.MusicKey);
+        await _s3Service.DeleteFile(musicaId.MusicKey!);
         await _unitOfWork.Commit();
     }
 }
