@@ -1,4 +1,4 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Http;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Domain.Extensions;
 using MyMusicLibrary.Domain.Repositories.Music;
@@ -7,6 +7,7 @@ using MyMusicLibrary.Domain.Services.LoggedUser;
 using MyMusicLibrary.Domain.Services.Storage.Aws;
 using MyMusicLibrary.Exceptions;
 using MyMusicLibrary.Exceptions.ExceptionsBase;
+using MyMusicLibrary.Infrastructure.Services.TagLib;
 
 namespace MyMusicLibrary.Application.UseCases.Music.Upload;
 public class UploadMusicUseCase : IUploadMusicUseCase
@@ -36,10 +37,13 @@ public class UploadMusicUseCase : IUploadMusicUseCase
 
         var upload = await _s3Service.UploadFileAsync(file.Music!);
 
-        if(upload.key is null || upload.bucketName is null)
+        if (upload.key is null || upload.bucketName is null)
             throw new InvalidActionException(ResourceMessagesException.ERROR_INVALID_FILE);
 
-        var musicName = Path.GetFileNameWithoutExtension(file.Music!.FileName).Replace(" ", "_ ");
+        var musicName = Path.GetFileNameWithoutExtension(file.Music!.FileName).Replace(" ", "_");
+
+        // Tenta extrair o artista do arquivo, se existir
+        var artistName = ExtractArtistFromFile(file.Music) ?? "Desconhecido";
 
         var musicDbUpdate = new Domain.Entities.Music()
         {
@@ -47,6 +51,10 @@ public class UploadMusicUseCase : IUploadMusicUseCase
             Name = musicName,
             MusicKey = upload.key,
             AwsS3BucketName = upload.bucketName,
+            Artist =
+            [
+                new Domain.Entities.Artist { Name = artistName }
+            ]
         };
 
         await _musicWriteOnlyRepository.Add(musicDbUpdate);
@@ -54,4 +62,13 @@ public class UploadMusicUseCase : IUploadMusicUseCase
 
         return upload.key;
     }
+
+    private static string? ExtractArtistFromFile(IFormFile file)
+    {
+        var fileAbstraction = new FormFileAbstraction(file);
+        var tfile = TagLib.File.Create(fileAbstraction);
+        var artist = tfile.Tag.FirstPerformer; // pega o artista do arquivo
+        return string.IsNullOrWhiteSpace(artist) ? null : artist;
+    }
+
 }
