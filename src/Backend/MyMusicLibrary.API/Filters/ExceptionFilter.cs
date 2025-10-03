@@ -1,31 +1,47 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 using MyMusicLibrary.Communication.Responses;
 using MyMusicLibrary.Exceptions;
 using MyMusicLibrary.Exceptions.ExceptionsBase;
-using System.Net;
 
 namespace MyMusicLibrary.API.Filters;
 
 public class ExceptionFilter : IExceptionFilter
 {
+    private readonly ILogger<ExceptionFilter> _logger;
+
+    public ExceptionFilter(ILogger<ExceptionFilter> logger)
+    {
+        _logger = logger;
+    }
+
     public void OnException(ExceptionContext context)
     {
         if (context.Exception is MyMusicLibraryException myLibraryMusicException)
+        {
             HandleProjectException(myLibraryMusicException, context);
+        }
         else
-            ThrowUnknowException(context);
+        {
+            ThrowUnknownException(context);
+        }
     }
 
-    private static void HandleProjectException(MyMusicLibraryException myLibraryMusicException, ExceptionContext context)
+    private void HandleProjectException(MyMusicLibraryException ex, ExceptionContext context)
     {
-        context.HttpContext.Response.StatusCode = (int)myLibraryMusicException.GetStatusCode();
-        context.Result = new ObjectResult(new ResponseErrorJson(myLibraryMusicException.GetErrorMessages()));
+        // Loga o erro customizado
+        _logger.LogWarning(ex, "Erro de regra de negócio capturado");
+
+        context.HttpContext.Response.StatusCode = (int)ex.GetStatusCode();
+        context.Result = new ObjectResult(new ResponseErrorJson(ex.GetErrorMessages()));
     }
 
-    private static void ThrowUnknowException(ExceptionContext context)
+    private void ThrowUnknownException(ExceptionContext context)
     {
+        // Loga o stacktrace completo
+        _logger.LogError(context.Exception, "Erro inesperado ocorreu");
+
         context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
         context.Result = new ObjectResult(new ResponseErrorJson(ResourceMessagesException.UNKNOWN_ERROR));
     }
