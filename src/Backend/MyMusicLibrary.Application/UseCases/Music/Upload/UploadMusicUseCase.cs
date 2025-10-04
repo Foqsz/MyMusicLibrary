@@ -51,10 +51,10 @@ public class UploadMusicUseCase : IUploadMusicUseCase
             Name = musicName,
             MusicKey = upload.key,
             AwsS3BucketName = upload.bucketName,
-            Artist =
-            [
+            Artist = new List<Domain.Entities.Artist>
+            {
                 new Domain.Entities.Artist { Name = artistName }
-            ]
+            }
         };
 
         await _musicWriteOnlyRepository.Add(musicDbUpdate);
