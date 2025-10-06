@@ -41,7 +41,7 @@ public class MusicReadOnlyRepository : IMusicReadOnlyRepository
             .ToListAsync();
 
         return genres
-            .Select(g => new GenresDto(g.Genre, g.Count))
+            .Select(g => new GenresDto(g.Genre!, g.Count))
             .ToList();
     }
 
