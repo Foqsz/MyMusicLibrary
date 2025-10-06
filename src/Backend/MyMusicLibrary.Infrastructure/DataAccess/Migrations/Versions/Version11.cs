@@ -1,8 +1,7 @@
 ﻿using FluentMigrator;
-using MyMusicLibrary.Infrastructure.DataAccess.Migrations;
 using MyMusicLibrary.Infrastructure.Migrations.Versions;
 
-namespace MyMusicLibrary.Migrations
+namespace MyMusicLibrary.Infrastructure.DataAccess.Migrations.Versions
 {
     [Migration(DatabaseVersions.TABLE_MUSIC_FAVORITES, "Criação da tabela UserFavoritesMusic para armazenar músicas favoritas dos usuários.")]
     public class Version0000011 : VersionBase

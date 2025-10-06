@@ -15,4 +15,6 @@ public abstract class DatabaseVersions
     public const int TABLE_MUSIC_FAVORITES_2 = 12;
     public const int TABLE_MUSIC_KEY_S3 = 13;
     public const int TABLE_MUSIC_BUCKETNAME_S3 = 14;
+    public const int TABLE_MUSIC_ARTIST_NULLABLE = 15;
+    public const int TABLE_MUSIC_DROP_LEGACY_ARTIST_COLUMN = 16;
 }

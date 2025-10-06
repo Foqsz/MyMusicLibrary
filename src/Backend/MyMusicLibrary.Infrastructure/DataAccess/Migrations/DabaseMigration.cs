@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MyMusicLibrary.Domain.Extensions;
 using MySqlConnector;
 
-namespace MyMusicLibrary.Infrastructure.Migrations;
+namespace MyMusicLibrary.Infrastructure.DataAccess.Migrations;
 
 public static class DatabaseMigration
 {
