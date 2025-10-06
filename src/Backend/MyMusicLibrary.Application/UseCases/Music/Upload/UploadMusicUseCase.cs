@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Domain.Extensions;
+using MyMusicLibrary.Domain.Repositories.Artist;
 using MyMusicLibrary.Domain.Repositories.Music;
 using MyMusicLibrary.Domain.Repositories.UnitOfWork;
 using MyMusicLibrary.Domain.Services.LoggedUser;
@@ -16,6 +17,7 @@ public class UploadMusicUseCase : IUploadMusicUseCase
     private readonly ILoggedUser _loggedUser;
     private readonly IMusicWriteOnlyRepository _musicWriteOnlyRepository;
     private readonly IUnitOfWork _UnitOfWork;
+    private readonly IArtistReadOnlyRepository _artistReadOnly;
 
     public UploadMusicUseCase(IS3Service s3Service,
         ILoggedUser loggedUser,
@@ -42,19 +44,27 @@ public class UploadMusicUseCase : IUploadMusicUseCase
 
         var musicName = Path.GetFileNameWithoutExtension(file.Music!.FileName).Replace(" ", "_");
 
-        // Tenta extrair o artista do arquivo, se existir
         var artistName = ExtractArtistFromFile(file.Music) ?? "Desconhecido";
 
-        var musicDbUpdate = new Domain.Entities.Music()
+        var existingArtist = await _artistReadOnly.SearchArtist(user, artistName) ?? new List<Domain.Entities.Artist>();
+
+        List<Domain.Entities.Artist> artists;
+        if (existingArtist != null && existingArtist.Count > 0)
+        {
+            artists = existingArtist.ToList();
+        }
+        else
+        {
+            artists = new List<Domain.Entities.Artist> { new Domain.Entities.Artist { Name = artistName } };
+        }
+
+        var musicDbUpdate = new Domain.Entities.Music
         {
             UserId = user.Id,
             Name = musicName,
             MusicKey = upload.key,
             AwsS3BucketName = upload.bucketName,
-            Artist = new List<Domain.Entities.Artist>
-            {
-                new Domain.Entities.Artist { Name = artistName }
-            }
+            Artist = artists
         };
 
         await _musicWriteOnlyRepository.Add(musicDbUpdate);
