@@ -7,7 +7,7 @@ using MyMusicLibrary.Application;
 using MyMusicLibrary.Domain.Extensions;
 using MyMusicLibrary.Domain.Security.Tokens;
 using MyMusicLibrary.Infrastructure;
-using MyMusicLibrary.Infrastructure.Migrations;
+using MyMusicLibrary.Infrastructure.DataAccess.Migrations;
 using MyMusicLibrary.Infrastucture.Extensions;
 
 const string AUTHENTICATION_TYPE = "Bearer";

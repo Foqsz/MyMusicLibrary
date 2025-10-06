@@ -1,7 +1,7 @@
 ﻿using FluentMigrator;
-using MyMusicLibrary.Infrastructure.DataAccess.Migrations;
+using MyMusicLibrary.Infrastructure.Migrations.Versions;
 
-namespace MyMusicLibrary.Infrastructure.Migrations.Versions;
+namespace MyMusicLibrary.Infrastructure.DataAccess.Migrations.Versions;
 
 [Migration(DatabaseVersions.TABLE_PLAYLIST_MUSICS, "Fix Music-Playlist relation and remove broken PlaylistMusics")]
 public class Version0000010 : VersionBase
