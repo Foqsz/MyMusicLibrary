@@ -22,12 +22,14 @@ public class UploadMusicUseCase : IUploadMusicUseCase
     public UploadMusicUseCase(IS3Service s3Service,
         ILoggedUser loggedUser,
         IMusicWriteOnlyRepository musicWriteOnlyRepository,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IArtistReadOnlyRepository artistReadOnly)
     {
         _s3Service = s3Service;
         _loggedUser = loggedUser;
         _musicWriteOnlyRepository = musicWriteOnlyRepository;
         _UnitOfWork = unitOfWork;
+        _artistReadOnly = artistReadOnly;
     }
 
     public async Task<string> Execute(RequestUploadMusicFormData file)
