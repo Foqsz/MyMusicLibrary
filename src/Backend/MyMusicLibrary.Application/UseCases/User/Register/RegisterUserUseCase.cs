@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
+using MyMusicLibrary.Domain.Repositories.Token;
 using MyMusicLibrary.Domain.Repositories.UnitOfWork;
 using MyMusicLibrary.Domain.Repositories.User;
 using MyMusicLibrary.Domain.Security.Cryptography;
@@ -17,13 +18,17 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     private readonly IMapper _mapper;
     private readonly IPasswordEncripter _passwordEncripter;
     private readonly IAccessTokenGenerator _accessTokenGenerator;
+    private readonly IRefreshTokenGenerator _refreshTokenGenerator;
+    private readonly ITokenRepository _tokenRepository;
 
     public RegisterUserUseCase(IUserWriteOnlyRepository userWriteOnlyRepository,
         IUserReadOnlyRepository userReadOnlyRepository,
         IUnitOfWork unitOfWork,
         IMapper mapper,
         IPasswordEncripter passwordEncripter,
-        IAccessTokenGenerator accessTokenGenerator)
+        IAccessTokenGenerator accessTokenGenerator,
+        IRefreshTokenGenerator refreshTokenGenerator,
+        ITokenRepository tokenRepository)
     {
         _userWriteOnlyRepository = userWriteOnlyRepository;
         _userReadOnlyRepository = userReadOnlyRepository;
@@ -31,6 +36,8 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         _mapper = mapper;
         _passwordEncripter = passwordEncripter;
         _accessTokenGenerator = accessTokenGenerator;
+        _refreshTokenGenerator = refreshTokenGenerator;
+        _tokenRepository = tokenRepository;
     }
 
     public async Task<ResponseRegisteredUserJson> Execute (RequestRegisterUserJson request)
@@ -45,12 +52,15 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 
         await _unitOfWork.Commit();
 
+        var refreshToken = await CreateAndSaveRefreshToken(user);
+
         return new ResponseRegisteredUserJson
         {
             Name = request.Name,
             Tokens = new ResponseTokensJson
             {
                 AccessToken = _accessTokenGenerator.Generate(user.UserIdentifier),
+                RefreshToken = refreshToken
             }
         };
     } 
@@ -79,5 +89,20 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 
             throw new ErrorOnValidationException(errorMessages);
         }
+    }
+
+    private async Task<string> CreateAndSaveRefreshToken(Domain.Entities.User user)
+    {
+        var refreshToken = new Domain.Entities.RefreshToken()
+        {
+            Value = _refreshTokenGenerator.Generate(),
+            UserId = user.Id,
+        };
+
+        await _tokenRepository.SaveNewRefreshToken(refreshToken);
+
+        await _unitOfWork.Commit();
+
+        return refreshToken.Value;
     }
 }
