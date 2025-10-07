@@ -147,11 +147,17 @@
   <data name="ERROR_USER_IS_INACTIVE" xml:space="preserve">
     <value>Your account is already in the process of being deleted.</value>
   </data>
+  <data name="EXPIRED_SESSION" xml:space="preserve">
+    <value>Session expired.</value>
+  </data>
   <data name="GENRE_NOTFOUND" xml:space="preserve">
     <value>No musical genres found.</value>
   </data>
   <data name="INCORRECT_CURRENT_PASSWORD_ERROR" xml:space="preserve">
     <value>Current password is incorrect.</value>
+  </data>
+  <data name="INVALID_SESSION" xml:space="preserve">
+    <value>Invalid session. Expired token.</value>
   </data>
   <data name="LOGIN_INVALID" xml:space="preserve">
     <value>E-mail or Password invalid.</value>
