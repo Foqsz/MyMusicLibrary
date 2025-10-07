@@ -10,6 +10,7 @@ public class Version0000016 : VersionBase
     {
         // Remove a coluna legada que causa conflito com a modelagem relacional
         // (faça backup do banco antes)
-        Delete.Column("Artist").FromTable("Music");
+        if (Schema.Table("Music").Column("Artist").Exists())
+            Delete.Column("Artist").FromTable("Music");
     }
 }

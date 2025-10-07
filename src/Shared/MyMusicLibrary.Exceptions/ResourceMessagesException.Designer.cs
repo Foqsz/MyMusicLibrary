@@ -151,6 +151,15 @@ namespace MyMusicLibrary.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Session expired..
+        /// </summary>
+        public static string EXPIRED_SESSION {
+            get {
+                return ResourceManager.GetString("EXPIRED_SESSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No musical genres found..
         /// </summary>
         public static string GENRE_NOTFOUND {
@@ -165,6 +174,15 @@ namespace MyMusicLibrary.Exceptions {
         public static string INCORRECT_CURRENT_PASSWORD_ERROR {
             get {
                 return ResourceManager.GetString("INCORRECT_CURRENT_PASSWORD_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid session. Expired token..
+        /// </summary>
+        public static string INVALID_SESSION {
+            get {
+                return ResourceManager.GetString("INVALID_SESSION", resourceCulture);
             }
         }
         

@@ -7,6 +7,7 @@ using MyMusicLibrary.Domain.Repositories.Artist;
 using MyMusicLibrary.Domain.Repositories.Dashboard;
 using MyMusicLibrary.Domain.Repositories.Music;
 using MyMusicLibrary.Domain.Repositories.Playlist;
+using MyMusicLibrary.Domain.Repositories.Token;
 using MyMusicLibrary.Domain.Repositories.UnitOfWork;
 using MyMusicLibrary.Domain.Repositories.User;
 using MyMusicLibrary.Domain.Repositories.User.Delete;
@@ -20,7 +21,9 @@ using MyMusicLibrary.Infrastructure.DataAccess.Repositories.Artist;
 using MyMusicLibrary.Infrastructure.DataAccess.Repositories.Dashboard;
 using MyMusicLibrary.Infrastructure.DataAccess.Repositories.Music;
 using MyMusicLibrary.Infrastructure.DataAccess.Repositories.Playlist;
+using MyMusicLibrary.Infrastructure.DataAccess.Repositories.Token;
 using MyMusicLibrary.Infrastructure.DataAccess.Repositories.User;
+using MyMusicLibrary.Infrastructure.DataAccess.Security.Token.Refresh;
 using MyMusicLibrary.Infrastructure.Security.Tokens.Access.Generator;
 using MyMusicLibrary.Infrastructure.Security.Tokens.Access.Validator;
 using MyMusicLibrary.Infrastructure.Services.LoggedUser;
@@ -57,6 +60,8 @@ public static class DependencyInjectionExtension
         services.AddScoped<IPlaylistWriteOnlyRepository, PlaylistWriteOnlyRepository>();
         services.AddScoped<IPlaylistReadOnlyRepository, PlaylistReadOnlyRepository>();
         services.AddScoped<IDeletePlaylistRepository, PlaylistWriteOnlyRepository>();
+        services.AddScoped<ITokenRepository, TokenRepository>();
+        services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
     }
 
     private static void AddPasswordsEncripter(IServiceCollection services)
