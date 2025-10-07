@@ -13,6 +13,7 @@ public class MyMusicLibraryDbContext : DbContext
     public DbSet<Artist> Artist { get; set; }
     public DbSet<Playlist> Playlist { get; set; }
     public DbSet<UserFavoritesMusic> UserFavoritesMusic { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
