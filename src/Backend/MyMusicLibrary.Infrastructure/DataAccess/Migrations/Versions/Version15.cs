@@ -9,7 +9,8 @@ public class Version0000015 : VersionBase
     public override void Up()
     {
         // Torna a coluna Artist nullable (mantendo o tipo e tamanho atual)
-        Alter.Column("Artist")
+        if (Schema.Table("Music").Column("Artist").Exists())
+            Alter.Column("Artist")
             .OnTable("Music")
             .AsString(100)
             .Nullable();
