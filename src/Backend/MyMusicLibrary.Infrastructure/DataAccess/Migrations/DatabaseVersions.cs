@@ -19,4 +19,5 @@ public abstract class DatabaseVersions
     public const int TABLE_MUSIC_DROP_LEGACY_ARTIST_COLUMN = 16;
     public const int TABLE_ARTIST_MAKE_MUSIC_NULLABLE = 17;
     public const int TABLE_ARTIST_GENRE_NULLABLE = 18;
+    public const int REFRESH_TOKEN_EXPIRATION = 19;
 }
