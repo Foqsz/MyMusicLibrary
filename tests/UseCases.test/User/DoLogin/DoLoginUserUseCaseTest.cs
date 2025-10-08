@@ -2,6 +2,7 @@
 using CommonTestUtilities.Entities;
 using CommonTestUtilities.Repositores;
 using CommonTestUtilities.Tokens.Generator;
+using CommonTestUtilities.Tokens.Refresh;
 using MyMusicLibrary.Application.UseCases.User.DoLogin;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Exceptions;
@@ -69,7 +70,7 @@ public class DoLoginUserUseCaseTest
         var exception = await act.ShouldThrowAsync<InvalidLoginException>();
 
         exception.GetErrorMessages().Count.ShouldBe(1);
-
+        
         exception.GetErrorMessages().First().ShouldBe(ResourceMessagesException.LOGIN_INVALID);
     }
 
@@ -78,14 +79,25 @@ public class DoLoginUserUseCaseTest
         var repository = new UserReadOnlyRepositoryBuilder();
         var passwordEncripter = PasswordEncripterBuilder.Build();
         var accessTokenGenerator = JwtTokenGeneratorBuilder.Build();
+        var tokenRepository = new TokenRepositoryBuilder();
+        var refreshToken = RefreshTokenGeneratorBuilder.Build(); 
+        var unitOfWork = UnitOfWorkBuilder.Build();
 
         if (user is not null)
+        {
             repository.GetByEmail(user);
+            tokenRepository.Get(user, "213ssad");
+            tokenRepository.SaveNewRefreshToken(user);
+        }
+
 
         return new DoLoginUseCase(
             userReadOnlyRepository: repository.Build(),
             passwordEncripter: passwordEncripter,
-            acessTokenGenerator: accessTokenGenerator
+            acessTokenGenerator: accessTokenGenerator,
+            tokenRepository.Build(),
+            refreshToken,
+            unitOfWork
         );
     }
 }
