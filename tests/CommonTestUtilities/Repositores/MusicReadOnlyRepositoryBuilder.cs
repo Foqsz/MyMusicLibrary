@@ -21,7 +21,7 @@ public class MusicReadOnlyRepositoryBuilder
         return this;
     }
 
-    public void ThereIsThisSong(User user, string musicName, string album)
+    public void ThereIsThisSong(User user)
     {
         _repository.Setup(r => r.ThereIsThisSong(It.IsAny<User>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(false);
 
