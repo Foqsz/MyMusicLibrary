@@ -83,7 +83,7 @@ public class RegisterMusicUseCaseTest
         var loggedUser = LoggedUserBuilder.Build(user);
 
         if (musicName is not null && musicExists == true)
-            repositoryReadOnly.ThereIsThisSong(user, musicName, album!);
+            repositoryReadOnly.ThereIsThisSong(user);
 
         return new RegisterMusicUseCase(repositoryReadOnly.Build(), unitOfWork, mapper, loggedUser, repositoryWriteOnly);
     }

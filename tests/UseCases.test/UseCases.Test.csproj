@@ -25,4 +25,8 @@
     <ProjectReference Include="..\CommonTestUtilities\CommonTestUtilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Music\Upload\" />
+  </ItemGroup>
+
 </Project>
