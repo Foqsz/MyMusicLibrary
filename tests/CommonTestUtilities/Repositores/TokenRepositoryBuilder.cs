@@ -13,9 +13,12 @@ public class TokenRepositoryBuilder
         _repository = new Mock<ITokenRepository>(); 
     }
 
-    public TokenRepositoryBuilder Get(User user, string refreshToken)
+    public TokenRepositoryBuilder Get(User user, string refreshToken, bool createdExpirated)
     {
         var token = RefreshTokenBuilder.Build(user);
+
+        if(createdExpirated is true)
+            token.CreatedOn = DateTime.UtcNow.AddDays(-8);
 
         _repository.Setup(r => r.Get(refreshToken)).ReturnsAsync(token);
         return this;
