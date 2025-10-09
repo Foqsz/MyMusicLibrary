@@ -86,7 +86,7 @@ public class DoLoginUserUseCaseTest
         if (user is not null)
         {
             repository.GetByEmail(user);
-            tokenRepository.Get(user, "213ssad");
+            tokenRepository.Get(user, "213ssad", false);
             tokenRepository.SaveNewRefreshToken(user);
         }
 

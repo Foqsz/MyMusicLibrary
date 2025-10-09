@@ -10,7 +10,8 @@ public class RefreshTokenBuilder
         {
             Value = RefreshTokenGeneratorBuilder.Build().Generate(),
             UserId = user.Id,
-            User = user
+            User = user,
+            CreatedOn = DateTime.UtcNow
         };
     }
 }

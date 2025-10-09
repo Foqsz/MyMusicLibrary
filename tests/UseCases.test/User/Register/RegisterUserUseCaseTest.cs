@@ -124,7 +124,7 @@ public class RegisterUserUseCaseTest
         if (email is not null && isNull.IsFalse())
         {
             repositoryReadOnly.ExistActiveUserWithEmail(email);
-            tokenRepository.Get(user, "123aaxx");
+            tokenRepository.Get(user, "123aaxx", false);
             tokenRepository.SaveNewRefreshToken(user);
         }
 
