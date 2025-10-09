@@ -47,6 +47,8 @@ public class UploadMusicUseCase : IUploadMusicUseCase
         var musicName = Path.GetFileNameWithoutExtension(file.Music!.FileName).Replace(" ", "_");
 
         var artistName = ExtractArtistFromFile(file.Music) ?? "Desconhecido";
+        var albumName = ExtractAlbumFromFile(file.Music) ?? "Desconhecido";
+        var genreName = ExtractGenreFromFile(file.Music) ?? "Desconhecido";
 
         var existingArtist = await _artistReadOnly.SearchArtist(user, artistName) ?? new List<Domain.Entities.Artist>();
 
@@ -57,7 +59,11 @@ public class UploadMusicUseCase : IUploadMusicUseCase
         }
         else
         {
-            artists = new List<Domain.Entities.Artist> { new Domain.Entities.Artist { Name = artistName } };
+            artists = new List<Domain.Entities.Artist> { new Domain.Entities.Artist
+            {
+                Name = artistName,
+                Genre = genreName
+            }};
         }
 
         var musicDbUpdate = new Domain.Entities.Music
@@ -66,7 +72,8 @@ public class UploadMusicUseCase : IUploadMusicUseCase
             Name = musicName,
             MusicKey = upload.key,
             AwsS3BucketName = upload.bucketName,
-            Artist = artists
+            Artist = artists, 
+            Album = albumName,
         };
 
         await _musicWriteOnlyRepository.Add(musicDbUpdate);
@@ -83,4 +90,19 @@ public class UploadMusicUseCase : IUploadMusicUseCase
         return string.IsNullOrWhiteSpace(artist) ? null : artist;
     }
 
+    private static string? ExtractAlbumFromFile(IFormFile file)
+    {
+        var fileAbstraction = new FormFileAbstraction(file);
+        var tfile = TagLib.File.Create(fileAbstraction);
+        var album = tfile.Tag.Album;
+        return string.IsNullOrWhiteSpace(album) ? null : album;
+    }
+
+    private static string? ExtractGenreFromFile(IFormFile file)
+    {
+        var fileAbstraction = new FormFileAbstraction(file);
+        var tfile = TagLib.File.Create(fileAbstraction);
+        var genre = tfile.Tag.FirstGenre;
+        return string.IsNullOrWhiteSpace(genre) ? null : genre;
+    }
 }
