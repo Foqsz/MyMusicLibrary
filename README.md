@@ -1,10 +1,16 @@
 # MyMusicLibrary 🎵
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Foqsz_MyMusicLibrary&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Foqsz_MyMusicLibrary)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Foqsz_MyMusicLibrary&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Foqsz_MyMusicLibrary)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Foqsz_MyMusicLibrary&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=Foqsz_MyMusicLibrary)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Foqsz_MyMusicLibrary&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Foqsz_MyMusicLibrary)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=Foqsz_MyMusicLibrary&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=Foqsz_MyMusicLibrary)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Foqsz_MyMusicLibrary&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Foqsz_MyMusicLibrary)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Foqsz_MyMusicLibrary&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Foqsz_MyMusicLibrary)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Foqsz_MyMusicLibrary&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Foqsz_MyMusicLibrary)
 
 ![.NET](https://img.shields.io/badge/.NET-9.0-blue?logo=dotnet)
 ![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-Backend-purple?logo=dotnet)
 ![Google OAuth](https://img.shields.io/badge/Auth-Google-red?logo=google)
-![Build](https://img.shields.io/badge/build-passing-brightgreen)
-![Tests](https://img.shields.io/badge/tests-100%25-success)
 ![License](https://img.shields.io/badge/license-MIT-yellow)
 ![Contributions](https://img.shields.io/badge/contributions-welcome-orange)
 
@@ -33,7 +39,9 @@ com **autenticação via Google OAuth2**, suporte a testes unitários, mocks e g
 - **FluentAssertions** – assertions legíveis nos testes  
 - **xUnit / NUnit** – framework de testes (adicione o que você estiver usando)  
 - **Amazon AWS S3** - Upload de músicas.
-
+- **Tag Lib** - Extração dos dados do arquivo MP3.
+- **Azure** - Deploy e Banco de Dados.
+  
 ---
 
 ## 🚀 Como Executar
