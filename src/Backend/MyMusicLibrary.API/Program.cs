@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
 using MyMusicLibrary.API.Filters;
+using MyMusicLibrary.API.Middleware;
 using MyMusicLibrary.API.Token;
 using MyMusicLibrary.Application;
 using MyMusicLibrary.Domain.Extensions;
@@ -82,6 +83,8 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<CultureMiddleware>();
 
 app.UseHttpsRedirection();
 
