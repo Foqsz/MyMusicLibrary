@@ -14,7 +14,7 @@ public class MyLibraryMusicBookClassFixture : IClassFixture<CustomWebApplication
     }
 
 
-    protected async Task<HttpResponseMessage> DoPost(string method, object request, string token = "", string culture = "pt-BR")
+    protected async Task<HttpResponseMessage> DoPost(string method, object request, string token = "", string culture = "en")
     {
         ChangeRequestCulture(culture);
         AuthorizeRequest(token);
