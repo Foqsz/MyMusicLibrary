@@ -12,16 +12,22 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ResourceMessagesException.resx</DependentUpon>
     </Compile>
+	  <Compile Update="ResourceMessagesException.pt-BR.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>ResourceMessagesException.pt-BR.resx</DependentUpon>
+	  </Compile>
   </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="ResourceMessagesException.pt-BR.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="ResourceMessagesException.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ResourceMessagesException.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="ResourceMessagesException.pt-BR.resx">
+			<Generator></Generator>
+		</EmbeddedResource>
+
+		<EmbeddedResource Update="ResourceMessagesException.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>ResourceMessagesException.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
 
 </Project>
