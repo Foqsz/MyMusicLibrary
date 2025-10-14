@@ -14,6 +14,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     private MyMusicLibrary.Domain.Entities.Artist _artist = default!;
     private MyMusicLibrary.Domain.Entities.Playlist _playlist = default!;
     private MyMusicLibrary.Domain.Entities.UserFavoritesMusic _userMusicFavorites = default!;
+    private MyMusicLibrary.Domain.Entities.RefreshToken _refreshToken = default!;
 
     private string _password = string.Empty;
 
@@ -58,6 +59,8 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     public long GetUserMusicFavoriteMusicId() => _userMusicFavorites.MusicId;
     public long GetUserMusicFavoriteUserId() => _userMusicFavorites.UserId;
     public bool GetUserActive() => _user.Active;
+    public string GetRefreshToken() => _refreshToken.Value;
+    public DateTime GetRefreshTokenCreated() => _refreshToken.CreatedOn;
 
     private void StartDataBase(MyMusicLibraryDbContext dbContext)
     {
@@ -66,6 +69,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         _artist = ArtistBuilder.Builder(_user);
         _playlist = PlaylistBuilder.Build(_user);
         _userMusicFavorites = UserFavoritesMusicBuilder.Build(_user);
+        _refreshToken = RefreshTokenBuilder.Build(_user);
 
         _music.PlaylistId = _playlist.Id;
 
@@ -74,6 +78,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         dbContext.Artist.Add(_artist);
         dbContext.Playlist.Add(_playlist);
         dbContext.UserFavoritesMusic.Add(_userMusicFavorites);
+        dbContext.RefreshTokens.Add(_refreshToken);
         dbContext.SaveChanges();
     }
 
