@@ -6,7 +6,7 @@ using MyMusicLibrary.Domain.Dtos;
 using MyMusicLibrary.Domain.Services.Storage.Aws;
 using MyMusicLibrary.Domain.ValueObjects;
 
-namespace MyMusicLibrary.Infrastucture.Services.Storage.Aws;
+namespace MyMusicLibrary.Infrastructure.Services.Storage.Aws;
 public class S3Service : IS3Service
 {
     private readonly IAmazonS3 _s3Client;
