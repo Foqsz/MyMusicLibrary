@@ -14,7 +14,7 @@ public class S3Service : IS3Service
 
     public S3Service(IAmazonS3 s3Client, string bucketName)
     {
-        this._s3Client = s3Client;
+        _s3Client = s3Client;
         this.bucketName = bucketName;
     }
 
@@ -68,8 +68,8 @@ public class S3Service : IS3Service
             Expires = DateTime.UtcNow.AddMinutes(expireMinutes),
             Verb = HttpVerb.GET
         };
-         
-        var url = _s3Client.GetPreSignedURL(request);
+
+        var url = await _s3Client.GetPreSignedURLAsync(request);
 
         return await Task.FromResult(new S3UrlDto(url: url));
     }
