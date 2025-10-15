@@ -10,7 +10,6 @@ using MyMusicLibrary.Application.UseCases.Music.Upload;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
 using MyMusicLibrary.Domain.Extensions;
-using MyMusicLibrary.Domain.Services.Storage.Aws;
 
 namespace MyMusicLibrary.API.Controllers;
 [Route("[controller]")]
