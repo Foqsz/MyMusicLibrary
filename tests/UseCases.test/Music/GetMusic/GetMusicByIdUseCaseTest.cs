@@ -2,7 +2,9 @@
 using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Mapper;
 using CommonTestUtilities.Repositores;
+using Moq;
 using MyMusicLibrary.Application.UseCases.Music.GetById;
+using MyMusicLibrary.Domain.Services.Storage.Aws;
 using MyMusicLibrary.Exceptions;
 using MyMusicLibrary.Exceptions.ExceptionsBase;
 using Shouldly;
@@ -53,11 +55,12 @@ public class GetMusicByIdUseCaseTest
         var repositoryReadOnly = new MusicReadOnlyRepositoryBuilder();
         var loggedUser = LoggedUserBuilder.Build(user!);
         var mapper = MapperBuilder.Build();
+        var s3Service = new Mock<IS3Service>().Object;  
 
         if (music != null)
             repositoryReadOnly.GetById(user!, music);
 
 
-        return new GetMusicByIdUseCase(repositoryReadOnly.Build(), loggedUser, mapper); 
+        return new GetMusicByIdUseCase(repositoryReadOnly.Build(), loggedUser, mapper, s3Service); 
     }
 }

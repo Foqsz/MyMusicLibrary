@@ -6,4 +6,5 @@ public class ResponseProfileMusicJson
     public string Artist { get; set; } = string.Empty;
     public string Genre { get; set; } = string.Empty;
     public long MusicId { get; set; }
+    public string UrlMusicS3 { get; set; } = string.Empty;
 }

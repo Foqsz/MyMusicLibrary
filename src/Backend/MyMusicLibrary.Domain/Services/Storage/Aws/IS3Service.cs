@@ -6,4 +6,5 @@ public interface IS3Service
 {
     Task<S3FilesDto> UploadFileAsync(IFormFile file);
     Task DeleteFile(string key);
+    Task<S3UrlDto> GetFileUrl(string key);
 }

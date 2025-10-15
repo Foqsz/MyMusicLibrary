@@ -3,8 +3,10 @@ using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using Microsoft.AspNetCore.Http;
 using MyMusicLibrary.Domain.Dtos;
+using MyMusicLibrary.Domain.Services.Storage.Aws;
+using MyMusicLibrary.Domain.ValueObjects;
 
-namespace MyMusicLibrary.Domain.Services.Storage.Aws;
+namespace MyMusicLibrary.Infrastucture.Services.Storage.Aws;
 public class S3Service : IS3Service
 {
     private readonly IAmazonS3 _s3Client;
@@ -53,5 +55,22 @@ public class S3Service : IS3Service
         };
 
         await _s3Client.DeleteObjectAsync(deleteObjectRequest);
+    }
+
+    public async Task<S3UrlDto> GetFileUrl(string key)
+    {
+        int expireMinutes = MyMusicLibraryRuleConstants.TIME_URL_EXPIRES;
+
+        var request = new GetPreSignedUrlRequest
+        {
+            BucketName = bucketName,
+            Key = key,
+            Expires = DateTime.UtcNow.AddMinutes(expireMinutes),
+            Verb = HttpVerb.GET
+        };
+         
+        var url = _s3Client.GetPreSignedURL(request);
+
+        return await Task.FromResult(new S3UrlDto(url: url));
     }
 }
