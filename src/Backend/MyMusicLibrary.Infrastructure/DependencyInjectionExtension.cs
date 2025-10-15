@@ -27,8 +27,9 @@ using MyMusicLibrary.Infrastructure.DataAccess.Security.Token.Refresh;
 using MyMusicLibrary.Infrastructure.Security.Tokens.Access.Generator;
 using MyMusicLibrary.Infrastructure.Security.Tokens.Access.Validator;
 using MyMusicLibrary.Infrastructure.Services.LoggedUser;
+using MyMusicLibrary.Infrastructure.Services.Storage.Aws;
 using MyMusicLibrary.Infrastucture.Extensions;
-using MyMusicLibrary.Infrastucture.Security.Cryptography;
+using MyMusicLibrary.Infrastucture.Security.Cryptography; 
 using System.Reflection;
 
 namespace MyMusicLibrary.Infrastructure;
