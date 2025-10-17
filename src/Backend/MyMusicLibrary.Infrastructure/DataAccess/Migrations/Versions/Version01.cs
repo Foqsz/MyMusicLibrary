@@ -1,7 +1,7 @@
 ﻿using FluentMigrator;
-using MyMusicLibrary.Infrastructure.DataAccess.Migrations;
+using MyMusicLibrary.Infrastructure.Migrations.Versions;
 
-namespace MyMusicLibrary.Infrastructure.Migrations.Versions;
+namespace MyMusicLibrary.Infrastructure.DataAccess.Migrations.Versions;
 
 [Migration(DatabaseVersions.TABLE_USER, "Create table to save the user's information")]
 public class Version0000001 : VersionBase
