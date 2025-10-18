@@ -26,7 +26,8 @@ com **autenticação via Google OAuth2**, suporte a testes unitários, mocks e g
 - 🔑 Autenticação e autorização via **Google OAuth2**  
 - 📂 Organização em biblioteca pessoal  
 - 🧪 Testes unitários com **Moq** e **FluentAssertions**  
-- 🧑‍💻 Geração de dados fake com **Bogus**  
+- 🧑‍💻 Geração de dados fake com **Bogus**
+- 📂 Extração de dados com TagLib
 
 ---
 
