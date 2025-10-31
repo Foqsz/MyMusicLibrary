@@ -36,6 +36,9 @@ public class GetMusicByIdUseCase : IGetMusicByIdUseCase
 
         var musicUrl = await _s3Service.GetFileUrl(music.MusicKey!);
 
+        if(musicUrl is null)
+            throw new NotFoundException(ResourceMessagesException.MUSIC_URL_NOT_FOUND);
+
         var musicMapper = _mapper.Map<Domain.Entities.Music, ResponseProfileMusicJson>(music);
 
         musicMapper.UrlMusicS3 = musicUrl.url;
