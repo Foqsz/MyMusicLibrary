@@ -223,6 +223,15 @@ namespace MyMusicLibrary.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to URL does not exist..
+        /// </summary>
+        public static string MUSIC_URL_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("MUSIC_URL_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name cannot be empty..
         /// </summary>
         public static string NAME_EMPTY {

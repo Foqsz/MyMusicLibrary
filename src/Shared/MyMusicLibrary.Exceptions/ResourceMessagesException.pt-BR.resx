@@ -216,4 +216,7 @@
   <data name="USER_WITHOUT_PERMISSION_ACCESS_RESOURCE" xml:space="preserve">
     <value>Você não tem permissão para acessar.</value>
   </data>
+  <data name="MUSIC_URL_NOT_FOUND" xml:space="preserve">
+    <value>URL não encontrada.</value>
+  </data>
 </root>
