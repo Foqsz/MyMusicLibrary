@@ -12,6 +12,7 @@ using MyMusicLibrary.Application.UseCases.Music.Genre;
 using MyMusicLibrary.Application.UseCases.Music.GetById;
 using MyMusicLibrary.Application.UseCases.Music.Register;
 using MyMusicLibrary.Application.UseCases.Music.Search;
+using MyMusicLibrary.Application.UseCases.Music.Update;
 using MyMusicLibrary.Application.UseCases.Music.Upload;
 using MyMusicLibrary.Application.UseCases.Playlist.AddMusicToPlaylist;
 using MyMusicLibrary.Application.UseCases.Playlist.Create;
@@ -78,5 +79,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUnfavoriteUseCase, UnfavoriteUseCase>();
         services.AddScoped<IUploadMusicUseCase, UploadMusicUseCase>();
         services.AddScoped<IUseRefreshTokenUseCase, UseRefreshTokenUseCase>();
+        services.AddScoped<IUpdateMusicUseCase, UpdateMusicUseCase>();
     }  
 }

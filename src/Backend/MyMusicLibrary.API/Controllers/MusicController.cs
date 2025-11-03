@@ -6,6 +6,7 @@ using MyMusicLibrary.Application.UseCases.Music.Genre;
 using MyMusicLibrary.Application.UseCases.Music.GetById;
 using MyMusicLibrary.Application.UseCases.Music.Register;
 using MyMusicLibrary.Application.UseCases.Music.Search;
+using MyMusicLibrary.Application.UseCases.Music.Update;
 using MyMusicLibrary.Application.UseCases.Music.Upload;
 using MyMusicLibrary.Communication.Request;
 using MyMusicLibrary.Communication.Responses;
@@ -104,5 +105,15 @@ public class MusicController : ControllerBase
         {
             return BadRequest(ex.Message);
         }
+    }
+
+    [HttpPut("update")]
+    [ProducesResponseType(typeof(ResponseProfileMusicJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Update([FromServices] IUpdateMusicUseCase useCase, [FromBody] RequestUpdateMusic request)
+    {
+        var result = await useCase.Execute(request);
+        return Ok(result);
     }
 }

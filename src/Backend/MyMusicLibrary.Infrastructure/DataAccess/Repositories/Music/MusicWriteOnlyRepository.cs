@@ -37,4 +37,16 @@ public class MusicWriteOnlyRepository : IMusicWriteOnlyRepository
 
         _dbContext.UserFavoritesMusic.Remove(music!);
     }
+
+    public async Task Update(Domain.Entities.User user, Domain.Entities.Music music)
+    {
+        var musicUpdate = await _dbContext.Music
+            .Where(m => m.Id == music.Id && m.UserId == user.Id)
+            .FirstOrDefaultAsync();
+
+        if (musicUpdate is null)
+            return;
+
+        _dbContext.Music.Update(musicUpdate);
+    }
 }

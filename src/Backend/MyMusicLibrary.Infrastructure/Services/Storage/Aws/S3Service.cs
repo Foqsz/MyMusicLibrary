@@ -73,4 +73,28 @@ public class S3Service : IS3Service
 
         return await Task.FromResult(new S3UrlDto(url: url));
     }
+
+    public async Task RenameFileAsync(string oldKey, string newKey)
+    {
+        // Copia o arquivo existente para o novo nome
+        var copyRequest = new CopyObjectRequest
+        {
+            SourceBucket = bucketName,
+            SourceKey = oldKey,
+            DestinationBucket = bucketName,
+            DestinationKey = newKey
+        };
+
+        await _s3Client.CopyObjectAsync(copyRequest);
+
+        // Remove o arquivo antigo
+        var deleteRequest = new DeleteObjectRequest
+        {
+            BucketName = bucketName,
+            Key = oldKey
+        };
+
+        await _s3Client.DeleteObjectAsync(deleteRequest);
+    }
+
 }
