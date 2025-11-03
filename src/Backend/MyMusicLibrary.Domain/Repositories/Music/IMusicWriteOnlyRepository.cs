@@ -5,4 +5,5 @@ public interface IMusicWriteOnlyRepository
     Task Delete(long musicId);
     Task AddMusicFavorite(Entities.UserFavoritesMusic musicFavorite);
     Task UnfavoriteMusic(long musicId);
+    Task Update(Entities.User user, Entities.Music music);
 }
