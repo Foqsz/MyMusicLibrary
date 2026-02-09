@@ -13,7 +13,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      # Java é obrigatório para o SonarScanner
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -25,16 +24,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Cache do SonarCloud
-      - name: Cache SonarCloud packages
+      - name: Cache SonarQube Cloud packages
         uses: actions/cache@v4
         with:
           path: .\.sonar\cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      # Cache do scanner
-      - name: Cache SonarCloud scanner
+      - name: Cache SonarQube Cloud scanner
         id: cache-sonar-scanner
         uses: actions/cache@v4
         with:
@@ -42,57 +39,37 @@ jobs:
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
 
-      # Scanner com versão FIXA (não quebra mais)
-      - name: Install SonarScanner
+      - name: Install SonarQube Cloud scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: powershell
         run: |
-          New-Item -Path .\.sonar\scanner -ItemType Directory -Force
-          dotnet tool install dotnet-sonarscanner --version 11.1.0 --tool-path .\.sonar\scanner
+          New-Item -Path .\.sonar\scanner -ItemType Directory
+          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
 
       - name: Restore dependencies
         run: dotnet restore
 
-      # BEGIN — configuração EXPLÍCITA (obrigatória hoje)
       - name: Begin SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        shell: powershell
-        run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin `
-            /k:"Foqsz_MyMusicLibrary" `
-            /o:"foqsz-1" `
-            /d:sonar.host.url="https://sonarcloud.io" `
-            /d:sonar.token="$env:SONAR_TOKEN" `
-            /d:sonar.cs.opencover.reportsPaths="**/cobertura/coverage.opencover.xml"
-
+        run: .\.sonar\scanner\dotnet-sonarscanner begin `
+          /k:"Foqsz_MyMusicLibrary" `
+          /o:"foqsz-1" `
+          /d:sonar.token="$env:SONAR_TOKEN" `
+          /d:sonar.cs.opencover.reportsPaths=tests/**/*.Test/cobertura/coverage.opencover.xml
+      
+      
       - name: Build solution
         run: dotnet build --configuration Release --no-restore
 
-      # Testes + cobertura
       - name: Run tests and collect code coverage
-        shell: powershell
         run: |
-          dotnet test tests/UseCases.Test/UseCases.Test.csproj `
-            /p:CollectCoverage=true `
-            /p:CoverletOutput=./cobertura/ `
-            /p:CoverletOutputFormat=opencover
-
-          dotnet test tests/Validators.Test/Validators.Test.csproj `
-            /p:CollectCoverage=true `
-            /p:CoverletOutput=./cobertura/ `
-            /p:CoverletOutputFormat=opencover
-
-          dotnet test tests/WebApi.Test/WebApi.Test.csproj `
-            /p:CollectCoverage=true `
-            /p:CoverletOutput=./cobertura/ `
-            /p:CoverletOutputFormat=opencover
-
-      # END — finaliza e envia análise
+          dotnet test tests/UseCases.Test/UseCases.Test.csproj /p:CollectCoverage=true /p:CoverletOutput=./cobertura/ /p:CoverletOutputFormat=opencover
+          dotnet test tests/Validators.Test/Validators.Test.csproj /p:CollectCoverage=true /p:CoverletOutput=./cobertura/ /p:CoverletOutputFormat=opencover
+          dotnet test tests/WebApi.Test/WebApi.Test.csproj /p:CollectCoverage=true /p:CoverletOutput=./cobertura/ /p:CoverletOutputFormat=opencover
+              
       - name: End SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        shell: powershell
-        run: |
-          .\.sonar\scanner\dotnet-sonarscanner end `
-            /d:sonar.token="$env:SONAR_TOKEN"
+        run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="$env:SONAR_TOKEN"
+
