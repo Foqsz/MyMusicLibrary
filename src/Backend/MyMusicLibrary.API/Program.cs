@@ -102,6 +102,8 @@ app.UseMiddleware<CultureMiddleware>();
 
 app.UseHttpsRedirection();
 
+app.UseCors("AllowFrontend");
+
 app.UseAuthorization();
 
 app.MapControllers();
