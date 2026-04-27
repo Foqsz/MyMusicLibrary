@@ -45,6 +45,10 @@ com **autenticação via Google OAuth2**, suporte a testes unitários, mocks e g
   
 ---
 
+### Contato
+Email: contatovictorvinicius05@gmail.com
+Linkedin: https://www.linkedin.com/in/victorvinicius/
+
 ## 🚀 Como Executar
 
 ### Pré-requisitos
