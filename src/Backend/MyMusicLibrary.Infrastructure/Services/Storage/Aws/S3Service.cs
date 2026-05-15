@@ -1,0 +1,100 @@
+﻿using Amazon.S3;
+using Amazon.S3.Model;
+using Amazon.S3.Transfer;
+using Microsoft.AspNetCore.Http;
+using MyMusicLibrary.Domain.Dtos;
+using MyMusicLibrary.Domain.Services.Storage.Aws;
+using MyMusicLibrary.Domain.ValueObjects;
+
+namespace MyMusicLibrary.Infrastructure.Services.Storage.Aws;
+public class S3Service : IS3Service
+{
+    private readonly IAmazonS3 _s3Client;
+    private readonly string bucketName;
+
+    public S3Service(IAmazonS3 s3Client, string bucketName)
+    {
+        _s3Client = s3Client;
+        this.bucketName = bucketName;
+    }
+
+    public async Task<S3FilesDto> UploadFileAsync(IFormFile file)
+    {
+        if (file == null || file.Length == 0)
+            throw new ArgumentException("File is empty.", nameof(file));
+
+        if (!file.FileName.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase) ||
+            file.ContentType != "audio/mpeg")
+            throw new InvalidOperationException("Only .mp3 files are allowed.");
+
+        var fileTransferUtility = new TransferUtility(_s3Client);
+        var key = $"{Guid.NewGuid()}_{file.FileName}";
+
+        await using (var stream = file.OpenReadStream())
+        {
+            var request = new TransferUtilityUploadRequest
+            {
+                InputStream = stream,
+                Key = key,
+                BucketName = bucketName,
+                ContentType = file.ContentType,
+            };
+
+            await fileTransferUtility.UploadAsync(request);
+        }
+
+        return new S3FilesDto(key: key, bucketName: bucketName);
+    }
+
+    public async Task DeleteFile(string key)
+    {
+        var deleteObjectRequest = new DeleteObjectRequest
+        {
+            BucketName = bucketName,
+            Key = key
+        };
+
+        await _s3Client.DeleteObjectAsync(deleteObjectRequest);
+    }
+
+    public async Task<S3UrlDto> GetFileUrl(string key)
+    {
+        int expireMinutes = MyMusicLibraryRuleConstants.TIME_URL_EXPIRES;
+
+        var request = new GetPreSignedUrlRequest
+        {
+            BucketName = bucketName,
+            Key = key,
+            Expires = DateTime.UtcNow.AddMinutes(expireMinutes),
+            Verb = HttpVerb.GET
+        };
+
+        var url = await _s3Client.GetPreSignedURLAsync(request);
+
+        return await Task.FromResult(new S3UrlDto(url: url));
+    }
+
+    public async Task RenameFileAsync(string oldKey, string newKey)
+    {
+        // Copia o arquivo existente para o novo nome
+        var copyRequest = new CopyObjectRequest
+        {
+            SourceBucket = bucketName,
+            SourceKey = oldKey,
+            DestinationBucket = bucketName,
+            DestinationKey = newKey
+        };
+
+        await _s3Client.CopyObjectAsync(copyRequest);
+
+        // Remove o arquivo antigo
+        var deleteRequest = new DeleteObjectRequest
+        {
+            BucketName = bucketName,
+            Key = oldKey
+        };
+
+        await _s3Client.DeleteObjectAsync(deleteRequest);
+    }
+
+}

@@ -1,0 +1,71 @@
+﻿using CommonTestUtilities.Requests;
+using CommonTestUtilities.Tokens.Generator;
+using Shouldly;
+using System.Net;
+using Xunit;
+
+namespace WebApi.Test.Music.Register;
+public class RegisterMusicTest : MyLibraryMusicBookClassFixture
+{
+    private readonly string method = "music";
+    private readonly Guid _userIdentifier;
+
+    public RegisterMusicTest(CustomWebApplicationFactory factory) : base(factory)
+    {
+        _userIdentifier = factory.GetUserIdentifier();
+    }
+
+    [Fact]
+    public async Task Success()
+    {
+        var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
+
+        var request = RequestMusicJsonBuilder.Build();
+
+        var musicRegister = await DoPost(method, request, token);
+
+        musicRegister.StatusCode.ShouldBe(HttpStatusCode.Created);
+    }
+
+    [Fact]
+    public async Task Error_Music_Exist()
+    {
+        var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
+
+        var request = RequestMusicJsonBuilder.Build();
+
+        var musicRegister = await DoPost(method, request, token);
+
+        musicRegister.StatusCode.ShouldBe(HttpStatusCode.Created); 
+
+        var musicRegisterError = await DoPost(method, request, token);
+
+        musicRegisterError.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task Error_Name_Empty()
+    {
+        var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
+
+        var request = RequestMusicJsonBuilder.Build();
+        request.Name = string.Empty;
+
+        var musicRegister = await DoPost(method, request, token);
+
+        musicRegister.StatusCode.ShouldBe(HttpStatusCode.BadRequest); 
+    }
+
+    [Fact]
+    public async Task Error_Album_Empty()
+    {
+        var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
+
+        var request = RequestMusicJsonBuilder.Build();
+        request.Album = string.Empty;
+
+        var musicRegister = await DoPost(method, request, token);
+
+        musicRegister.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+    }
+}
